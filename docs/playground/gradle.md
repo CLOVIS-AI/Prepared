@@ -39,3 +39,10 @@ To learn more about convention plugins, see [their documentation](https://docs.g
 We centralize the version numbers of the dependencies we use in the [libs.versions.toml](../../gradle/libs.versions.toml) file.
 
 To learn more about the version catalog, see [its documentation](https://docs.gradle.org/current/userguide/platforms.html).
+
+## Configuration cache
+
+The configuration cache allows Gradle to locally store the results of the configuration phase for a specific execution.
+If we later call Gradle with the same execution (same environment variables, same requested tasks…), Gradle reuses the stored entry and entirely skips the configuration phase.
+
+To learn more about the configuration cache, see [its documentation](https://docs.gradle.org/current/userguide/configuration_cache.html).
