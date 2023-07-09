@@ -1,0 +1,8 @@
+[versions]
+
+[plugins]
+# Our own convention plugins
+# 'unspecified' is a special value for included builds
+convention-versioning = { id = "conventions.versioning", version = "unspecified" }
+
+[libraries]

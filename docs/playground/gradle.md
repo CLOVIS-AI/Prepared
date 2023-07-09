@@ -15,3 +15,27 @@ Using the Wrapper ensures all team members and CI use the exact same version of 
 Because Gradle is responsible for downloading all other project dependencies, the only dependency for using the project is having a half-modern JVM.
 
 To learn more about the Gradle Wrapper, see [its documentation](https://docs.gradle.org/current/userguide/gradle_wrapper.html).
+
+## Convention plugins
+
+A Gradle build is structured as follows:
+- A `settings.gradle.kts` file for the entire build, which configures the project structure,
+- A `build.gradle.kts` file for each project, which configures the different tasks that exist.
+
+However, as a repository grows, we want to ensure all projects are built similarly. In practice, this means we end up with a lot of duplication, which makes maintaining the build harder.
+
+In the past, the recommended solution was to create a `buildSrc` folder, which is a special project that is built before the configuration phase starts. Everything from the `buildSrc` folder is injected into `build.gradle.kts` files, which means we can declare variables or functions and use them everywhere. However, `buildSrc` is slow, and each change requires a recompilation of all `build.gradle.kts` files as well as complete cache destruction, making subsequent builds much slower.
+
+Some projects also used the `allprojects` and `subprojects` blocks in the root project to share configuration. This breaks the project isolation rules (a project should not impact the configuration of another project), which makes configuration avoidance impossible, and makes understanding complicated projects harder.
+
+Instead, we use convention plugins. Convention plugins are small plugins, written in the same syntax as `build.gradle.kts` files. They often use other plugins, and configure them with the conventions followed by the rest of the repository. Ideally, this means all configuration is moved to configuration plugins, which are then reused as many times as needed, avoiding any configuration in regular projects.
+
+Multiple people put convention plugins in multiple places, for example in a `build-logic` folder. We prefer to put them in [gradle/conventions](../../gradle/conventions).
+
+To learn more about convention plugins, see [their documentation](https://docs.gradle.org/current/userguide/custom_plugins.html#sec:precompiled_plugins).
+
+## Version catalog
+
+We centralize the version numbers of the dependencies we use in the [libs.versions.toml](../../gradle/libs.versions.toml) file.
+
+To learn more about the version catalog, see [its documentation](https://docs.gradle.org/current/userguide/platforms.html).

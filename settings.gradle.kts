@@ -8,3 +8,12 @@
  */
 
 rootProject.name = "Playground"
+
+pluginManagement {
+	repositories {
+		gradlePluginPortal()
+		google()
+	}
+
+	includeBuild("gradle/conventions")
+}
