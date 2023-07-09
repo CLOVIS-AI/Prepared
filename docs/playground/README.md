@@ -10,3 +10,4 @@ We encourage keeping this documentation as part of projects using the Playground
 
 Each Playground adds its own page to the following list:
 - [Baseline](baseline.md)
+- [Gradle](gradle.md)
