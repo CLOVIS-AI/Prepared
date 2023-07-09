@@ -46,3 +46,11 @@ The configuration cache allows Gradle to locally store the results of the config
 If we later call Gradle with the same execution (same environment variables, same requested tasks…), Gradle reuses the stored entry and entirely skips the configuration phase.
 
 To learn more about the configuration cache, see [its documentation](https://docs.gradle.org/current/userguide/configuration_cache.html).
+
+## Build cache
+
+The build cache allows Gradle to store locally, and optionally remotely, the result of specific tasks. When the same tasks are executed again, Gradle gets the results of the task from the cache instead of executing it.
+
+OpenSavvy has its own Gradle Build Cache remote instance, which is publicly readable, allowing anyone who clones a project to use it. Only our CI jobs on protected branches and tags is allowed to push to the cache, ensuring it only stores results we trust.
+
+To learn more about the build cache, see [its documentation](https://docs.gradle.org/current/userguide/build_cache.html).
