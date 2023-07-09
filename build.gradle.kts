@@ -6,3 +6,9 @@
  *
  * In particular, *avoid using the 'allprojects' and 'subprojects' Gradle blocks!* They slow down the configuration phase.
  */
+
+plugins {
+	// Some plugins *must* be configured on the root project.
+	// In these cases, we explicitly tell Gradle not to apply them.
+	alias(libs.plugins.kotlin.jvm) apply false
+}

@@ -17,3 +17,7 @@ pluginManagement {
 
 	includeBuild("gradle/conventions")
 }
+
+include(
+	"app",
+)
