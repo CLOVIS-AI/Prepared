@@ -1,5 +1,16 @@
 # Playground: Baseline
 
-Welcome to the Baseline demonstrator!
+<!-- When using the Playground to bootstrap a project, replace this by your project description. -->
+This a template to easily bootstrap your projects.
 
-This is an empty project with our IntelliJ and GitLab configuration.
+## License
+
+<!-- Mentions under which license you are publishing the project. -->
+<!-- Add the full text to the LICENSE file. -->
+
+## Contributing
+
+This project follows the OpenSavvy workflow and code conventions.
+To learn how to contribute, please read [our wiki](https://gitlab.com/opensavvy/wiki/-/blob/main/README.md).
+
+This project also uses the [OpenSavvy Playground](docs/playground/README.md).
