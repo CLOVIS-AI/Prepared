@@ -1,0 +1,21 @@
+stages:
+  - docker
+  - build
+  - test
+  - deploy
+
+include:
+  - remote: https://gitlab.com/opensavvy/ci-templates/-/raw/main/version.gitlab-ci.yml
+
+workflow:
+  rules:
+    - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
+    - if: $CI_PIPELINE_SOURCE == 'schedule'
+    - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
+    - if: $CI_COMMIT_TAG
+
+hello-world:
+  image: alpine:latest
+  script:
+    - echo 'Hello world'
+  interruptible: true
