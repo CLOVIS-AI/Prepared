@@ -1,4 +1,4 @@
-# Playground: Baseline
+# Playground: Gradle
 
 <!-- When using the Playground to bootstrap a project, replace this by your project description. -->
 This a template to easily bootstrap your projects.
