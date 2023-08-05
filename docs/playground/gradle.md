@@ -26,7 +26,7 @@ However, as a repository grows, we want to ensure all projects are built similar
 
 In the past, the recommended solution was to create a `buildSrc` folder, which is a special project that is built before the configuration phase starts. Everything from the `buildSrc` folder is injected into `build.gradle.kts` files, which means we can declare variables or functions and use them everywhere. However, `buildSrc` is slow, and each change requires a recompilation of all `build.gradle.kts` files as well as complete cache destruction, making subsequent builds much slower.
 
-Some projects also used the `allprojects` and `subprojects` blocks in the root project to share configuration. This breaks the project isolation rules (a project should not impact the configuration of another project), which makes configuration avoidance impossible, and makes understanding complicated projects harder.
+Some projects also used the `allprojects` and `subprojects` blocks in the root project to share configuration. This breaks the project isolation rules (a project should not impact the configuration of another project), which makes [configuration-on-demand impossible](https://docs.gradle.org/current/userguide/multi_project_configuration_and_execution.html#sec:configuration_on_demand), and makes understanding complicated projects harder.
 
 Instead, we use convention plugins. Convention plugins are small plugins, written in the same syntax as `build.gradle.kts` files. They often use other plugins, and configure them with the conventions followed by the rest of the repository. Ideally, this means all configuration is moved to configuration plugins, which are then reused as many times as needed, avoiding any configuration in regular projects.
 
@@ -54,3 +54,9 @@ The build cache allows Gradle to store locally, and optionally remotely, the res
 OpenSavvy has its own Gradle Build Cache remote instance, which is publicly readable, allowing anyone who clones a project to use it. Only our CI jobs on protected branches and tags is allowed to push to the cache, ensuring it only stores results we trust.
 
 To learn more about the build cache, see [its documentation](https://docs.gradle.org/current/userguide/build_cache.html).
+
+## Configuration on demand
+
+By default, Gradle configures all projects before starting executing tasks. With configuration on demand enabled, Gradle only configures projects which take part in the requested tasks.
+
+To learn more about configuration on demand, see [its documentation](https://docs.gradle.org/current/userguide/multi_project_configuration_and_execution.html#sec:configuration_on_demand).
