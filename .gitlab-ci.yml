@@ -6,6 +6,7 @@ stages:
 
 include:
   - remote: https://gitlab.com/opensavvy/ci-templates/-/raw/main/version.gitlab-ci.yml
+  - remote: https://gitlab.com/opensavvy/ci-templates/-/raw/main/mirror.gitlab-ci.yml
 
 workflow:
   rules:
@@ -19,3 +20,23 @@ hello-world:
   script:
     - echo 'Hello world'
   interruptible: true
+
+mirror-playground:
+  stage: deploy
+  extends: [ .os.mirror ]
+  needs: [ ]
+
+  variables:
+    url: "$playground_parent"
+    name: "$playground_parent_name"
+    key: "$playground_mirroring_key"
+    key_public: "$playground_mirroring_key_public"
+
+  rules:
+    - if: $playground_parent == null || $playground_parent_name == null
+      when: never
+    - if: $playground_mirroring_key == null || $playground_mirroring_key_public == null
+      when: never
+    - if: $CI_PIPELINE_SOURCE == 'schedule'
+    - when: manual
+      allow_failure: true
