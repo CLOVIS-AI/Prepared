@@ -70,7 +70,7 @@ app:container:deploy:
   stage: deploy
 
   variables:
-    image: server
+    image: app
 
   rules:
     - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
