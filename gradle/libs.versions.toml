@@ -2,12 +2,6 @@
 kotlin = "1.9.0"
 
 [plugins]
-# Our own convention plugins
-# 'unspecified' is a special value for included builds
-convention-versioning = { id = "conventions.versioning", version = "unspecified" }
-convention-kotlin = { id = "conventions.kotlin", version = "unspecified" }
-
-# Regular plugins
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 
 [libraries]
