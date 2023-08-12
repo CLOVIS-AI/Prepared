@@ -4,9 +4,11 @@ plugins {
 }
 
 application {
-	mainClass.set("opensavvy.playground.MainKt")
+	mainClass.set("opensavvy.playground.app.MainKt")
 }
 
 dependencies {
+	implementation(projects.core)
+
 	testImplementation(libs.kotlin.test)
 }

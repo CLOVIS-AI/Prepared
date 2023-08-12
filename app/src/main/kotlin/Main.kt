@@ -1,5 +1,7 @@
-package opensavvy.playground
+package opensavvy.playground.app
+
+import opensavvy.playground.core.message
 
 fun main() {
-	println("Hello world!")
+	println(message)
 }

@@ -20,6 +20,7 @@ pluginManagement {
 
 include(
 	"app",
+	"core",
 )
 
 buildCache {
