@@ -6,5 +6,5 @@ group = "conventions"
 
 dependencies {
 	implementation(libs.gradle.kotlin)
-	implementation(projects.versioning)
+	implementation(projects.base)
 }
