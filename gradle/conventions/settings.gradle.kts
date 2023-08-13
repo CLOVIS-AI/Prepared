@@ -14,7 +14,7 @@ dependencyResolutionManagement {
 }
 
 include(
-	"versioning",
+	"base",
 	"kotlin",
 )
 
