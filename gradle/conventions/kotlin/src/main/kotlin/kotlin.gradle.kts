@@ -2,8 +2,7 @@ package conventions
 
 plugins {
 	// Currently, it is not possible to use version catalogs here…
-	kotlin("jvm")
-	id("conventions.base")
+	kotlin("multiplatform")
 }
 
 repositories {
