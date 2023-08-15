@@ -3,7 +3,6 @@ package conventions
 plugins {
 	// Currently, it is not possible to use version catalogs here…
 	kotlin("multiplatform")
-	id("conventions.base")
 }
 
 repositories {

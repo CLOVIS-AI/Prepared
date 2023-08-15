@@ -1,6 +1,7 @@
 import java.awt.Color.red
 
 plugins {
+	id("conventions.base")
 	id("conventions.kotlin")
 	application
 }
