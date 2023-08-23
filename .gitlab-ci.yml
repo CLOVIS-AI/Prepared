@@ -107,7 +107,7 @@ app:container:
 
   interruptible: true
 
-app:container:deploy:
+app:container:publish:
   extends: [ .os.docker.rename ]
   needs: [ app:container, os.version ]
   stage: deploy
