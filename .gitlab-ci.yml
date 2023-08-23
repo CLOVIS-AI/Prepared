@@ -49,6 +49,22 @@ publish-maven:gitlab:
     - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
     - if: $CI_COMMIT_TAG
 
+publish-maven:central:
+  extends: [ .os.gradle ]
+  needs: [ os.version, check ]
+  stage: deploy
+
+  script:
+    - >
+      ./gradlew publishAllPublicationsToCentralRepository
+      -PappVersion=$project_version
+
+  interruptible: false
+  rules:
+    - if: $OSSRH_USERNAME == null || $OSSRH_PASSWORD == null
+      when: never
+    - if: $CI_COMMIT_TAG
+
 # endregion
 # region Build & containerize
 
