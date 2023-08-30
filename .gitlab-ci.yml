@@ -74,56 +74,6 @@ publish-maven:central:
     - if: $CI_COMMIT_TAG
 
 # endregion
-# region Build & containerize
-
-app:build:
-  extends: [ .os.gradle ]
-  needs: [ os.version ]
-  stage: build
-
-  script:
-    - >
-      ./gradlew app:distTar
-      -PappVersion=$project_version
-    - mv app/build/distributions/app-*.tar app.tar
-
-  artifacts:
-    paths:
-      - app.tar
-
-  interruptible: true
-
-app:container:
-  extends: [ .os.docker.build ]
-  needs:
-    - job: app:build
-      artifacts: true
-  stage: build
-
-  variables:
-    dockerfile: app/Dockerfile
-    docker_context: app
-    image: app
-
-  interruptible: true
-
-app:container:publish:
-  extends: [ .os.docker.rename ]
-  needs: [ app:container, os.version ]
-  stage: deploy
-
-  variables:
-    image: app
-
-  rules:
-    - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
-    - if: $CI_COMMIT_TAG
-      variables:
-        new_version: $project_version
-
-  interruptible: false
-
-# endregion
 # region Automatically mirror the previous layer of the playground
 
 mirror-playground:
