@@ -1,5 +1,6 @@
 {
 	"build": {
 		"dockerfile": "Dockerfile"
-	}
+	},
+	"onCreateCommand": "./gradlew projects"
 }
