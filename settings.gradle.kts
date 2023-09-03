@@ -19,6 +19,8 @@ pluginManagement {
 }
 
 include(
+	"suite",
+	"framework",
 )
 
 buildCache {
