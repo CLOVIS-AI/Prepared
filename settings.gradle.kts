@@ -21,6 +21,8 @@ pluginManagement {
 include(
 	"suite",
 	"framework",
+
+	"runners:runner-kotlin-test",
 )
 
 buildCache {
