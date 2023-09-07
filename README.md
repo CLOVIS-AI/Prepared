@@ -10,7 +10,7 @@ Testing libraries are composed of three different components:
 OpenSavvy Prepared is a **structure** library: it concentrates on the way tests are declared.
 It is possible to use other libraries (e.g. [Kotlin Test](https://kotlinlang.org/api/latest/kotlin.test/), [Kotest](https://kotest.io/), [Strikt](https://strikt.io/)…) to declare assertions.
 
-[_TOC_]
+[TOC]
 
 ## Features
 
