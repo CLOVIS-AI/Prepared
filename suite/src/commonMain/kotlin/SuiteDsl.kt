@@ -4,10 +4,10 @@ import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.EmptyCoroutineContext
 
 @DslMarker
-annotation class PreparedDsl
+annotation class PreparedDslMarker
 
-@PreparedDsl
-interface PreparedScope
+@PreparedDslMarker
+interface PreparedDsl
 
 /**
  * A group of tests.
@@ -32,27 +32,27 @@ interface PreparedScope
  * }
  * ```
  */
-interface Suite : PreparedScope {
+interface SuiteDsl : PreparedDsl {
 
 	/**
 	 * Creates a child suite named [name] of the current suite.
 	 */
-	@PreparedDsl
+	@PreparedDslMarker
 	fun suite(
 		name: String,
-		block: Suite.() -> Unit,
+		block: SuiteDsl.() -> Unit,
 	)
 
 	/**
 	 * Declares a test named [name] as part of the current suite.
 	 */
-	@PreparedDsl
+	@PreparedDslMarker
 	fun test(
 		name: String,
 		context: CoroutineContext = EmptyCoroutineContext,
-		block: suspend Test.() -> Unit,
+		block: suspend TestDsl.() -> Unit,
 	)
 
 }
 
-interface Test : PreparedScope
+interface TestDsl : PreparedDsl

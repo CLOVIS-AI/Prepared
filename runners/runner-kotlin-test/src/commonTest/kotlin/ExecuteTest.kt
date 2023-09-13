@@ -1,10 +1,10 @@
 package opensavvy.prepared.runner.kotlin
 
-import opensavvy.prepared.suite.Suite
+import opensavvy.prepared.suite.SuiteDsl
 
 @Suppress("unused")
 class ExecuteTest : TestExecutor() {
-	override fun Suite.register() {
+	override fun SuiteDsl.register() {
 		test("A simple test") {
 			println("This test is declared with the Prepared syntax")
 		}
