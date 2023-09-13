@@ -25,6 +25,7 @@ include(
 	"compat:compat-kotlinx-datetime",
 
 	"runners:runner-kotlin-test",
+	"runners:runner-kotest",
 )
 
 buildCache {
