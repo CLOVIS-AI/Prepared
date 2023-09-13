@@ -90,4 +90,10 @@ interface TestDsl : PreparedDsl {
 	 */
 	val environment: TestEnvironment
 
+	/**
+	 * Realizes a [Prepared] value in the context of this test.
+	 */
+	suspend operator fun <T : Any> Prepared<T>.invoke(): T =
+		executeIn(this@TestDsl)
+
 }
