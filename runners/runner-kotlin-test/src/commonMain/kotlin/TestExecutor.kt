@@ -1,9 +1,9 @@
 package opensavvy.prepared.runner.kotlin
 
-import opensavvy.prepared.suite.Suite
+import opensavvy.prepared.suite.SuiteDsl
 
 /**
- * Entrypoint to declare a [Suite] executed with [kotlin-test](https://kotlinlang.org/api/latest/kotlin.test/).
+ * Entrypoint to declare a [SuiteDsl] executed with [kotlin-test](https://kotlinlang.org/api/latest/kotlin.test/).
  *
  * Because `kotlin-test` doesn't provide a way to dynamically instantiate tests, we have to cheat.
  * This class abstracts away our hacks to make it work.
@@ -27,10 +27,10 @@ import opensavvy.prepared.suite.Suite
 expect abstract class TestExecutor() {
 
 	/**
-	 * Declares a [Suite] which will be run with `kotlin-test`.
+	 * Declares a [SuiteDsl] which will be run with `kotlin-test`.
 	 *
 	 * For more information, see the [class-level documentation][TestExecutor].
 	 */
-	abstract fun Suite.register()
+	abstract fun SuiteDsl.register()
 
 }
