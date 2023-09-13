@@ -55,4 +55,39 @@ interface SuiteDsl : PreparedDsl {
 
 }
 
-interface TestDsl : PreparedDsl
+/**
+ * A test declaration.
+ *
+ * This interface is most often used as a test declaration: `suspend TestDsl.() -> Unit`.
+ *
+ * ### Design notes
+ *
+ * It is our goal to keep this interface as lightweight as possible, because any field we add here risks being shadowed
+ * by local variables in the tests.
+ *
+ * For example, if we were to add a member called `foo`, then this code…
+ * ```kotlin
+ * test("Test") {
+ *     val foo = …
+ * }
+ * ```
+ * …shadows the member 'foo'.
+ *
+ * Instead, we add all fields to [TestEnvironment], and create extension functions which expose the most important functionality.
+ *
+ * ### Note to runner implementors
+ *
+ * If you are implementing your own test runner, you will need to provide an instance of this interface.
+ * Because it encapsulates the whole test machinery, we recommend using [runTestDsl] instead of making your own
+ * implementation.
+ *
+ * @see cleanUp Register a finalizer which is executed at the end of the test
+ */
+interface TestDsl : PreparedDsl {
+
+	/**
+	 * Metadata about the running test.
+	 */
+	val environment: TestEnvironment
+
+}

@@ -1,8 +1,8 @@
 package opensavvy.prepared.runner.kotlin
 
-import kotlinx.coroutines.test.runTest
 import opensavvy.prepared.suite.SuiteDsl
 import opensavvy.prepared.suite.TestDsl
+import opensavvy.prepared.suite.runTestDsl
 import kotlin.coroutines.CoroutineContext
 
 // access the internals of kotlin-test, let's hope they don't change in the future :)
@@ -36,9 +36,7 @@ private object JsSuiteDsl : SuiteDsl {
 	override fun test(name: String, context: CoroutineContext, block: suspend TestDsl.() -> Unit) {
 		println("Registering test '$name'…")
 		kTest.kotlin.test.test(name, false) {
-			runTest(context) { block(JsTestDsl) }
+			runTestDsl(name, context, block)
 		}
 	}
 }
-
-private object JsTestDsl : TestDsl

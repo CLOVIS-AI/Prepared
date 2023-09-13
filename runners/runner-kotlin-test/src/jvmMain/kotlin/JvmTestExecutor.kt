@@ -1,8 +1,8 @@
 package opensavvy.prepared.runner.kotlin
 
-import kotlinx.coroutines.test.runTest
 import opensavvy.prepared.suite.SuiteDsl
 import opensavvy.prepared.suite.TestDsl
+import opensavvy.prepared.suite.runTestDsl
 import org.junit.jupiter.api.DynamicContainer
 import org.junit.jupiter.api.DynamicNode
 import org.junit.jupiter.api.DynamicTest
@@ -34,9 +34,7 @@ private class JvmSuiteDsl : SuiteDsl {
 
 	override fun test(name: String, context: CoroutineContext, block: suspend TestDsl.() -> Unit) {
 		nodes += DynamicTest.dynamicTest(name) {
-			runTest(context) { block(JvmTestDsl) }
+			runTestDsl(name, context, block)
 		}
 	}
 }
-
-private object JvmTestDsl : TestDsl
