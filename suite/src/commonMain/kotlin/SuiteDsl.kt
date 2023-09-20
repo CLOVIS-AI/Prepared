@@ -60,6 +60,8 @@ interface SuiteDsl : PreparedDsl {
  *
  * This interface is most often used as a test declaration: `suspend TestDsl.() -> Unit`.
  *
+ * Tests allow to control the time. For more information, read [time].
+ *
  * ### Design notes
  *
  * It is our goal to keep this interface as lightweight as possible, because any field we add here risks being shadowed
