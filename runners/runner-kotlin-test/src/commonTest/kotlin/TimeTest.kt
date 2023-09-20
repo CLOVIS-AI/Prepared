@@ -3,6 +3,8 @@ package opensavvy.prepared.runner.kotlin
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import opensavvy.prepared.compat.kotlinx.datetime.now
+import opensavvy.prepared.compat.kotlinx.datetime.set
 import opensavvy.prepared.suite.*
 import kotlin.test.assertEquals
 import kotlin.time.ExperimentalTime
@@ -60,6 +62,14 @@ class TimeTest : TestExecutor() {
 
 			time.advanceUntilIdle()
 			assertEquals(4000, time.nowMillis)
+		}
+
+		test("Set the time") {
+			time.set("2023-09-20T15:58:17.151Z")
+
+			delay(1000)
+
+			assertEquals("2023-09-20T15:58:18.151Z", time.now.toString())
 		}
 	}
 }

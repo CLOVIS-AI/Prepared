@@ -22,6 +22,8 @@ include(
 	"suite",
 	"framework",
 
+	"compat:compat-kotlinx-datetime",
+
 	"runners:runner-kotlin-test",
 )
 

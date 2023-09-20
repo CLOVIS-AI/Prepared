@@ -32,6 +32,12 @@ kotlin {
 		}
 	}
 
+	val commonTest by sourceSets.getting {
+		dependencies {
+			implementation(projects.compat.compatKotlinxDatetime)
+		}
+	}
+
 	val jvmMain by sourceSets.getting {
 		dependencies {
 			implementation(libs.kotlin.test.junit5)
