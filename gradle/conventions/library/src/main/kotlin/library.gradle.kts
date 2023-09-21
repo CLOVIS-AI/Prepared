@@ -84,15 +84,12 @@ val fakeJavadocJar by tasks.registering(Jar::class) {
 
 publishing {
 	repositories {
-		val centralUsername = System.getenv("OSSRH_USERNAME") ?: return@repositories
-		val centralPassword = System.getenv("OSSRH_PASSWORD") ?: return@repositories
-
 		maven {
 			name = "Central"
 			url = uri("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
 			credentials {
-				username = centralUsername
-				password = centralPassword
+				username = System.getenv("OSSRH_USERNAME")
+				password = System.getenv("OSSRH_PASSWORD")
 			}
 		}
 	}
