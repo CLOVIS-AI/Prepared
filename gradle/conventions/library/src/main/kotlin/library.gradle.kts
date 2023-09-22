@@ -84,15 +84,12 @@ val fakeJavadocJar by tasks.registering(Jar::class) {
 
 publishing {
 	repositories {
-		val centralUsername = System.getenv("OSSRH_USERNAME") ?: return@repositories
-		val centralPassword = System.getenv("OSSRH_PASSWORD") ?: return@repositories
-
 		maven {
 			name = "Central"
 			url = uri("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
 			credentials {
-				username = centralUsername
-				password = centralPassword
+				username = System.getenv("OSSRH_USERNAME")
+				password = System.getenv("OSSRH_PASSWORD")
 			}
 		}
 	}
@@ -114,6 +111,12 @@ run {
 	ext["signing.keyId"] = System.getenv("SIGNING_KEY_ID") ?: return@run
 	ext["signing.password"] = System.getenv("SIGNING_PASSWORD") ?: return@run
 	ext["signing.secretKeyRingFile"] = System.getenv("SIGNING_KEY_RING") ?: return@run
+
+	// Workaround for https://youtrack.jetbrains.com/issue/KT-61858
+	val signingTasks = tasks.withType(Sign::class)
+	tasks.withType(AbstractPublishToMaven::class).configureEach {
+		dependsOn(signingTasks)
+	}
 
 	signing {
 		sign(publishing.publications)
