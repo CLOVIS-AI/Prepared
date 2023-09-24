@@ -42,6 +42,7 @@ publish-maven:gitlab:
   script:
     - >
       ./gradlew publishAllPublicationsToGitLabRepository
+      --no-configuration-cache
       -PappVersion=$project_version
 
   interruptible: false
@@ -59,6 +60,7 @@ publish-maven:central:initialize:
   script:
     - >
       ./gradlew initializeSonatypeStagingRepository
+      --no-configuration-cache
       -PappVersion=$project_version
 
   interruptible: false
@@ -80,6 +82,7 @@ publish-maven:central:
     - >
       ./gradlew findSonatypeStagingRepository publishToSonatype
       -x initializeSonatypeStagingRepository
+      --no-configuration-cache
       -PappVersion=$project_version
 
   interruptible: false
@@ -98,6 +101,7 @@ publish-maven:central:close:
   script:
     - >
       ./gradlew findSonatypeStagingRepository closeSonatypeStagingRepository
+      --no-configuration-cache
       -PappVersion=$project_version
 
   interruptible: false
