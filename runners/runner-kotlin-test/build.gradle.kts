@@ -56,3 +56,9 @@ tasks.withType(Test::class) {
 		events("skipped", "failed", "passed")
 	}
 }
+
+library {
+	name.set("Kotlin-test support for Prepared")
+	description.set("Execute Prepared test suites in projects that use kotlin-test")
+	homeUrl.set("https://opensavvy.gitlab.io/prepared/documentation/runner-kotlin-test/index.html")
+}

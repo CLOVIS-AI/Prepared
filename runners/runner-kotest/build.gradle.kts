@@ -44,3 +44,9 @@ tasks.withType(Test::class) {
 		events("skipped", "failed", "passed")
 	}
 }
+
+library {
+	name.set("Kotest support for Prepared")
+	description.set("Execute Prepared test suites in projects that use Kotest")
+	homeUrl.set("https://opensavvy.gitlab.io/prepared/documentation/runner-kotest/index.html")
+}
