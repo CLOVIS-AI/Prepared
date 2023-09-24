@@ -35,7 +35,6 @@ It is possible to use other libraries (e.g. [Kotlin Test](https://kotlinlang.org
 
 ## Contributing
 
-This project follows the OpenSavvy workflow and code conventions.
-To learn how to contribute, please read [our wiki](https://gitlab.com/opensavvy/wiki/-/blob/main/README.md).
-
-This project also uses the [OpenSavvy Playground](docs/playground/README.md).
+See [CONTRIBUTING.md](CONTRIBUTING.md).
+- To learn more about our coding conventions and workflow, see the [OpenSavvy Wiki](https://gitlab.com/opensavvy/wiki/-/blob/main/README.md#wiki).
+- This project is based on the [OpenSavvy Playground](docs/playground/README.md), a collection of preconfigured project templates.

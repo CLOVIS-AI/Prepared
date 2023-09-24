@@ -1,8 +1,8 @@
 stages:
-  - docker
-  - build
-  - test
-  - deploy
+  - docker  # create images that are needed by the rest of the build
+  - build   # create any outputs of the project (binaries, containers, charts…)
+  - test    # all quality checks
+  - deploy  # export the outputs (publish to an artifact registry, deploy on a server…)
 
 include:
   - remote: https://gitlab.com/opensavvy/ci-templates/-/raw/main/version.gitlab-ci.yml
@@ -59,6 +59,8 @@ publish-maven:central:
   stage: deploy
 
   script:
+    - export SIGNING_KEY_RING=$(mktemp)
+    - <"$SIGNING_KEY_RING_B64" base64 -d >"$SIGNING_KEY_RING"
     - >
       ./gradlew publishAllPublicationsToCentralRepository
       -PappVersion=$project_version
