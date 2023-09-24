@@ -7,7 +7,7 @@
  * in the user manual at https://docs.gradle.org/8.1.1/userguide/multi_project_builds.html
  */
 
-rootProject.name = "Playground"
+rootProject.name = "Prepared"
 
 pluginManagement {
 	repositories {
@@ -23,8 +23,12 @@ plugins {
 }
 
 include(
-	"app",
-	"core",
+	"suite",
+	"framework",
+
+	"compat:compat-kotlinx-datetime",
+
+	"runners:runner-kotlin-test",
 )
 
 buildCache {
