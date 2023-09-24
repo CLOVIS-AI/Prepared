@@ -9,3 +9,4 @@ kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref =
 
 # To use existing plugins in convention plugins, we must also declare them as libraries
 gradle-kotlin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+gradle-nexusPublish = { module = "io.github.gradle-nexus:publish-plugin", version = "1.3.0" }
