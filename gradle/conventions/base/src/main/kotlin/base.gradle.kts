@@ -6,5 +6,5 @@ plugins {
 
 val appVersion: String? by project
 
-group = "opensavvy.playground"
+group = "dev.opensavvy.playground"
 version = appVersion ?: "0.0.0-DEV"
