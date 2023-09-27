@@ -29,7 +29,7 @@ fun MavenPom.buildConfiguration() {
 	}
 
 	scm {
-		url.set("https://gitlab.com/opensavvy/playgrounds/gradle")
+		url.set(System.getenv("CI_PROJECT_URL"))
 	}
 }
 
