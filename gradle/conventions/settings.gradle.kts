@@ -15,6 +15,7 @@ dependencyResolutionManagement {
 
 include(
 	"base",
+	"root",
 	"kotlin",
 	"library",
 )
