@@ -96,6 +96,8 @@ class PreparedDelegate<T : Any>(
  * bound yet. This means [PreparedProvider] is a sort of factory for [Prepared] instances: the same provider can
  * build multiple prepared instances, which run the same operation when executed, but are cached independently.
  *
+ * ### Bind a value
+ *
  * The simplest way to bind a provider to a single value is through delegation:
  * ```kotlin
  * val prepareRandomInt = prepared { Random.nextInt() }
@@ -108,6 +110,10 @@ class PreparedDelegate<T : Any>(
  * ```
  *
  * Instead of binding a provider to a variable, it is also possible to explicitly bind it with [named].
+ *
+ * ### Use without binding
+ *
+ * It is also possible to use a provider to generate values without binding them to a [Prepared] instance; see [TestDsl.immediate].
  */
 class PreparedProvider<T : Any>(
 	private val block: suspend TestDsl.() -> T,
