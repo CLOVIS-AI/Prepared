@@ -13,7 +13,7 @@ internal class Finalizers {
 
 	suspend fun TestDsl.executeAllFinalizers() {
 		finalizers.asReversed().forEach {
-			println("» Running finalizer '${it.name}'")
+			println("» Finalizing '${it.name}'")
 			it.block(this)
 		}
 	}
