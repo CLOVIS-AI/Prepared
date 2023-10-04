@@ -37,6 +37,7 @@ include(
 	"compat:compat-kotlinx-datetime",
 	"compat:compat-gradle",
 	"compat:compat-filesystem",
+	"compat:compat-arrow",
 
 	"runners:runner-kotlin-test",
 	"runners:runner-kotest",
