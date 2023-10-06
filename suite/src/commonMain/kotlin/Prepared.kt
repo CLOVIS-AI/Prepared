@@ -91,17 +91,52 @@ class PreparedDelegate<T : Any>(
 }
 
 /**
- * See [prepared].
+ * A [Prepared] is a lazily-created value that is bound to a test, such that multiple reads provide the same value.
+ *
+ * A [PreparedProvider] represents the operation that would be executed to generate a prepared value, but isn't
+ * bound yet. This means [PreparedProvider] is a sort of factory for [Prepared] instances: the same provider can
+ * build multiple prepared instances, which run the same operation when executed, but are cached independently.
+ *
+ * ### Bind a value
+ *
+ * The simplest way to bind a provider to a single value is through delegation:
+ * ```kotlin
+ * val prepareRandomInt = prepared { Random.nextInt() }
+ * val first by prepareRandomInt
+ * val second by prepareRandomInt
+ *
+ * test("A test") {
+ *     // Inside this test, 'first' is a specific int, and 'second' is another specific int
+ * }
+ * ```
+ *
+ * Instead of binding a provider to a variable, it is also possible to explicitly bind it with [named].
+ *
+ * ### Use without binding
+ *
+ * It is also possible to use a provider to generate values without binding them to a [Prepared] instance; see [TestDsl.immediate].
  */
 class PreparedProvider<T : Any>(
 	private val block: suspend TestDsl.() -> T,
 ) {
-	operator fun provideDelegate(thisRef: Any?, property: KProperty<*>) = PreparedDelegate(
-		Prepared(
-			name = property.name,
-			block = block,
-		)
-	)
+	/**
+	 * Provides a [Prepared] instance bound to the given [name].
+	 */
+	@Suppress("MemberVisibilityCanBePrivate")
+	fun named(name: String) =
+		Prepared(name = name, block = block)
+
+	/**
+	 * Provides a [Prepared] instance bound to the given [property].
+	 *
+	 * ### Example
+	 *
+	 * ```kotlin
+	 * val randomInteger by prepared { Random.nextInt() }
+	 * ```
+	 */
+	operator fun provideDelegate(thisRef: Any?, property: KProperty<*>) =
+		PreparedDelegate(named(property.name))
 }
 
 /**

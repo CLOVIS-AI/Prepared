@@ -2,6 +2,8 @@ package opensavvy.prepared.suite
 
 import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.EmptyCoroutineContext
+import kotlin.random.Random
+import kotlin.random.nextUInt
 
 @DslMarker
 annotation class PreparedDslMarker
@@ -97,5 +99,29 @@ interface TestDsl : PreparedDsl {
 	 */
 	suspend operator fun <T : Any> Prepared<T>.invoke(): T =
 		executeIn(this@TestDsl)
+
+	/**
+	 * Realizes a [Prepared] value from the provided [PreparedProvider].
+	 *
+	 * Because the prepared value is created and used immediately, it cannot be saved to be reused—this means that it
+	 * won't have the reuse behavior of [Prepared]; that is:
+	 *
+	 * ```kotlin
+	 * val prepareRandomInt = prepared { Random.nextInt() }
+	 * val first by prepared // bind to a Prepared instance
+	 *
+	 * test("An example") {
+	 *     assertEquals(first(), first()) // it is bound, so it always gives the same value
+	 *
+	 *     assertNotEquals(prepareRandomInt.immediate(), prepareRandomInt.immediate()) // it is unbound, so each call gives a new value
+	 * }
+	 * ```
+	 *
+	 * This function is mostly useful because test fixtures are often provided as [PreparedProvider] instance to
+	 * benefit from the other features of this library.
+	 * Sometimes, however, we just need a single value at a single point in time, which is why this function exists.
+	 */
+	suspend fun <T : Any> PreparedProvider<T>.immediate(name: String = "Immediate value #${Random.nextUInt()}"): T =
+		named(name)()
 
 }
