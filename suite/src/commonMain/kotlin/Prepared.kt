@@ -70,8 +70,9 @@ class Prepared<out T : Any> internal constructor(
 	internal suspend fun executeIn(scope: TestDsl): T =
 		scope.environment.cache.cache(this) {
 			withContext(CoroutineName("Preparing $name")) {
-				println("» Preparing ‘$name’")
-				scope.block()
+				val result = scope.block()
+				println("» Prepared ‘$name’: $result")
+				result
 			}
 		} as T
 
