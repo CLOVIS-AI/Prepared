@@ -28,13 +28,13 @@ kotlin {
 		dependencies {
 			api(projects.suite)
 
-			implementation(libs.kotest.engine)
+			api(libs.kotest.engine)
 		}
 	}
 
 	val jvmMain by sourceSets.getting {
 		dependencies {
-			implementation(libs.kotest.runner.junit5)
+			api(libs.kotest.runner.junit5)
 		}
 	}
 }
