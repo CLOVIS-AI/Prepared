@@ -125,6 +125,22 @@ dokka:
       ./gradlew :dokkatooGeneratePublicationHtml
       -PappVersion=$project_version
 
+  after_script:
+    - mkdir -p api-docs
+    - mv build/dokka/html/* api-docs
+    - PREFIX="$CI_PROJECT_ROOT_NAMESPACE/"
+    - echo "URL=https://$CI_PROJECT_ROOT_NAMESPACE.$CI_PAGES_DOMAIN/-/${CI_PROJECT_PATH//$PREFIX}/-/jobs/$CI_JOB_ID/artifacts/api-docs/index.html" >>deploy.env
+
+  artifacts:
+    paths:
+      - api-docs
+    reports:
+      dotenv: deploy.env
+  environment:
+    name: review/$CI_COMMIT_REF_SLUG/api-docs
+    url: $URL
+    deployment_tier: development
+
   interruptible: true
 
 # endregion
