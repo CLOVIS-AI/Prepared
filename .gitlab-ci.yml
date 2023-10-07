@@ -167,3 +167,25 @@ mirror-playground:
       allow_failure: true
 
 # endregion
+# GitLab Pages
+
+pages:
+  image: alpine:latest
+  stage: deploy
+  needs:
+    - job: dokka
+      artifacts: true
+
+  script:
+    - mkdir -p public
+    - mv api-docs public
+
+  artifacts:
+    paths:
+      - public
+
+  rules:
+    - if: $CI_COMMIT_TAG
+  interruptible: false
+
+# endregion
