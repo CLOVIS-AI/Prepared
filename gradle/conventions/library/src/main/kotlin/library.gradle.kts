@@ -146,6 +146,22 @@ dokkatoo {
 		dependencyDocumentation("Arrow", "https://apidocs.arrow-kt.io")
 
 		// endregion
+		// region Link to the sources
+
+		val projectUrl = System.getenv("CI_PROJECT_URL")
+		val commit = System.getenv("CI_COMMIT_SHA") ?: "main"
+
+		if (projectUrl != null) {
+			sourceLink {
+				val path = projectDir.relativeTo(rootProject.projectDir)
+
+				localDirectory.set(file("src"))
+				remoteUrl.set(URI("$projectUrl/-/blob/$commit/$path/src"))
+				remoteLineSuffix.set("#L")
+			}
+		}
+
+		// endregion
 	}
 }
 
