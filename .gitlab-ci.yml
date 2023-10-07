@@ -113,6 +113,21 @@ publish-maven:central:close:
     - if: $CI_COMMIT_TAG
 
 # endregion
+# region API documentation
+
+dokka:
+  extends: [ .os.gradle ]
+  stage: build
+  needs: [ os.version ]
+
+  script:
+    - >
+      ./gradlew :dokkatooGeneratePublicationHtml
+      -PappVersion=$project_version
+
+  interruptible: true
+
+# endregion
 # region Automatically mirror the previous layer of the playground
 
 mirror-playground:
