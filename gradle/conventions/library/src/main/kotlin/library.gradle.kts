@@ -1,12 +1,10 @@
 package conventions
 
-import gradle.kotlin.dsl.accessors._b6bea14fb88fd11e46d6fb1ebe601eab.ext
-import gradle.kotlin.dsl.accessors._b6bea14fb88fd11e46d6fb1ebe601eab.publishing
-import gradle.kotlin.dsl.accessors._b6bea14fb88fd11e46d6fb1ebe601eab.signing
-
 plugins {
 	id("maven-publish")
 	id("signing")
+
+	id("dev.adamko.dokkatoo-html")
 }
 
 // Global configuration for the repository

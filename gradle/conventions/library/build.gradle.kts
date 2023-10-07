@@ -3,3 +3,7 @@ plugins {
 }
 
 group = "conventions"
+
+dependencies {
+	implementation(libs.gradle.dokkatoo)
+}
