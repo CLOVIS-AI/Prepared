@@ -111,3 +111,28 @@ run {
 }
 
 //endregion
+// region Documentation
+
+dokkatoo {
+	moduleName.set(config.name)
+
+	dokkatooSourceSets.configureEach {
+		// region Include the correct HTML file, if it exists
+		if (name.endsWith("Main")) {
+			val setName = name.removeSuffix("Main")
+
+			val headerName =
+				if (setName == "common") "README.md"
+				else "README.$setName.md"
+
+			val headerPath = "${project.projectDir}/$headerName"
+			if (File(headerPath).exists())
+				includes.from(headerPath)
+			else
+				logger.info("No specific documentation file found for $setName, expected to find $headerPath")
+		}
+		// endregion
+	}
+}
+
+// endregion
