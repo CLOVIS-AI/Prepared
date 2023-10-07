@@ -1,5 +1,7 @@
 package conventions
 
+import java.net.URI
+
 plugins {
 	id("maven-publish")
 	id("signing")
@@ -131,6 +133,18 @@ dokkatoo {
 			else
 				logger.info("No specific documentation file found for $setName, expected to find $headerPath")
 		}
+		// endregion
+		// region Dependencies
+
+		fun dependencyDocumentation(name: String, url: String) = externalDocumentationLinks.register(name) {
+			this.url.set(URI(url))
+		}
+
+		dependencyDocumentation("KotlinX.Coroutines", "https://kotlinlang.org/api/kotlinx.coroutines/")
+		dependencyDocumentation("KotlinX.Serialization", "https://kotlinlang.org/api/kotlinx.serialization/")
+		dependencyDocumentation("Ktor", "https://api.ktor.io/")
+		dependencyDocumentation("Arrow", "https://apidocs.arrow-kt.io")
+
 		// endregion
 	}
 }
