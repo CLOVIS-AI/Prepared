@@ -27,7 +27,7 @@ kotlin {
 }
 
 library {
-	name.set("Prepared test suite declarations: suite DSL, time control, lazy fixtures, coroutine support…")
-	description.set("Prepared is a magicless test framework for Kotlin Multiplatform")
+	name.set("Suite")
+	description.set("Magicless test framework for Kotlin Multiplatform")
 	homeUrl.set("https://opensavvy.gitlab.io/prepared/documentation/suite/index.html")
 }
