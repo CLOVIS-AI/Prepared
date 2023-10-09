@@ -20,7 +20,11 @@ plugins {
 
 dependencies {
 	// List the 'library' projects
-	dokkatoo(projects.core)
+	dokkatoo(projects.suite)
+	dokkatoo(projects.runners.runnerKotest)
+	dokkatoo(projects.runners.runnerKotlinTest)
+	dokkatoo(projects.framework)
+	dokkatoo(projects.compat.compatKotlinxDatetime)
 
 	// This is required at the moment, see https://github.com/adamko-dev/dokkatoo/issues/14
 	dokkatooPluginHtml(
@@ -28,4 +32,8 @@ dependencies {
 			"org.jetbrains.dokka:all-modules-page-plugin:$dokkaVersion"
 		}
 	)
+}
+
+repositories {
+	mavenCentral()
 }
