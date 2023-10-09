@@ -5,5 +5,5 @@ plugins {
 group = "conventions"
 
 dependencies {
-	implementation(libs.gradle.dokkatoo)
+	implementation(playgroundLibs.gradle.dokkatoo)
 }
