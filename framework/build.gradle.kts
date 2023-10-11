@@ -20,7 +20,7 @@ kotlin {
 }
 
 library {
-	name.set("Out-of-the-box Prepared experience (experimental)")
+	name.set("Prepared Framework")
 	description.set("Collection of libraries to make Prepared as useful as possible, with as little setup as possible.")
 	homeUrl.set("https://opensavvy.gitlab.io/prepared/documentation/framework/index.html")
 }

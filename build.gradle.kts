@@ -13,7 +13,25 @@ plugins {
 
 	// Some plugins *must* be configured on the root project.
 	// In these cases, we explicitly tell Gradle not to apply them.
-	alias(libs.plugins.kotlin) apply false
+	alias(playgroundLibs.plugins.kotlin) apply false
+
+	alias(playgroundLibs.plugins.dokkatoo)
+}
+
+dependencies {
+	// List the 'library' projects
+	dokkatoo(projects.suite)
+	dokkatoo(projects.runners.runnerKotest)
+	dokkatoo(projects.runners.runnerKotlinTest)
+	dokkatoo(projects.framework)
+	dokkatoo(projects.compat.compatKotlinxDatetime)
+
+	// This is required at the moment, see https://github.com/adamko-dev/dokkatoo/issues/14
+	dokkatooPluginHtml(
+		dokkatoo.versions.jetbrainsDokka.map { dokkaVersion ->
+			"org.jetbrains.dokka:all-modules-page-plugin:$dokkaVersion"
+		}
+	)
 }
 
 repositories {
