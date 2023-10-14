@@ -25,6 +25,7 @@ dependencies {
 	dokkatoo(projects.runners.runnerKotlinTest)
 	dokkatoo(projects.framework)
 	dokkatoo(projects.compat.compatKotlinxDatetime)
+	dokkatoo(projects.compat.compatFilesystem)
 
 	// This is required at the moment, see https://github.com/adamko-dev/dokkatoo/issues/14
 	dokkatooPluginHtml(
