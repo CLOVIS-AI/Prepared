@@ -1,6 +1,6 @@
 # Module Suite
 
-Magicless test framework for Kotlin Multiplatform.
+Declare coroutine-aware tests programmatically with time control and lazy values.
 
 <a href="https://search.maven.org/search?q=dev.opensavvy.prepared.suite"><img src="https://img.shields.io/maven-central/v/dev.opensavvy.prepared/suite.svg?label=Maven%20Central"></a>
 

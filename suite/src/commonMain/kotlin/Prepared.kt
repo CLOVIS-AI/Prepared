@@ -62,7 +62,7 @@ import kotlin.reflect.KProperty
  * Values are instantiated using the [prepared] helper.
  */
 class Prepared<out T : Any> internal constructor(
-	private val name: String,
+	val name: String,
 	private val block: suspend TestDsl.() -> T,
 ) {
 
@@ -117,7 +117,7 @@ class PreparedDelegate<T : Any>(
  * It is also possible to use a provider to generate values without binding them to a [Prepared] instance; see [TestDsl.immediate].
  */
 class PreparedProvider<T : Any>(
-	private val block: suspend TestDsl.() -> T,
+	internal val block: suspend TestDsl.() -> T,
 ) {
 	/**
 	 * Provides a [Prepared] instance bound to the given [name].
