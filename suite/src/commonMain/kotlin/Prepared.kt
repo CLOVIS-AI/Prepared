@@ -61,7 +61,7 @@ import kotlin.reflect.KProperty
  *
  * Values are instantiated using the [prepared] helper.
  */
-class Prepared<out T : Any> internal constructor(
+class Prepared<out T> internal constructor(
 	val name: String,
 	private val block: suspend TestDsl.() -> T,
 ) {
@@ -84,7 +84,7 @@ class Prepared<out T : Any> internal constructor(
 /**
  * See [prepared].
  */
-class PreparedDelegate<T : Any>(
+class PreparedDelegate<T>(
 	private val value: Prepared<T>,
 ) {
 	operator fun getValue(thisRef: Any?, property: KProperty<*>) = value
@@ -116,7 +116,7 @@ class PreparedDelegate<T : Any>(
  *
  * It is also possible to use a provider to generate values without binding them to a [Prepared] instance; see [TestDsl.immediate].
  */
-class PreparedProvider<T : Any>(
+class PreparedProvider<T>(
 	internal val block: suspend TestDsl.() -> T,
 ) {
 	/**
@@ -153,7 +153,7 @@ class PreparedProvider<T : Any>(
  * ```
  */
 @PreparedDslMarker
-fun <T : Any> prepared(
+fun <T> prepared(
 	context: CoroutineContext = EmptyCoroutineContext,
 	block: suspend TestDsl.() -> T,
 ) = PreparedProvider {
@@ -174,7 +174,7 @@ fun <T : Any> prepared(
  * ```
  */
 @PreparedDslMarker
-fun <T : Any> prepared(
+fun <T> prepared(
 	name: String,
 	context: CoroutineContext = EmptyCoroutineContext,
 	block: suspend TestDsl.() -> T,
