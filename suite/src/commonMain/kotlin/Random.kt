@@ -2,6 +2,7 @@ package opensavvy.prepared.suite
 
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
+import kotlin.jvm.JvmName
 import kotlin.random.Random.Default.nextBits
 import kotlin.random.Random.Default.nextDouble
 import kotlin.random.Random.Default.nextFloat
@@ -308,5 +309,18 @@ fun randomDouble(from: Double, until: Double) = prepared { nextDouble(from, unti
  * @see nextFloat Direct value equivalent.
  */
 fun randomFloat() = prepared { nextFloat() }
+
+// endregion
+// region Warn on usages of kotlin.random.Random in tests
+
+private const val DEPRECATION_MESSAGE_WRONG_RANDOM = "Using Random in a Prepared test is most likely a mistake. Either opt-in to using the Prepared reproducible opt-in generators (via the 'random' accessor in a test) or explicitly use kotlin.random.Random via qualified name."
+
+/**
+ * See [random].
+ */
+@Deprecated(DEPRECATION_MESSAGE_WRONG_RANDOM, ReplaceWith("random"), DeprecationLevel.WARNING)
+@get:JvmName("getKotlinRandom")
+val TestDsl.Random: Random
+	get() = random
 
 // endregion
