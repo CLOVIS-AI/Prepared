@@ -107,8 +107,8 @@ interface TestDsl : PreparedDsl {
 	 * won't have the reuse behavior of [Prepared]; that is:
 	 *
 	 * ```kotlin
-	 * val prepareRandomInt = prepared { Random.nextInt() }
-	 * val first by prepared // bind to a Prepared instance
+	 * val prepareRandomInt = prepared { random.nextInt() }
+	 * val first by prepareRandomInt // bind to a Prepared instance
 	 *
 	 * test("An example") {
 	 *     assertEquals(first(), first()) // it is bound, so it always gives the same value

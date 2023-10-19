@@ -101,7 +101,7 @@ class PreparedDelegate<T : Any>(
  *
  * The simplest way to bind a provider to a single value is through delegation:
  * ```kotlin
- * val prepareRandomInt = prepared { Random.nextInt() }
+ * val prepareRandomInt = prepared { random.nextInt() }
  * val first by prepareRandomInt
  * val second by prepareRandomInt
  *
@@ -132,7 +132,7 @@ class PreparedProvider<T : Any>(
 	 * ### Example
 	 *
 	 * ```kotlin
-	 * val randomInteger by prepared { Random.nextInt() }
+	 * val randomEmail by prepared { "my-account-${random.nextInt()}@mail.com" }
 	 * ```
 	 */
 	operator fun provideDelegate(thisRef: Any?, property: KProperty<*>) =
@@ -149,7 +149,7 @@ class PreparedProvider<T : Any>(
  * ### Example
  *
  * ```kotlin
- * val randomInteger by prepared { Random.nextInt() }
+ * val randomEmail by prepared { "my-account-${random.nextInt()}@mail.com" }
  * ```
  */
 @PreparedDslMarker
@@ -170,7 +170,7 @@ fun <T : Any> prepared(
  * ### Example
  *
  * ```kotlin
- * val randomInteger = prepared("A randomized integer") { Random.nextInt() }
+ * val randomEmail = prepared("A randomized email address") { "my-account-${random.nextInt()}@mail.com" }
  * ```
  */
 @PreparedDslMarker
