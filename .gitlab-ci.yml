@@ -123,6 +123,7 @@ dokka:
   script:
     - >
       ./gradlew :dokkatooGeneratePublicationHtml
+      --no-configuration-cache
       -PappVersion=$project_version
 
   after_script:
