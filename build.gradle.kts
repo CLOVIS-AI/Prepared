@@ -24,6 +24,7 @@ dependencies {
 	dokkatoo(projects.runners.runnerKotest)
 	dokkatoo(projects.runners.runnerKotlinTest)
 	dokkatoo(projects.framework)
+	dokkatoo(projects.compat.compatGradle)
 	dokkatoo(projects.compat.compatKotlinxDatetime)
 	dokkatoo(projects.compat.compatFilesystem)
 
