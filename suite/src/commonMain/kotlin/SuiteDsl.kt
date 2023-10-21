@@ -2,8 +2,6 @@ package opensavvy.prepared.suite
 
 import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.EmptyCoroutineContext
-import kotlin.random.Random
-import kotlin.random.nextUInt
 
 @DslMarker
 annotation class PreparedDslMarker
@@ -107,8 +105,8 @@ interface TestDsl : PreparedDsl {
 	 * won't have the reuse behavior of [Prepared]; that is:
 	 *
 	 * ```kotlin
-	 * val prepareRandomInt = prepared { Random.nextInt() }
-	 * val first by prepared // bind to a Prepared instance
+	 * val prepareRandomInt = prepared { random.nextInt() }
+	 * val first by prepareRandomInt // bind to a Prepared instance
 	 *
 	 * test("An example") {
 	 *     assertEquals(first(), first()) // it is bound, so it always gives the same value
@@ -121,7 +119,7 @@ interface TestDsl : PreparedDsl {
 	 * benefit from the other features of this library.
 	 * Sometimes, however, we just need a single value at a single point in time, which is why this function exists.
 	 */
-	suspend fun <T : Any> PreparedProvider<T>.immediate(name: String = "Immediate value #${Random.nextUInt()}"): T =
+	suspend fun <T : Any> PreparedProvider<T>.immediate(name: String = "Immediate value #${randomInt()}"): T =
 		named(name)()
 
 }

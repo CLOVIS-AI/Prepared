@@ -98,3 +98,15 @@ Inside Prepared tests, the [time][opensavvy.prepared.suite.time] accessor expose
 
 To learn more, see [time][opensavvy.prepared.suite.time].
 Compatibility with other time management libraries (e.g. KotlinX.Datetime) are provided as optional dependencies.
+
+## Control random values
+
+Randomness is useful to generate test data, but it makes reproducing test failures harder.
+
+Prepared exposes utilities to generate reproducible random tests:
+
+- [random.setSeed][opensavvy.prepared.suite.Random.setSeed] to set the seed for an entire test.
+- [random.nextInt][opensavvy.prepared.suite.nextInt] (and similar functions) to generate random values.
+- [randomInt][opensavvy.prepared.suite.randomInt] (and similar functions) to generate random prepared values.
+
+To learn more, see [random][opensavvy.prepared.suite.random].
