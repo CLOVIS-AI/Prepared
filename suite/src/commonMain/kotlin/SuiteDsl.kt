@@ -95,7 +95,7 @@ interface TestDsl : PreparedDsl {
 	/**
 	 * Realizes a [Prepared] value in the context of this test.
 	 */
-	suspend operator fun <T : Any> Prepared<T>.invoke(): T =
+	suspend operator fun <T> Prepared<T>.invoke(): T =
 		executeIn(this@TestDsl)
 
 	/**
@@ -119,7 +119,7 @@ interface TestDsl : PreparedDsl {
 	 * benefit from the other features of this library.
 	 * Sometimes, however, we just need a single value at a single point in time, which is why this function exists.
 	 */
-	suspend fun <T : Any> PreparedProvider<T>.immediate(name: String = "Immediate value #${randomInt()}"): T =
+	suspend fun <T> PreparedProvider<T>.immediate(name: String = "Immediate value #${randomInt()}"): T =
 		named(name)()
 
 }
