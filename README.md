@@ -2,7 +2,7 @@
 
 > This project is experimental.
 
-Testing libraries are composed of three different components:
+Testing frameworks are composed of three different components:
 - The **assertions** check that values are what we expect,
 - The **structure** is the way tests are declared and discovered,
 - The **runner** is the program that executes the tests.
@@ -10,16 +10,49 @@ Testing libraries are composed of three different components:
 OpenSavvy Prepared is a **structure** library: it concentrates on the way tests are declared.
 It is possible to use other libraries (e.g. [Kotlin Test](https://kotlinlang.org/api/latest/kotlin.test/), [Kotest](https://kotest.io/), [Strikt](https://strikt.io/)…) to declare assertions.
 
-[TOC]
+```kotlin
+// Declare tests using a regular Kotlin DSL, no annotations or other magic
+fun SuiteDsl.showcase() = suite("Showcase Prepared") {
+	test("A simple test") {
+		// Use Kotest or any other assertion library
+		"Hello world" shouldContain "world"
+	}
 
-## Features
+	// Instantiate test data with coroutine-aware builders
+	val database by prepared { Database.connect() }
+	val minVersion by prepared { Database.minimalVersion.connect() }
+	val testDir by createRandomDirectory()
 
-- Lazy fixtures: Fixtures are executed lazily as they are needed, once per test
-- Explicit fixtures
-- Time is fixed during test execution
-- Easy parametrization
-- Coroutine-aware
-- Multiplatform
+	// Declare nested test suites
+	suite("Dump the database") {
+		// Declare tests programmatically
+		for (db in listOf(database, minVersion)) {
+			test("Dump the database ${db.name}") {
+				// Each test gets its own instance of all prepared values
+				// (here, each test gets its own output directory)
+				val outputDir = testDir()
+
+				db().dumpTo(outputDir)
+			}
+		}
+	}
+
+	test("Control the time and randomness") {
+		time.set("2023-10-21T21:08:29Z")
+		random.setSeed(123)
+
+		val random = testDir / "random.txt"
+		val date = testDir / "now.txt"
+
+		// Only values accessed in the test are prepared;
+		// here, the 'database' and 'minVersion' values are not created
+		random().writeText(random.nextInt())
+		date().writeText(time.now().toString())
+	}
+}
+```
+
+To learn more, [read the documentation](https://opensavvy.gitlab.io/prepared/api-docs/suite/index.html).
 
 ## Project structure
 
