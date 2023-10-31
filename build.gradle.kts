@@ -27,6 +27,7 @@ dependencies {
 	dokkatoo(projects.compat.compatGradle)
 	dokkatoo(projects.compat.compatKotlinxDatetime)
 	dokkatoo(projects.compat.compatFilesystem)
+	dokkatoo(projects.compat.compatArrow)
 
 	// This is required at the moment, see https://github.com/adamko-dev/dokkatoo/issues/14
 	dokkatooPluginHtml(
