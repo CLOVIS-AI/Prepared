@@ -4,6 +4,7 @@ import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.test.TestResult
 import kotlinx.coroutines.test.runTest
 import opensavvy.prepared.suite.config.TestConfig
+import opensavvy.prepared.suite.config.effectiveTimeout
 import kotlin.coroutines.CoroutineContext
 
 private class TestDslImpl(
@@ -17,7 +18,7 @@ private class TestDslImpl(
  * It is only provided because it is required for people who implement their own test runner.
  */
 fun runTestDsl(name: String, context: CoroutineContext, config: TestConfig, block: suspend TestDsl.() -> Unit): TestResult {
-	return runTest(CoroutineName("Test ‘$name’") + context) {
+	return runTest(CoroutineName("Test ‘$name’") + context, timeout = config.effectiveTimeout()) {
 		val test = TestDslImpl(
 			environment = TestEnvironment(name, this),
 		)
