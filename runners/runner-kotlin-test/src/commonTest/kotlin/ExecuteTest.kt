@@ -2,6 +2,7 @@ package opensavvy.prepared.runner.kotlin
 
 import opensavvy.prepared.suite.SuiteDsl
 import opensavvy.prepared.suite.cleanUp
+import opensavvy.prepared.suite.config.Ignored
 import opensavvy.prepared.suite.prepared
 import kotlin.random.Random
 
@@ -38,6 +39,16 @@ class ExecuteTest : TestExecutor() {
 				integer()
 				println("It also executes")
 			}
+		}
+
+		suite("Disabled suite", Ignored) {
+			test("Always fails") {
+				error("I should have been ignored")
+			}
+		}
+
+		test("Disabled test", config = Ignored) {
+			error("I should have been ignored")
 		}
 	}
 }

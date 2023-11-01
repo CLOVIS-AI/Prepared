@@ -2,13 +2,12 @@ package opensavvy.prepared.runner.kotlin
 
 import opensavvy.prepared.suite.SuiteDsl
 import opensavvy.prepared.suite.TestDsl
+import opensavvy.prepared.suite.config.Ignored
 import opensavvy.prepared.suite.config.TestConfig
+import opensavvy.prepared.suite.config.get
 import opensavvy.prepared.suite.config.plus
 import opensavvy.prepared.suite.runTestDsl
-import org.junit.jupiter.api.DynamicContainer
-import org.junit.jupiter.api.DynamicNode
-import org.junit.jupiter.api.DynamicTest
-import org.junit.jupiter.api.TestFactory
+import org.junit.jupiter.api.*
 import java.util.stream.Stream
 import kotlin.coroutines.CoroutineContext
 
@@ -38,8 +37,12 @@ private class JvmSuiteDsl(val parentConfig: TestConfig) : SuiteDsl {
 	}
 
 	override fun test(name: String, context: CoroutineContext, config: TestConfig, block: suspend TestDsl.() -> Unit) {
+		val thisConfig = parentConfig + config
 		nodes += DynamicTest.dynamicTest(name) {
-			runTestDsl(name, context, parentConfig + config, block)
+			// Immediately fail the test if it is marked as disabled
+			Assumptions.assumeTrue(thisConfig[Ignored] == null)
+
+			runTestDsl(name, context, thisConfig, block)
 		}
 	}
 }

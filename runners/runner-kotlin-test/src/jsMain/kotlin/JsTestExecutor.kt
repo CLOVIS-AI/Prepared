@@ -2,7 +2,9 @@ package opensavvy.prepared.runner.kotlin
 
 import opensavvy.prepared.suite.SuiteDsl
 import opensavvy.prepared.suite.TestDsl
+import opensavvy.prepared.suite.config.Ignored
 import opensavvy.prepared.suite.config.TestConfig
+import opensavvy.prepared.suite.config.get
 import opensavvy.prepared.suite.config.plus
 import opensavvy.prepared.suite.runTestDsl
 import kotlin.coroutines.CoroutineContext
@@ -33,15 +35,17 @@ actual abstract class TestExecutor {
 private class JsSuiteDsl(val parentConfig: TestConfig) : SuiteDsl {
 	override fun suite(name: String, config: TestConfig, block: SuiteDsl.() -> Unit) {
 		println("Registering suite '$name'…")
-		kTest.kotlin.test.suite(name, false) {
-			JsSuiteDsl(parentConfig + config).block()
+		val thisConfig = parentConfig + config
+		kTest.kotlin.test.suite(name, thisConfig[Ignored] != null) {
+			JsSuiteDsl(thisConfig).block()
 		}
 	}
 
 	override fun test(name: String, context: CoroutineContext, config: TestConfig, block: suspend TestDsl.() -> Unit) {
 		println("Registering test '$name'…")
-		kTest.kotlin.test.test(name, false) {
-			runTestDsl(name, context, parentConfig + config, block)
+		val thisConfig = parentConfig + config
+		kTest.kotlin.test.test(name, thisConfig[Ignored] != null) {
+			runTestDsl(name, context, thisConfig, block)
 		}
 	}
 }
