@@ -1,6 +1,7 @@
 package opensavvy.prepared.runner.kotlin
 
 import opensavvy.prepared.suite.SuiteDsl
+import opensavvy.prepared.suite.config.TestConfig
 
 /**
  * Entrypoint to declare a [SuiteDsl] executed with [kotlin-test](https://kotlinlang.org/api/latest/kotlin.test/).
@@ -25,6 +26,11 @@ import opensavvy.prepared.suite.SuiteDsl
  * ```
  */
 expect abstract class TestExecutor() {
+
+	/**
+	 * Default configuration for all tests [registered][register] in this class.
+	 */
+	open val config: TestConfig
 
 	/**
 	 * Declares a [SuiteDsl] which will be run with `kotlin-test`.

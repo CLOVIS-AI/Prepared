@@ -8,6 +8,8 @@ import io.kotest.core.spec.style.scopes.addTest
 import io.kotest.core.test.TestType
 import opensavvy.prepared.suite.SuiteDsl
 import opensavvy.prepared.suite.TestDsl
+import opensavvy.prepared.suite.config.TestConfig
+import opensavvy.prepared.suite.config.plus
 import opensavvy.prepared.suite.runTestDsl
 import kotlin.coroutines.CoroutineContext
 
@@ -40,18 +42,21 @@ import kotlin.coroutines.CoroutineContext
  * ```
  */
 @KotestTestScope
-fun RootScope.preparedSuite(block: SuiteDsl.() -> Unit) {
-	NonNestedSuite(this).block()
+fun RootScope.preparedSuite(
+	config: TestConfig = TestConfig.Empty,
+	block: SuiteDsl.() -> Unit,
+) {
+	NonNestedSuite(this, config).block()
 }
 
-private class NonNestedSuite(private val root: RootScope, private val prefix: String? = null) : SuiteDsl {
-	override fun suite(name: String, block: SuiteDsl.() -> Unit) {
-		NonNestedSuite(root, prefix child name).block()
+private class NonNestedSuite(private val root: RootScope, private val parentConfig: TestConfig, private val prefix: String? = null) : SuiteDsl {
+	override fun suite(name: String, config: TestConfig, block: SuiteDsl.() -> Unit) {
+		NonNestedSuite(root, parentConfig + config, prefix child name).block()
 	}
 
-	override fun test(name: String, context: CoroutineContext, block: suspend TestDsl.() -> Unit) {
+	override fun test(name: String, context: CoroutineContext, config: TestConfig, block: suspend TestDsl.() -> Unit) {
 		root.addTest(testName = TestName(name = prefix child name), disabled = false, type = TestType.Test, config = null) {
-			runTestDsl(name, context, block)
+			runTestDsl(name, context, parentConfig + config, block)
 		}
 	}
 }

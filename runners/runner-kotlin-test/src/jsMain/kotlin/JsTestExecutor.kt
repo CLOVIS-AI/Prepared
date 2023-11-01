@@ -2,6 +2,8 @@ package opensavvy.prepared.runner.kotlin
 
 import opensavvy.prepared.suite.SuiteDsl
 import opensavvy.prepared.suite.TestDsl
+import opensavvy.prepared.suite.config.TestConfig
+import opensavvy.prepared.suite.config.plus
 import opensavvy.prepared.suite.runTestDsl
 import kotlin.coroutines.CoroutineContext
 
@@ -13,6 +15,9 @@ private external val kTest: dynamic
 
 actual abstract class TestExecutor {
 
+	actual open val config: TestConfig
+		get() = TestConfig.Empty
+
 	actual abstract fun SuiteDsl.register()
 
 	// this test shows up as an empty test that always succeeds in reports,
@@ -20,23 +25,23 @@ actual abstract class TestExecutor {
 	@kotlin.test.Test
 	fun registerTests() {
 		kTest.kotlin.test.suite("Class ${this::class.simpleName}", false) {
-			JsSuiteDsl.register()
+			JsSuiteDsl(config).register()
 		}
 	}
 }
 
-private object JsSuiteDsl : SuiteDsl {
-	override fun suite(name: String, block: SuiteDsl.() -> Unit) {
+private class JsSuiteDsl(val parentConfig: TestConfig) : SuiteDsl {
+	override fun suite(name: String, config: TestConfig, block: SuiteDsl.() -> Unit) {
 		println("Registering suite '$name'…")
 		kTest.kotlin.test.suite(name, false) {
-			this.block()
+			JsSuiteDsl(parentConfig + config).block()
 		}
 	}
 
-	override fun test(name: String, context: CoroutineContext, block: suspend TestDsl.() -> Unit) {
+	override fun test(name: String, context: CoroutineContext, config: TestConfig, block: suspend TestDsl.() -> Unit) {
 		println("Registering test '$name'…")
 		kTest.kotlin.test.test(name, false) {
-			runTestDsl(name, context, block)
+			runTestDsl(name, context, parentConfig + config, block)
 		}
 	}
 }
