@@ -1,5 +1,6 @@
 package opensavvy.prepared.suite
 
+import opensavvy.prepared.suite.config.TestConfig
 import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.EmptyCoroutineContext
 
@@ -40,6 +41,7 @@ interface SuiteDsl : PreparedDsl {
 	@PreparedDslMarker
 	fun suite(
 		name: String,
+		config: TestConfig = TestConfig.Empty,
 		block: SuiteDsl.() -> Unit,
 	)
 
@@ -50,6 +52,7 @@ interface SuiteDsl : PreparedDsl {
 	fun test(
 		name: String,
 		context: CoroutineContext = EmptyCoroutineContext,
+		config: TestConfig = TestConfig.Empty,
 		block: suspend TestDsl.() -> Unit,
 	)
 
