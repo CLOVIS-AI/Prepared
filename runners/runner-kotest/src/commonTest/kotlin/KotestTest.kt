@@ -3,6 +3,7 @@ package opensavvy.prepared.runner.kotest
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
 import kotlinx.coroutines.delay
+import opensavvy.prepared.suite.config.Ignored
 
 class KotestTest : StringSpec({
 	// Vanilla Kotest declarations…
@@ -31,6 +32,16 @@ class KotestTest : StringSpec({
 
 		test("Hello world from Prepared") {
 			"hello".length shouldBe 5
+		}
+
+		suite("Disabled suite", Ignored) {
+			test("Always fails") {
+				error("I should have been ignored")
+			}
+		}
+
+		test("Disabled test", config = Ignored) {
+			error("I should have been ignored")
 		}
 	}
 })

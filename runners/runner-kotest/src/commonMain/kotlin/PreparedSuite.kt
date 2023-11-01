@@ -6,9 +6,12 @@ import io.kotest.core.spec.style.StringSpec
 import io.kotest.core.spec.style.scopes.RootScope
 import io.kotest.core.spec.style.scopes.addTest
 import io.kotest.core.test.TestType
+import io.kotest.core.test.config.UnresolvedTestConfig
 import opensavvy.prepared.suite.SuiteDsl
 import opensavvy.prepared.suite.TestDsl
+import opensavvy.prepared.suite.config.Ignored
 import opensavvy.prepared.suite.config.TestConfig
+import opensavvy.prepared.suite.config.get
 import opensavvy.prepared.suite.config.plus
 import opensavvy.prepared.suite.runTestDsl
 import kotlin.coroutines.CoroutineContext
@@ -55,8 +58,14 @@ private class NonNestedSuite(private val root: RootScope, private val parentConf
 	}
 
 	override fun test(name: String, context: CoroutineContext, config: TestConfig, block: suspend TestDsl.() -> Unit) {
-		root.addTest(testName = TestName(name = prefix child name), disabled = false, type = TestType.Test, config = null) {
-			runTestDsl(name, context, parentConfig + config, block)
+		val thisConfig = parentConfig + config
+
+		val kotestConfig = UnresolvedTestConfig(
+			enabled = thisConfig[Ignored] == null,
+		)
+
+		root.addTest(testName = TestName(name = prefix child name), disabled = false, type = TestType.Test, config = kotestConfig) {
+			runTestDsl(name, context, thisConfig, block)
 		}
 	}
 }
