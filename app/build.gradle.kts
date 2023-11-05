@@ -1,9 +1,6 @@
-import java.awt.Color.red
-
 plugins {
-	id("conventions.base")
-	id("conventions.kotlin")
-	application
+	alias(opensavvyConventions.plugins.base)
+	alias(opensavvyConventions.plugins.kotlin.application)
 }
 
 kotlin {
@@ -19,7 +16,7 @@ kotlin {
 
 	val commonTest by sourceSets.getting {
 		dependencies {
-			implementation(playgroundLibs.kotlin.test)
+			implementation(opensavvyConventions.aligned.kotlin.test.junit)
 		}
 	}
 }
