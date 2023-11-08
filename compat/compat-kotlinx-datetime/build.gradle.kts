@@ -29,5 +29,5 @@ kotlin {
 library {
 	name.set("Compatibility with KotlinX.Datetime")
 	description.set("Control the passing of time in Prepared tests using objects and methods from KotlinX.Datetime, including Clock and Instant")
-	homeUrl.set("https://opensavvy.gitlab.io/prepared/documentation/compat-kotlinx-datetime/index.html")
+	homeUrl.set("https://opensavvy.gitlab.io/prepared/api-docs/compat/compat-kotlinx-datetime/index.html")
 }

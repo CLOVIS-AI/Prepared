@@ -23,5 +23,5 @@ kotlin {
 library {
 	name.set("Filesystem access")
 	description.set("Create and check files from the filesystem")
-	homeUrl.set("https://opensavvy.gitlab.io/prepared/documentation/compat-filesystem/index.html")
+	homeUrl.set("https://opensavvy.gitlab.io/prepared/api-docs/compat/compat-filesystem/index.html")
 }

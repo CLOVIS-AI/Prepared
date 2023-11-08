@@ -60,5 +60,5 @@ tasks.withType(Test::class) {
 library {
 	name.set("Execute with Kotlin-test")
 	description.set("Execute Prepared test suites in projects that use kotlin-test")
-	homeUrl.set("https://opensavvy.gitlab.io/prepared/documentation/runner-kotlin-test/index.html")
+	homeUrl.set("https://opensavvy.gitlab.io/prepared/api-docs/runners/runner-kotlin-test/index.html")
 }

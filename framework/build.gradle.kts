@@ -22,5 +22,5 @@ kotlin {
 library {
 	name.set("Prepared Framework")
 	description.set("Collection of libraries to make Prepared as useful as possible, with as little setup as possible.")
-	homeUrl.set("https://opensavvy.gitlab.io/prepared/documentation/framework/index.html")
+	homeUrl.set("https://opensavvy.gitlab.io/prepared/api-docs/framework/index.html")
 }

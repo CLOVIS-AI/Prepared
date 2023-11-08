@@ -26,6 +26,7 @@ dependencies {
 	dokkatoo(projects.framework)
 	dokkatoo(projects.compat.compatGradle)
 	dokkatoo(projects.compat.compatKotlinxDatetime)
+	dokkatoo(projects.compat.compatJavaTime)
 	dokkatoo(projects.compat.compatFilesystem)
 	dokkatoo(projects.compat.compatArrow)
 

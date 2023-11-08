@@ -48,5 +48,5 @@ tasks.withType(Test::class) {
 library {
 	name.set("Execute with Kotest")
 	description.set("Execute Prepared test suites in projects that use Kotest")
-	homeUrl.set("https://opensavvy.gitlab.io/prepared/documentation/runner-kotest/index.html")
+	homeUrl.set("https://opensavvy.gitlab.io/prepared/api-docs/runners/runner-kotest/index.html")
 }
