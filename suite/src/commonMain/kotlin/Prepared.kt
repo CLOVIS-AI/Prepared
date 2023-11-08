@@ -86,7 +86,7 @@ class Prepared<out T> internal constructor(
 /**
  * See [prepared].
  */
-class PreparedDelegate<T>(
+class PreparedDelegate<T> internal constructor(
 	private val value: Prepared<T>,
 ) {
 	operator fun getValue(thisRef: Any?, property: KProperty<*>) = value
@@ -118,7 +118,7 @@ class PreparedDelegate<T>(
  *
  * It is also possible to use a provider to generate values without binding them to a [Prepared] instance; see [TestDsl.immediate].
  */
-class PreparedProvider<T>(
+class PreparedProvider<T> internal constructor(
 	internal val block: suspend TestDsl.() -> T,
 ) {
 	/**
