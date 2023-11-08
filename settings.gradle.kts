@@ -35,6 +35,7 @@ include(
 	"framework",
 
 	"compat:compat-kotlinx-datetime",
+	"compat:compat-java-time",
 	"compat:compat-gradle",
 	"compat:compat-filesystem",
 	"compat:compat-arrow",

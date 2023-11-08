@@ -1,8 +1,11 @@
-package opensavvy.prepared.suite
+package opensavvy.prepared.compat.java.time
 
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.test.TestCoroutineScheduler
+import opensavvy.prepared.suite.Time
+import opensavvy.prepared.suite.advanceByMillis
+import opensavvy.prepared.suite.nowMillis
 import java.time.Clock
 import java.time.Instant
 import java.time.ZoneId
