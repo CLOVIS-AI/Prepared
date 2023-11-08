@@ -60,3 +60,11 @@ suspend fun Time.delayUntil(instant: Instant) {
 	require(diff >= 0) { "Cannot delay until $instant, which is in the past of the current virtual time, $now" }
 	delay(diff)
 }
+
+/**
+ * Delays until the virtual time reaches [isoString], formatted as an ISO 8601 timestamp, executing all enqueued tasks in order.
+ */
+@ExperimentalCoroutinesApi
+suspend fun Time.delayUntil(isoString: String) {
+	delayUntil(Instant.parse(isoString))
+}
