@@ -313,7 +313,7 @@ fun randomFloat() = prepared { nextFloat() }
 // endregion
 // region Warn on usages of kotlin.random.Random in tests
 
-private const val DEPRECATION_MESSAGE_WRONG_RANDOM = "Using Random in a Prepared test is most likely a mistake. Either opt-in to using the Prepared reproducible opt-in generators (via the 'random' accessor in a test) or explicitly use kotlin.random.Random via qualified name."
+private const val DEPRECATION_MESSAGE_WRONG_RANDOM = "Using Random in a Prepared test is most likely a mistake. Either opt-in to using the Prepared reproducible random generators (via the 'random' accessor in a test) or explicitly use kotlin.random.Random via qualified name to suppress this warning."
 
 /**
  * See [random].

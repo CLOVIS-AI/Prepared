@@ -7,7 +7,7 @@ import kotlin.coroutines.EmptyCoroutineContext
 import kotlin.reflect.KProperty
 
 /**
- * Represents a value that is lazily generated during test execution.
+ * Lazily-generated value unique to a test case.
  *
  * ### Usage
  *
@@ -15,7 +15,7 @@ import kotlin.reflect.KProperty
  * distinct instance. Within a given test, however, the value is always the same:
  * ```kotlin
  * suite("Random integers") {
- *     val randomInteger by prepared { Random.nextInt() }
+ *     val randomInteger by prepared { random.nextInt() }
  *
  *     test("First test") {
  *         println(randomInteger()) // some integer
@@ -30,6 +30,8 @@ import kotlin.reflect.KProperty
  *
  * Prepared values are constructed lazily when they are accessed within a test.
  * Because of this, they have access to the test's [TestDsl] and can `suspend`.
+ *
+ * For the specific use-case of generating random values, see [random][TestDsl.random].
  *
  * ### Comparison with other frameworks
  *
@@ -84,7 +86,7 @@ class Prepared<out T> internal constructor(
 /**
  * See [prepared].
  */
-class PreparedDelegate<T>(
+class PreparedDelegate<T> internal constructor(
 	private val value: Prepared<T>,
 ) {
 	operator fun getValue(thisRef: Any?, property: KProperty<*>) = value
@@ -116,7 +118,7 @@ class PreparedDelegate<T>(
  *
  * It is also possible to use a provider to generate values without binding them to a [Prepared] instance; see [TestDsl.immediate].
  */
-class PreparedProvider<T>(
+class PreparedProvider<T> internal constructor(
 	internal val block: suspend TestDsl.() -> T,
 ) {
 	/**
