@@ -15,7 +15,7 @@ import kotlin.reflect.KProperty
  * distinct instance. Within a given test, however, the value is always the same:
  * ```kotlin
  * suite("Random integers") {
- *     val randomInteger by prepared { Random.nextInt() }
+ *     val randomInteger by prepared { random.nextInt() }
  *
  *     test("First test") {
  *         println(randomInteger()) // some integer
@@ -30,6 +30,8 @@ import kotlin.reflect.KProperty
  *
  * Prepared values are constructed lazily when they are accessed within a test.
  * Because of this, they have access to the test's [TestDsl] and can `suspend`.
+ *
+ * For the specific use-case of generating random values, see [random][TestDsl.random].
  *
  * ### Comparison with other frameworks
  *
