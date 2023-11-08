@@ -1,9 +1,11 @@
 package opensavvy.prepared.runner.kotlin
 
+import kotlinx.coroutines.delay
 import opensavvy.prepared.suite.SuiteDsl
 import opensavvy.prepared.suite.cleanUp
 import opensavvy.prepared.suite.config.Ignored
 import opensavvy.prepared.suite.prepared
+import opensavvy.prepared.suite.shared
 import kotlin.random.Random
 
 @Suppress("unused")
@@ -23,9 +25,14 @@ class ExecuteTest : TestExecutor() {
 			Random.nextInt() * factor()
 		}
 
+		val longTask by shared {
+			delay(10_000)
+		}
+
 		suite("Group of tests") {
 			test("Test 1") {
 				integer()
+				longTask()
 
 				cleanUp("Stop the database") {
 					println("Done")
@@ -37,6 +44,11 @@ class ExecuteTest : TestExecutor() {
 
 			test("Test 2") {
 				integer()
+				println("It also executes")
+			}
+
+			test("Test 3") {
+				longTask()
 				println("It also executes")
 			}
 		}

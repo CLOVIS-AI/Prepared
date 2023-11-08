@@ -7,7 +7,7 @@ import kotlin.coroutines.EmptyCoroutineContext
 import kotlin.reflect.KProperty
 
 /**
- * Represents a value that is lazily generated during test execution.
+ * Lazily-generated value unique to a test case.
  *
  * ### Usage
  *
