@@ -5,15 +5,23 @@ import arrow.core.raise.ExperimentalTraceApi
 import arrow.core.raise.Raise
 import arrow.core.raise.either
 import opensavvy.prepared.suite.PreparedDslMarker
-import opensavvy.prepared.suite.TestDsl
 
 /**
  * Fails the test if [block] raises.
+ *
+ * ### Example
+ *
+ * ```kotlin
+ * test("√4 does not raise") {
+ *    failOnRaise {
+ *        sqrt(4.0)
+ *    } shouldBe 2.0
+ * }
+ * ```
  */
-@Suppress("UnusedReceiverParameter") // we're keeping the receiver for scoping
 @ExperimentalTraceApi
 @PreparedDslMarker
-inline fun <Failure, Success> TestDsl.failOnRaise(block: Raise<Failure>.() -> Success): Success {
+inline fun <Failure, Success> failOnRaise(block: Raise<Failure>.() -> Success): Success {
 	return either(block)
 		.getOrElse { throw AssertionError("Expected the block to execute successfully, but a value was raised: $it") }
 }

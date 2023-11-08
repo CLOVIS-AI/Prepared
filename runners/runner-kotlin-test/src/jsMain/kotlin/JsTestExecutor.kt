@@ -26,18 +26,20 @@ actual abstract class TestExecutor {
 	// but we need it for the class to be discovered
 	@kotlin.test.Test
 	fun registerTests() {
-		kTest.kotlin.test.suite("Class ${this::class.simpleName}", false) {
-			JsSuiteDsl(config).register()
+		val name = "Class ${this::class.simpleName}"
+		kTest.kotlin.test.suite(name, false) {
+			JsSuiteDsl(name, config).register()
 		}
 	}
 }
 
-private class JsSuiteDsl(val parentConfig: TestConfig) : SuiteDsl {
+private class JsSuiteDsl(val suiteName: String, val parentConfig: TestConfig) : SuiteDsl {
 	override fun suite(name: String, config: TestConfig, block: SuiteDsl.() -> Unit) {
 		println("Registering suite '$name'…")
 		val thisConfig = parentConfig + config
-		kTest.kotlin.test.suite(name, thisConfig[Ignored] != null) {
-			JsSuiteDsl(thisConfig).block()
+		val thisName = "$suiteName • $name"
+		kTest.kotlin.test.suite(thisName, thisConfig[Ignored] != null) {
+			JsSuiteDsl(thisName, thisConfig).block()
 		}
 	}
 

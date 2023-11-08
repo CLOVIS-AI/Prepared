@@ -34,7 +34,7 @@ kotlin {
 }
 
 library {
-	name.set("Functional error management with Arrow")
+	name.set("Compatibility with Arrow")
 	description.set("Bind Either and Validated to fail test cases, with origin tracing")
 	homeUrl.set("https://opensavvy.gitlab.io/prepared/documentation/compat-arrow/index.html")
 }
