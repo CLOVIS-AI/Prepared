@@ -7,6 +7,16 @@ import opensavvy.prepared.suite.PreparedDslMarker
 
 /**
  * Fails the test if [block] doesn't raise with [expected].
+ *
+ * ### Example
+ *
+ * ```kotlin
+ * test("√-1 raises") {
+ *     assertRaises(NegativeSquareRoot) {
+ *         sqrt(-1.0)
+ *     }
+ * }
+ * ```
  */
 @ExperimentalTraceApi
 @PreparedDslMarker
@@ -25,6 +35,16 @@ inline fun <Failure> assertRaises(expected: Failure, block: Raise<Failure>.() ->
 
 /**
  * Fails the test if [block] doesn't raise with a value of type [Failure].
+ *
+ * ### Example
+ *
+ * ```kotlin
+ * test("√-1 raises") {
+ *     assertRaisesWith<NegativeSquareRoot> {
+ *         sqrt(-1.0)
+ *     }
+ * }
+ * ```
  */
 @ExperimentalTraceApi
 @PreparedDslMarker

@@ -8,6 +8,16 @@ import opensavvy.prepared.suite.PreparedDslMarker
 
 /**
  * Fails the test if [block] raises.
+ *
+ * ### Example
+ *
+ * ```kotlin
+ * test("√4 does not raise") {
+ *    failOnRaise {
+ *        sqrt(4.0)
+ *    } shouldBe 2.0
+ * }
+ * ```
  */
 @ExperimentalTraceApi
 @PreparedDslMarker
