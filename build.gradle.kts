@@ -18,7 +18,15 @@ plugins {
 
 dependencies {
 	// List the 'library' projects
-	dokkatoo(projects.core)
+	dokkatoo(projects.suite)
+	dokkatoo(projects.runners.runnerKotest)
+	dokkatoo(projects.runners.runnerKotlinTest)
+	dokkatoo(projects.framework)
+	dokkatoo(projects.compat.compatGradle)
+	dokkatoo(projects.compat.compatKotlinxDatetime)
+	dokkatoo(projects.compat.compatJavaTime)
+	dokkatoo(projects.compat.compatFilesystem)
+	dokkatoo(projects.compat.compatArrow)
 }
 
 // region Check the users of the project didn't forget to rename the group
