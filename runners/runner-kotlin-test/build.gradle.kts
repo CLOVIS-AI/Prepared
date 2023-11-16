@@ -1,7 +1,6 @@
 plugins {
-	id("conventions.base")
-	id("conventions.kotlin")
-	id("conventions.library")
+	alias(opensavvyConventions.plugins.base)
+	alias(opensavvyConventions.plugins.kotlin.library)
 }
 
 kotlin {
@@ -61,4 +60,9 @@ library {
 	name.set("Execute with Kotlin-test")
 	description.set("Execute Prepared test suites in projects that use kotlin-test")
 	homeUrl.set("https://opensavvy.gitlab.io/prepared/api-docs/runners/runner-kotlin-test/index.html")
+
+	license.set {
+		name.set("Apache 2.0")
+		url.set("https://www.apache.org/licenses/LICENSE-2.0.txt")
+	}
 }

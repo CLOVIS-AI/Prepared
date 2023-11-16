@@ -1,7 +1,6 @@
 plugins {
-	id("conventions.base")
-	id("conventions.kotlin")
-	id("conventions.library")
+	alias(opensavvyConventions.plugins.base)
+	alias(opensavvyConventions.plugins.kotlin.library)
 }
 
 kotlin {
@@ -30,4 +29,9 @@ library {
 	name.set("Compatibility with KotlinX.Datetime")
 	description.set("Control the passing of time in Prepared tests using objects and methods from KotlinX.Datetime, including Clock and Instant")
 	homeUrl.set("https://opensavvy.gitlab.io/prepared/api-docs/compat/compat-kotlinx-datetime/index.html")
+
+	license.set {
+		name.set("Apache 2.0")
+		url.set("https://www.apache.org/licenses/LICENSE-2.0.txt")
+	}
 }
