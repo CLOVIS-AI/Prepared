@@ -16,7 +16,7 @@ kotlin {
 
 	val commonTest by sourceSets.getting {
 		dependencies {
-			implementation(opensavvyConventions.aligned.kotlin.test.junit)
+			implementation(opensavvyConventions.aligned.kotlin.test.junit5)
 		}
 	}
 }
