@@ -168,7 +168,7 @@ mirror-playground:
       allow_failure: true
 
 # endregion
-# GitLab Pages
+# region GitLab Pages
 
 pages:
   image: alpine:latest
