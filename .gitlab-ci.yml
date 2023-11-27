@@ -17,11 +17,26 @@ workflow:
     - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
     - if: $CI_COMMIT_TAG
 
+variables:
+  kotlin_jvm: "yes"
+
+# region Kotlin Multiplatform
+
+.kotlin-jvm:
+  extends: [ .os.gradle ]
+  image: registry.gitlab.com/opensavvy/automation/containers/java:latest
+  needs: [ os.version ]
+
+  rules:
+    - if: $kotlin_jvm == "yes"
+      when: always
+    - when: never
+
+# endregion
 # region Check
 
-check:
-  extends: [ .os.gradle ]
-  needs: [ os.version ]
+check[jvm]:
+  extends: [ .kotlin-jvm ]
   stage: test
 
   script:
@@ -36,7 +51,7 @@ check:
 
 publish-maven:gitlab:
   extends: [ .os.gradle ]
-  needs: [ os.version, check ]
+  needs: [ os.version ]
   stage: deploy
 
   script:
