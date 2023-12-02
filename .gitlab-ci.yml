@@ -19,6 +19,7 @@ workflow:
 
 variables:
   kotlin_jvm: "yes"
+  kotlin_js_browser: "yes"
 
 # region Kotlin Multiplatform
 
@@ -32,6 +33,16 @@ variables:
       when: always
     - when: never
 
+.kotlin-js-browser:
+  extends: [ .os.gradle ]
+  image: registry.gitlab.com/opensavvy/automation/containers/chromium:latest
+  needs: [ os.version ]
+
+  rules:
+    - if: $kotlin_js_browser == "yes"
+      when: always
+    - when: never
+
 # endregion
 # region Check
 
@@ -42,6 +53,18 @@ check[jvm]:
   script:
     - >
       ./gradlew check
+      -x jsBrowserTest
+      -PappVersion=$project_version
+
+  interruptible: true
+
+check[jsBrowser]:
+  extends: [ .kotlin-js-browser ]
+  stage: test
+
+  script:
+    - >
+      ./gradlew jsBrowserTest
       -PappVersion=$project_version
 
   interruptible: true
