@@ -11,10 +11,6 @@ kotlin {
 	sourceSets.commonMain.dependencies {
 		implementation(projects.core)
 	}
-
-	sourceSets.commonTest.dependencies {
-		implementation(opensavvyConventions.aligned.kotlin.test.junit5)
-	}
 }
 
 application {

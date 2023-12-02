@@ -9,6 +9,19 @@ kotlin {
 		browser()
 		nodejs()
 	}
+
+	sourceSets.commonTest.dependencies {
+		implementation(opensavvyConventions.aligned.kotlin.test.annotations)
+		implementation(opensavvyConventions.aligned.kotlin.test.common)
+	}
+
+	sourceSets.jvmTest.dependencies {
+		implementation(opensavvyConventions.aligned.kotlin.test.junit5)
+	}
+
+	sourceSets.jsTest.dependencies {
+		implementation(opensavvyConventions.aligned.kotlin.test.js)
+	}
 }
 
 library {
