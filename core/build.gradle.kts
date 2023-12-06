@@ -9,6 +9,7 @@ kotlin {
 		browser()
 		nodejs()
 	}
+	linuxX64()
 
 	sourceSets.commonTest.dependencies {
 		implementation(opensavvyConventions.aligned.kotlin.test.annotations)

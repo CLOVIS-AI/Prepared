@@ -21,6 +21,7 @@ variables:
   kotlin_jvm: "yes"
   kotlin_js_browser: "yes"
   kotlin_js_node: "yes"
+  kotlin_native_linuxX64: "yes"
 
 # region Kotlin Multiplatform
 
@@ -54,6 +55,14 @@ variables:
       when: always
     - when: never
 
+.kotlin-native-linuxX64:
+  extends: [ .kotlin-jvm ] # it already runs on Linux
+
+  rules:
+    - if: $kotlin_native_linuxX64 == "yes"
+      when: always
+    - when: never
+
 # endregion
 # region Check
 
@@ -66,6 +75,7 @@ check[jvm]:
       ./gradlew check
       -x jsBrowserTest
       -x jsNodeTest
+      -x linuxX64Test
       -PappVersion=$project_version
 
   interruptible: true
@@ -88,6 +98,17 @@ check[nodeJs]:
   script:
     - >
       ./gradlew jsNodeTest
+      -PappVersion=$project_version
+
+  interruptible: true
+
+check[linuxX64]:
+  extends: [ .kotlin-native-linuxX64 ]
+  stage: test
+
+  script:
+    - >
+      ./gradlew linuxX64Test
       -PappVersion=$project_version
 
   interruptible: true
