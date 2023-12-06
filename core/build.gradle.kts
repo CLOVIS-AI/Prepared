@@ -10,6 +10,9 @@ kotlin {
 		nodejs()
 	}
 	linuxX64()
+	iosArm64()
+	iosSimulatorArm64()
+	iosX64()
 
 	sourceSets.commonTest.dependencies {
 		implementation(opensavvyConventions.aligned.kotlin.test.annotations)

@@ -22,6 +22,7 @@ variables:
   kotlin_js_browser: "yes"
   kotlin_js_node: "yes"
   kotlin_native_linuxX64: "yes"
+  kotlin_native_iosArm64: "yes"
 
 # region Kotlin Multiplatform
 
@@ -63,6 +64,21 @@ variables:
       when: always
     - when: never
 
+.kotlin-native-iosArm64:
+  extends: [ .os.gradle ]
+  image: macos-13-xcode-14
+  needs: [ os.version ]
+
+  before_script:
+    - xcodebuild -downloadPlatform iOS
+  tags:
+    - saas-macos-medium-m1
+
+  rules:
+    - if: $kotlin_native_iosArm64 == "yes"
+      when: always
+    - when: never
+
 # endregion
 # region Check
 
@@ -76,6 +92,7 @@ check[jvm]:
       -x jsBrowserTest
       -x jsNodeTest
       -x linuxX64Test
+      -x iosSimulatorArm64Test
       -PappVersion=$project_version
 
   interruptible: true
@@ -109,6 +126,18 @@ check[linuxX64]:
   script:
     - >
       ./gradlew linuxX64Test
+      -PappVersion=$project_version
+
+  interruptible: true
+
+check[iosArm64]:
+  extends: [ .kotlin-native-iosArm64 ]
+  stage: test
+
+  script:
+    - >
+      ./gradlew iosSimulatorArm64Test
+      --no-configuration-cache
       -PappVersion=$project_version
 
   interruptible: true
