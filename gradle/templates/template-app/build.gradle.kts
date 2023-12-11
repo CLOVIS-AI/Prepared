@@ -9,7 +9,7 @@ kotlin {
 	}
 
 	sourceSets.commonMain.dependencies {
-		implementation(projects.core)
+		implementation(projects.gradle.templates.templateLib)
 	}
 }
 

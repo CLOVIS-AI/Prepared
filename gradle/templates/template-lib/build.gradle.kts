@@ -38,3 +38,19 @@ library {
 		url.set("https://www.apache.org/licenses/LICENSE-2.0.txt")
 	}
 }
+
+// region Publication test
+// Even though this module is included in all repositories that import the Playground, we
+// don't want to always publish this template.
+
+val appGroup: String? by project
+
+if (appGroup != "dev.opensavvy.playground") {
+	tasks.configureEach {
+		if (name.startsWith("publish")) {
+			onlyIf("Publishing is only enabled when built as part of the Playground") { false }
+		}
+	}
+}
+
+// endregion
