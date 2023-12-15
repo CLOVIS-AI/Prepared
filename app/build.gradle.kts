@@ -8,16 +8,8 @@ kotlin {
 		withJava() // required by the application plugin
 	}
 
-	val commonMain by sourceSets.getting {
-		dependencies {
-			implementation(projects.core)
-		}
-	}
-
-	val commonTest by sourceSets.getting {
-		dependencies {
-			implementation(opensavvyConventions.aligned.kotlin.test.junit5)
-		}
+	sourceSets.commonMain.dependencies {
+		implementation(projects.core)
 	}
 }
 

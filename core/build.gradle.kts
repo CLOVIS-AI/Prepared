@@ -5,6 +5,27 @@ plugins {
 
 kotlin {
 	jvm()
+	js {
+		browser()
+		nodejs()
+	}
+	linuxX64()
+	iosArm64()
+	iosSimulatorArm64()
+	iosX64()
+
+	sourceSets.commonTest.dependencies {
+		implementation(opensavvyConventions.aligned.kotlin.test.annotations)
+		implementation(opensavvyConventions.aligned.kotlin.test.common)
+	}
+
+	sourceSets.jvmTest.dependencies {
+		implementation(opensavvyConventions.aligned.kotlin.test.junit5)
+	}
+
+	sourceSets.jsTest.dependencies {
+		implementation(opensavvyConventions.aligned.kotlin.test.js)
+	}
 }
 
 library {
