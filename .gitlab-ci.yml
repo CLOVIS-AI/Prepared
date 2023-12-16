@@ -118,7 +118,7 @@ check[iosArm64]:
 # region Publishing
 
 publish-maven:gitlab:
-  extends: [ .os.gradle ]
+  extends: [ .kotlin-jvm ]
   needs: [ os.version ]
   stage: deploy
 
@@ -136,7 +136,7 @@ publish-maven:gitlab:
     - if: $CI_COMMIT_TAG
 
 publish-maven:central:initialize:
-  extends: [ .os.gradle ]
+  extends: [ .kotlin-jvm ]
   needs: [ os.version ]
   stage: deploy
 
@@ -155,7 +155,7 @@ publish-maven:central:initialize:
     - if: $CI_COMMIT_TAG
 
 publish-maven:central:
-  extends: [ .os.gradle ]
+  extends: [ .kotlin-jvm ]
   needs: [ os.version, publish-maven:central:initialize ]
   stage: deploy
 
@@ -177,7 +177,7 @@ publish-maven:central:
     - if: $CI_COMMIT_TAG
 
 publish-maven:central:release:
-  extends: [ .os.gradle ]
+  extends: [ .kotlin-jvm ]
   needs: [ os.version, publish-maven:central ]
   stage: deploy
 
