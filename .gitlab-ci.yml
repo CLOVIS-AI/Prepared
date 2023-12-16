@@ -21,13 +21,6 @@ workflow:
     - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
     - if: $CI_COMMIT_TAG
 
-variables:
-  kotlin_jvm: "yes"
-  kotlin_js_browser: "yes"
-  kotlin_js_node: "yes"
-  kotlin_native_linuxX64: "yes"
-  kotlin_native_iosArm64: "yes"
-
 # region Kotlin Multiplatform
 
 .kotlin-jvm:
@@ -35,38 +28,18 @@ variables:
   image: registry.gitlab.com/opensavvy/automation/containers/java:latest
   needs: [ os.version ]
 
-  rules:
-    - if: $kotlin_jvm == "yes"
-      when: always
-    - when: never
-
 .kotlin-js-browser:
   extends: [ .os.gradle ]
   image: registry.gitlab.com/opensavvy/automation/containers/chromium:latest
   needs: [ os.version ]
-
-  rules:
-    - if: $kotlin_js_browser == "yes"
-      when: always
-    - when: never
 
 .kotlin-js-node:
   extends: [ .os.gradle ]
   image: registry.gitlab.com/opensavvy/automation/containers/chromium:latest
   needs: [ os.version ]
 
-  rules:
-    - if: $kotlin_js_node == "yes"
-      when: always
-    - when: never
-
 .kotlin-native-linuxX64:
   extends: [ .kotlin-jvm ] # it already runs on Linux
-
-  rules:
-    - if: $kotlin_native_linuxX64 == "yes"
-      when: always
-    - when: never
 
 .kotlin-native-iosArm64:
   extends: [ .os.gradle ]
@@ -77,11 +50,6 @@ variables:
     - xcodebuild -downloadPlatform iOS
   tags:
     - saas-macos-medium-m1
-
-  rules:
-    - if: $kotlin_native_iosArm64 == "yes"
-      when: always
-    - when: never
 
 # endregion
 # region Check
