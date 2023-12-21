@@ -6,7 +6,6 @@ import io.kotest.core.spec.style.StringSpec
 import io.kotest.core.spec.style.scopes.RootScope
 import io.kotest.core.spec.style.scopes.addTest
 import io.kotest.core.test.TestType
-import io.kotest.core.test.config.UnresolvedTestConfig
 import opensavvy.prepared.suite.SuiteDsl
 import opensavvy.prepared.suite.TestDsl
 import opensavvy.prepared.suite.config.*
@@ -57,7 +56,7 @@ private class NonNestedSuite(private val root: RootScope, private val parentConf
 	override fun test(name: String, context: CoroutineContext, config: TestConfig, block: suspend TestDsl.() -> Unit) {
 		val thisConfig = parentConfig + config
 
-		val kotestConfig = UnresolvedTestConfig(
+		val kotestConfig = io.kotest.core.test.config.TestConfig(
 			enabled = thisConfig[Ignored] == null,
 			tags = config[Tag]
 				.mapTo(HashSet()) { io.kotest.core.Tag(it.name) }
