@@ -7,7 +7,7 @@
  * in the user manual at https://docs.gradle.org/8.1.1/userguide/multi_project_builds.html
  */
 
-rootProject.name = "Playground"
+rootProject.name = "Prepared"
 
 pluginManagement {
 	repositories {
@@ -28,4 +28,16 @@ plugins {
 include(
 	"gradle:templates:template-app",
 	"gradle:templates:template-lib",
+
+	"suite",
+	"framework",
+
+	"compat:compat-kotlinx-datetime",
+	"compat:compat-java-time",
+	"compat:compat-gradle",
+	"compat:compat-filesystem",
+	"compat:compat-arrow",
+
+	"runners:runner-kotlin-test",
+	"runners:runner-kotest",
 )
