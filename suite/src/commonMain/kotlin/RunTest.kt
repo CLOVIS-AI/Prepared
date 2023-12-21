@@ -2,7 +2,9 @@ package opensavvy.prepared.suite
 
 import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.test.TestResult
+import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.runTest
+import kotlinx.coroutines.withContext
 import opensavvy.prepared.suite.config.TestConfig
 import opensavvy.prepared.suite.config.effectiveTimeout
 import kotlin.coroutines.CoroutineContext
@@ -18,9 +20,21 @@ private class TestDslImpl(
  * It is only provided because it is required for people who implement their own test runner.
  */
 fun runTestDsl(name: String, context: CoroutineContext, config: TestConfig, block: suspend TestDsl.() -> Unit): TestResult {
-	return runTest(CoroutineName("Test ‘$name’") + context, timeout = config.effectiveTimeout()) {
+	return runTest(timeout = config.effectiveTimeout()) {
+		runTestDslSuspend(name, context, config, block)
+	}
+}
+
+/**
+ * Low-level primitive to execute a test declared as a [TestDsl], when already inside a [TestScope].
+ *
+ * Regular users of the library should never need to call this function. It is only provided because it is required
+ * for people who implement their own test runner.
+ */
+suspend fun TestScope.runTestDslSuspend(name: String, context: CoroutineContext, config: TestConfig, block: suspend TestDsl.() -> Unit) {
+	withContext(context + CoroutineName("Test ‘$name’")) {
 		val test = TestDslImpl(
-			environment = TestEnvironment(name, this),
+			environment = TestEnvironment(name, this@runTestDslSuspend)
 		)
 
 		var successful = false
