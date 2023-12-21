@@ -9,7 +9,6 @@ kotlinx-datetime = "0.4.1"
 gradle-testkit = "8.4"
 
 [plugins]
-kotest = { id = "io.kotest.multiplatform", version.ref = "kotest" }
 
 [libraries]
 kotlin-test-common = { module = "org.jetbrains.kotlin:kotlin-test-common", version.ref = "kotlin" }

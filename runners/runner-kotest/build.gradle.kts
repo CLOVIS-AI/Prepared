@@ -1,7 +1,6 @@
 plugins {
 	alias(opensavvyConventions.plugins.base)
 	alias(opensavvyConventions.plugins.kotlin.library)
-	alias(libs.plugins.kotest)
 }
 
 kotlin {
