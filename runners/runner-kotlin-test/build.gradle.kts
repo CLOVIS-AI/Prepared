@@ -26,8 +26,8 @@ kotlin {
 		dependencies {
 			api(projects.suite)
 
-			implementation(libs.kotlin.test.common)
-			implementation(libs.kotlin.test.annotations)
+			api(opensavvyConventions.aligned.kotlin.test.common)
+			api(opensavvyConventions.aligned.kotlin.test.annotations)
 		}
 	}
 
@@ -39,13 +39,13 @@ kotlin {
 
 	val jvmMain by sourceSets.getting {
 		dependencies {
-			implementation(libs.kotlin.test.junit5)
+			api(opensavvyConventions.aligned.kotlin.test.junit5)
 		}
 	}
 
 	val jsMain by sourceSets.getting {
 		dependencies {
-			implementation(libs.kotlin.test.js)
+			api(opensavvyConventions.aligned.kotlin.test.js)
 		}
 	}
 }
