@@ -25,21 +25,22 @@ workflow:
 
 .kotlin-jvm:
   extends: [ .os.gradle ]
-  image: registry.gitlab.com/opensavvy/automation/containers/java:latest
+  image: registry.gitlab.com/opensavvy/automation/containers/java:$ci_containers
   needs: [ os.version ]
 
 .kotlin-js-browser:
   extends: [ .os.gradle ]
-  image: registry.gitlab.com/opensavvy/automation/containers/chromium:latest
+  image: registry.gitlab.com/opensavvy/automation/containers/chromium:$ci_containers
   needs: [ os.version ]
 
 .kotlin-js-node:
   extends: [ .os.gradle ]
-  image: registry.gitlab.com/opensavvy/automation/containers/chromium:latest
+  image: registry.gitlab.com/opensavvy/automation/containers/chromium:$ci_containers
   needs: [ os.version ]
 
 .kotlin-native-linuxX64:
-  extends: [ .kotlin-jvm ] # it already runs on Linux
+  image: registry.gitlab.com/opensavvy/automation/containers/java:$ci_containers
+  needs: [ os.version ]
 
 .kotlin-native-iosArm64:
   extends: [ .os.gradle ]
