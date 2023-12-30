@@ -39,7 +39,8 @@ workflow:
   needs: [ os.version ]
 
 .kotlin-native-linuxX64:
-  extends: [ .kotlin-jvm ] # it already runs on Linux
+  image: registry.gitlab.com/opensavvy/automation/containers/java:latest
+  needs: [ os.version ]
 
 .kotlin-native-iosArm64:
   extends: [ .os.gradle ]
