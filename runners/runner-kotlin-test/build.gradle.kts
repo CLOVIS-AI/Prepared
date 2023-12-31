@@ -11,16 +11,16 @@ kotlin {
 			}
 		}
 	}
-	js {
-		nodejs()
-		browser {
-			testTask {
-				useMocha {
-					timeout = "1 minute"
-				}
-			}
-		}
-	}
+	// js {  //TODO fix in https://gitlab.com/opensavvy/prepared/-/issues/38
+	// 	nodejs()
+	// 	browser {
+	// 		testTask {
+	// 			useMocha {
+	// 				timeout = "1 minute"
+	// 			}
+	// 		}
+	// 	}
+	// }
 
 	val commonMain by sourceSets.getting {
 		dependencies {
@@ -43,11 +43,11 @@ kotlin {
 		}
 	}
 
-	val jsMain by sourceSets.getting {
-		dependencies {
-			api(opensavvyConventions.aligned.kotlin.test.js)
-		}
-	}
+	// val jsMain by sourceSets.getting {
+	// 	dependencies {
+	// 		api(opensavvyConventions.aligned.kotlin.test.js)
+	// 	}
+	// }
 }
 
 tasks.withType(Test::class) {
