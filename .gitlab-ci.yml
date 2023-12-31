@@ -10,6 +10,10 @@ include:
   - remote: https://gitlab.com/opensavvy/ci-templates/-/raw/main/gradle.gitlab-ci.yml
   - remote: https://gitlab.com/opensavvy/ci-templates/-/raw/main/docker.gitlab-ci.yml
 
+variables:
+  # https://gitlab.com/opensavvy/automation/containers
+  ci_containers: 0.2.0
+
 workflow:
   rules:
     - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
@@ -17,24 +21,56 @@ workflow:
     - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
     - if: $CI_COMMIT_TAG
 
+# region Kotlin Multiplatform
+
+.kotlin-jvm:
+  extends: [ .os.gradle ]
+  image: registry.gitlab.com/opensavvy/automation/containers/java:latest
+  needs: [ os.version ]
+
+.kotlin-js-browser:
+  extends: [ .os.gradle ]
+  image: registry.gitlab.com/opensavvy/automation/containers/chromium:latest
+  needs: [ os.version ]
+
+.kotlin-js-node:
+  extends: [ .os.gradle ]
+  image: registry.gitlab.com/opensavvy/automation/containers/chromium:latest
+  needs: [ os.version ]
+
+.kotlin-native-linuxX64:
+  extends: [ .kotlin-jvm ] # it already runs on Linux
+
+.kotlin-native-iosArm64:
+  extends: [ .os.gradle ]
+  image: macos-13-xcode-14
+  needs: [ os.version ]
+
+  before_script:
+    - xcodebuild -downloadPlatform iOS
+  tags:
+    - saas-macos-medium-m1
+
+# endregion
 # region Check
 
-check:
-  extends: [ .os.gradle ]
-  needs: [ os.version ]
+check[jvm]:
+  extends: [ .kotlin-jvm ]
   stage: test
 
   script:
     - >
-      ./gradlew check -x jsBrowserTest
+      ./gradlew check
+      -x jsBrowserTest
+      -x jsNodeTest
+      -x linuxX64Test
+      -x iosSimulatorArm64Test
       -PappVersion=$project_version
 
   interruptible: true
 
-check-js:
-  extends: [ .os.gradle ]
-  image: registry.gitlab.com/opensavvy/pedestal/chromium:latest
-  needs: [ os.version ]
+check[jsBrowser]:
+  extends: [ .kotlin-js-browser ]
   stage: test
 
   script:
@@ -44,12 +80,46 @@ check-js:
 
   interruptible: true
 
+check[nodeJs]:
+  extends: [ .kotlin-js-node ]
+  stage: test
+
+  script:
+    - >
+      ./gradlew jsNodeTest
+      -PappVersion=$project_version
+
+  interruptible: true
+
+check[linuxX64]:
+  extends: [ .kotlin-native-linuxX64 ]
+  stage: test
+
+  script:
+    - >
+      ./gradlew linuxX64Test
+      -PappVersion=$project_version
+
+  interruptible: true
+
+check[iosArm64]:
+  extends: [ .kotlin-native-iosArm64 ]
+  stage: test
+
+  script:
+    - >
+      ./gradlew iosSimulatorArm64Test
+      --no-configuration-cache
+      -PappVersion=$project_version
+
+  interruptible: true
+
 # endregion
 # region Publishing
 
 publish-maven:gitlab:
-  extends: [ .os.gradle ]
-  needs: [ os.version, check ]
+  extends: [ .kotlin-jvm ]
+  needs: [ os.version ]
   stage: deploy
 
   script:
@@ -65,8 +135,28 @@ publish-maven:gitlab:
     - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
     - if: $CI_COMMIT_TAG
 
+publish-maven:gitlab[ios]:
+  extends: [ .kotlin-native-iosArm64 ]
+  stage: deploy
+
+  script:
+    - >
+      ./gradlew
+      publishIosArm64PublicationToGitLabRepository
+      publishIosSimulatorArm64PublicationToGitLabRepository
+      publishIosX64PublicationToGitLabRepository
+      --no-configuration-cache
+      -PappVersion=$project_version
+      
+  interruptible: false
+  rules:
+    - if: $PUBLISH_MAVEN == "no" || $PUBLISH_MAVEN_GITLAB == "no" || $PUBLISH_MAVEN_IOS == "no"
+      when: never
+    - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
+    - if: $CI_COMMIT_TAG
+
 publish-maven:central:initialize:
-  extends: [ .os.gradle ]
+  extends: [ .kotlin-jvm ]
   needs: [ os.version ]
   stage: deploy
 
@@ -85,7 +175,7 @@ publish-maven:central:initialize:
     - if: $CI_COMMIT_TAG
 
 publish-maven:central:
-  extends: [ .os.gradle ]
+  extends: [ .kotlin-jvm ]
   needs: [ os.version, publish-maven:central:initialize ]
   stage: deploy
 
@@ -106,8 +196,30 @@ publish-maven:central:
       when: never
     - if: $CI_COMMIT_TAG
 
+publish-maven:central[ios]:
+  extends: [ .kotlin-native-iosArm64 ]
+  needs: [ os.version, publish-maven:central:initialize ]
+  stage: deploy
+
+  script:
+    - export SIGNING_KEY_RING=$(mktemp)
+    - <"$SIGNING_KEY_RING_B64" base64 -d >"$SIGNING_KEY_RING"
+    - >
+      ./gradlew findSonatypeStagingRepository publishToSonatype
+      -x initializeSonatypeStagingRepository
+      --no-configuration-cache
+      -PappVersion=$project_version
+
+  interruptible: false
+  rules:
+    - if: $OSSRH_USERNAME == null || $OSSRH_PASSWORD == null
+      when: never
+    - if: $PUBLISH_MAVEN == "no" || $PUBLISH_MAVEN_CENTRAL == "no" || $PUBLISH_MAVEN_IOS == "no"
+      when: never
+    - if: $CI_COMMIT_TAG
+
 publish-maven:central:release:
-  extends: [ .os.gradle ]
+  extends: [ .kotlin-jvm ]
   needs: [ os.version, publish-maven:central ]
   stage: deploy
 
@@ -181,7 +293,7 @@ mirror-playground:
       allow_failure: true
 
 # endregion
-# GitLab Pages
+# region GitLab Pages
 
 pages:
   image: alpine:latest

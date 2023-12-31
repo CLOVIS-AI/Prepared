@@ -11,23 +11,23 @@ kotlin {
 			}
 		}
 	}
-	js {
-		nodejs()
-		browser {
-			testTask {
-				useMocha {
-					timeout = "1 minute"
-				}
-			}
-		}
-	}
+	// js {  //TODO fix in https://gitlab.com/opensavvy/prepared/-/issues/38
+	// 	nodejs()
+	// 	browser {
+	// 		testTask {
+	// 			useMocha {
+	// 				timeout = "1 minute"
+	// 			}
+	// 		}
+	// 	}
+	// }
 
 	val commonMain by sourceSets.getting {
 		dependencies {
 			api(projects.suite)
 
-			implementation(libs.kotlin.test.common)
-			implementation(libs.kotlin.test.annotations)
+			api(opensavvyConventions.aligned.kotlin.test.common)
+			api(opensavvyConventions.aligned.kotlin.test.annotations)
 		}
 	}
 
@@ -39,15 +39,15 @@ kotlin {
 
 	val jvmMain by sourceSets.getting {
 		dependencies {
-			implementation(libs.kotlin.test.junit5)
+			api(opensavvyConventions.aligned.kotlin.test.junit5)
 		}
 	}
 
-	val jsMain by sourceSets.getting {
-		dependencies {
-			implementation(libs.kotlin.test.js)
-		}
-	}
+	// val jsMain by sourceSets.getting {
+	// 	dependencies {
+	// 		api(opensavvyConventions.aligned.kotlin.test.js)
+	// 	}
+	// }
 }
 
 tasks.withType(Test::class) {
