@@ -57,7 +57,6 @@ To learn more, [read the documentation](https://opensavvy.gitlab.io/prepared/api
 ## Project structure
 
 - `suite`: Utilities to declare tests and describe how they should run
-- `framework`: Default configuration of all modules for ease of use
 - `runners`: Compatibility layer for test runners
 - `compat`: Compatibility layer for other libraries
 
