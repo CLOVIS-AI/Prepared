@@ -7,7 +7,7 @@ package opensavvy.prepared.suite.config
  *
  * Mark a suite as disabled:
  * ```kotlin
- * suite(Ignored) {
+ * suite("Suite name", Ignored) {
  *     // …
  * }
  * ```
