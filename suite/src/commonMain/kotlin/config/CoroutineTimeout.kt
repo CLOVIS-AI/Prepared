@@ -24,10 +24,10 @@ data class CoroutineTimeout(
 	val duration: Duration,
 ) : TestConfig.Element {
 
-	override val key: TestConfig.Key<*>
+	override val key: TestConfig.Key<*, TestConfig.Uniqueness.Unique>
 		get() = Companion
 
-	companion object : TestConfig.Key<CoroutineTimeout> {
+	companion object : TestConfig.Key.Unique<CoroutineTimeout> {
 		val Default = 10.seconds
 	}
 }
