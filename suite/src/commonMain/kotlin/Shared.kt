@@ -91,6 +91,8 @@ class Shared<out T> internal constructor(
 		data object Empty : Option<Nothing>()
 		data class Present<out T>(val value: T) : Option<T>()
 	}
+
+	override fun toString() = "Shared($name)"
 }
 
 /**
