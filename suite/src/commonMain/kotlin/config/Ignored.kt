@@ -20,6 +20,5 @@ package opensavvy.prepared.suite.config
  * ```
  */
 object Ignored : TestConfig.Element, TestConfig.Key.Unique<Ignored> {
-	override val key: TestConfig.Key<*, TestConfig.Uniqueness.Unique>
-		get() = this
+	override val key get() = this
 }
