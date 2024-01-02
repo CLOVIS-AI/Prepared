@@ -7,7 +7,7 @@ package opensavvy.prepared.suite.config
  *
  * Mark a suite as disabled:
  * ```kotlin
- * suite(Ignored) {
+ * suite("Suite name", Ignored) {
  *     // …
  * }
  * ```
@@ -19,7 +19,6 @@ package opensavvy.prepared.suite.config
  * }
  * ```
  */
-object Ignored : TestConfig.Element, TestConfig.Key<Ignored> {
-	override val key: TestConfig.Key<*>
-		get() = this
+object Ignored : TestConfig.Element, TestConfig.Key.Unique<Ignored> {
+	override val key get() = this
 }
