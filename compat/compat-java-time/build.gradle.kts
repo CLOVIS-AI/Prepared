@@ -14,7 +14,7 @@ kotlin {
 
 	val jvmTest by sourceSets.getting {
 		dependencies {
-			implementation(projects.framework)
+			implementation(projects.runners.runnerKotest)
 		}
 	}
 }

@@ -20,7 +20,7 @@ kotlin {
 
 	val commonTest by sourceSets.getting {
 		dependencies {
-			implementation(projects.framework)
+			implementation(projects.runners.runnerKotest)
 		}
 	}
 }

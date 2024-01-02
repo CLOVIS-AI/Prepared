@@ -30,7 +30,6 @@ include(
 	"gradle:templates:template-lib",
 
 	"suite",
-	"framework",
 
 	"compat:compat-kotlinx-datetime",
 	"compat:compat-java-time",
