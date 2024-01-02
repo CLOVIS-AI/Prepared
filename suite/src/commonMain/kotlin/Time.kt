@@ -179,6 +179,11 @@ fun Time.advanceBy(delay: Duration) {
  *     assertEquals(4000, time.nowMillis)
  * }
  * ```
+ *
+ * ### Background tasks
+ *
+ * This method advances time until all the last [foreground tasks][TestDsl.launch]'s scheduled time.
+ * There may be [background tasks][TestDsl.launchInBackground] that are scheduled for later.
  */
 @ExperimentalCoroutinesApi
 fun Time.advanceUntilIdle() {
