@@ -26,6 +26,7 @@ dependencies {
 	dokkatoo(projects.compat.compatJavaTime)
 	dokkatoo(projects.compat.compatFilesystem)
 	dokkatoo(projects.compat.compatArrow)
+	dokkatoo(projects.compat.compatParameterize)
 }
 
 // region Check the users of the project didn't forget to rename the group

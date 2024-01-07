@@ -6,6 +6,7 @@ arrow = "1.2.1"
 kotlinx-coroutines = "1.7.3"
 kotlinx-datetime = "0.4.1"
 gradle-testkit = "8.4"
+parameterize = "0.2.1"
 
 [plugins]
 
@@ -17,5 +18,6 @@ kotest-engine = { module = "io.kotest:kotest-framework-engine", version.ref = "k
 kotest-runner-junit5 = { module = "io.kotest:kotest-runner-junit5", version.ref = "kotest" }
 gradle-testkit = { module = "dev.gradleplugins:gradle-test-kit", version.ref = "gradle-testkit" }
 arrow-core = { module = "io.arrow-kt:arrow-core", version.ref = "arrow" }
+parameterize = { module = "com.benwoodworth.parameterize:parameterize", version.ref = "parameterize" }
 
 [bundles]
