@@ -37,3 +37,38 @@ suite("A test suite") {
 	}
 }
 ```
+
+## Prepared values
+
+[Prepared values][opensavvy.prepared.suite.Prepared] allow declaring lazily-computed test fixtures. Using this module, they can be used as test parameters as well. Depending on the situation, two syntaxes are available.
+
+When prepared values are heterogeneous, declare them then combine them as parameters:
+
+```kotlin
+suite("A test suite") {
+	parameterize {
+		val one by prepared { 1 }
+		val other by prepared { random.nextInt() }
+		val number by parameterOf(one, other)
+
+		test("Test $number") {
+			assertTrue(number().toString().isNotEmpty())
+		}
+	}
+}
+```
+
+When they are constructed by [transforming another parameter][opensavvy.prepared.compat.parameterize.prepare], declare the parameter first:
+
+```kotlin
+suite("A test suite") {
+	parameterize {
+		val number by parameterOf(0, 1, Int.MAX_VALUE, -99)
+			.prepare { expensiveOperation(it) }
+
+		test("Test $number") {
+			assertTrue(number().successful)
+		}
+	}
+}
+```
