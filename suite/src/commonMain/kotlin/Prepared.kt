@@ -82,7 +82,7 @@ class Prepared<out T> internal constructor(
 	//    this class *must not* have an equals method
 	//    it must always be compared by reference, or the cache risks confusing multiple values
 
-	override fun toString() = "Prepared($name)"
+	override fun toString() = "\uD83D\uDDA9 $name"
 }
 
 /**
