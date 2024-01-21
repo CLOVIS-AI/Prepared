@@ -26,7 +26,7 @@ import kotlin.io.path.deleteRecursively
 @ExperimentalPathApi
 fun createRandomDirectory(prefix: String = ""): PreparedProvider<Path> = prepared {
 	Files.createTempDirectory(prefix)
-		.also { cleanUp("Delete the directory ${it.absolutePathString()}") { it.deleteRecursively() } }
+		.also { cleanUp("Delete the directory ${it.absolutePathString()}", onFailure = false) { it.deleteRecursively() } }
 }
 
 /**
@@ -44,5 +44,5 @@ fun createRandomDirectory(prefix: String = ""): PreparedProvider<Path> = prepare
  */
 fun createRandomFile(prefix: String = "", suffix: String = ""): PreparedProvider<Path> = prepared {
 	Files.createTempFile(prefix, suffix)
-		.also { cleanUp("Delete the file ${it.absolutePathString()}") { it.deleteIfExists() } }
+		.also { cleanUp("Delete the file ${it.absolutePathString()}", onFailure = false) { it.deleteIfExists() } }
 }
