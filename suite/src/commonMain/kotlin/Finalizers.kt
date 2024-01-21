@@ -7,19 +7,28 @@ internal class Finalizers {
 	private val lock = Mutex()
 	private val finalizers = ArrayList<Finalizer>()
 
-	suspend fun register(name: String, block: suspend TestDsl.() -> Unit) {
-		lock.withLock("register") { finalizers.add(Finalizer(name, block)) }
+	suspend fun register(
+		name: String,
+		onSuccess: Boolean,
+		onFailure: Boolean,
+		block: suspend TestDsl.() -> Unit,
+	) {
+		lock.withLock("register") { finalizers.add(Finalizer(name, onSuccess, onFailure, block)) }
 	}
 
-	suspend fun TestDsl.executeAllFinalizers() {
-		finalizers.asReversed().forEach {
-			println("» Finalizing '${it.name}'")
-			it.block(this)
-		}
+	suspend fun TestDsl.executeAllFinalizers(successful: Boolean) {
+		finalizers.asReversed()
+			.filter { successful && it.onSuccess || !successful && it.onFailure }
+			.forEach {
+				println("» Finalizing '${it.name}'")
+				it.block(this)
+			}
 	}
 
 	private class Finalizer(
 		val name: String,
+		val onSuccess: Boolean,
+		val onFailure: Boolean,
 		val block: suspend TestDsl.() -> Unit,
 	)
 }
@@ -72,8 +81,16 @@ internal class Finalizers {
  *     // 2. Disconnect from the database
  * }
  * ```
+ *
+ * @param onSuccess If `false`, this finalizer will not run if the test failed.
+ * @param onFailure If `false`, this finalizer will not run if the test was successful.
  */
 @PreparedDslMarker
-suspend fun TestDsl.cleanUp(name: String, block: suspend TestDsl.() -> Unit) {
-	environment.finalizers.register(name, block)
+suspend fun TestDsl.cleanUp(
+	name: String,
+	onSuccess: Boolean = true,
+	onFailure: Boolean = true,
+	block: suspend TestDsl.() -> Unit,
+) {
+	environment.finalizers.register(name, onSuccess, onFailure, block)
 }

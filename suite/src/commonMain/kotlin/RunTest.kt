@@ -23,10 +23,12 @@ fun runTestDsl(name: String, context: CoroutineContext, config: TestConfig, bloc
 			environment = TestEnvironment(name, this),
 		)
 
+		var successful = false
 		try {
 			test.block()
+			successful = true
 		} finally {
-			with(test.environment.finalizers) { test.executeAllFinalizers() }
+			with(test.environment.finalizers) { test.executeAllFinalizers(successful = successful) }
 		}
 	}
 }
