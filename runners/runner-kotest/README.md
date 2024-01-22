@@ -35,6 +35,28 @@ class FooTest : StringSpec({
 })
 ```
 
+If you do not plan on mixing vanilla Kotest tests with your Prepared tests, you can also use the [PreparedSpec][opensavvy.prepared.runner.kotest.PreparedSpec]:
+
+```kotlin
+class FooTest : PreparedSpec({
+	test("Hello world") {
+		"Hello world" shouldBe "Hello world"
+	}
+
+	suite("A group of related tests") {
+		test("Control the time") {
+			println("Current time: ${time.nowMillis}ms")
+		}
+
+		test("Control randomness") {
+			random.setSeed(1)
+
+			println("Random value: ${random.nextInt()}")
+		}
+	}
+})
+```
+
 ## Setup
 
 Follow the [Kotest setup guide](https://kotest.io/docs/framework/project-setup.html), simply adding a dependency on this

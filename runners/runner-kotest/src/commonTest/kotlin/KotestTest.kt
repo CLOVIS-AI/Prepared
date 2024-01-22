@@ -45,3 +45,11 @@ class KotestTest : StringSpec({
 		}
 	}
 })
+
+class KotestTest2 : PreparedSpec({
+	suite("Test") {
+		test("Test") {
+			true shouldBe true
+		}
+	}
+})
