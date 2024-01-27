@@ -26,6 +26,7 @@ dependencies {
 	dokkatoo(projects.compat.compatJavaTime)
 	dokkatoo(projects.compat.compatFilesystem)
 	dokkatoo(projects.compat.compatArrow)
+	dokkatoo(projects.compat.compatKtor)
 	dokkatoo(projects.compat.compatParameterize)
 }
 

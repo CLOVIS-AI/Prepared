@@ -36,6 +36,7 @@ include(
 	"compat:compat-gradle",
 	"compat:compat-filesystem",
 	"compat:compat-arrow",
+	"compat:compat-ktor",
 	"compat:compat-parameterize",
 
 	"runners:runner-kotlin-test",
