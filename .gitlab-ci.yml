@@ -39,6 +39,7 @@ workflow:
   needs: [ os.version ]
 
 .kotlin-native-linuxX64:
+  extends: [ .os.gradle ]
   image: registry.gitlab.com/opensavvy/automation/containers/java:$ci_containers
   needs: [ os.version ]
 
