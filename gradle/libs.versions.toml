@@ -1,7 +1,7 @@
 # List of dependencies of the project
 
 [versions]
-kotest = "5.7.1"
+kotest = "5.8.0"              # https://github.com/kotest/kotest/releases
 arrow = "1.2.1"
 kotlinx-coroutines = "1.7.3"
 kotlinx-datetime = "0.4.1"
