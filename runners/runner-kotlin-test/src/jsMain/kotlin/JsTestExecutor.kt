@@ -8,12 +8,30 @@ import opensavvy.prepared.suite.config.get
 import opensavvy.prepared.suite.config.plus
 import opensavvy.prepared.suite.runTestDsl
 import kotlin.coroutines.CoroutineContext
+import kotlin.test.FrameworkAdapter
 
-// access the internals of kotlin-test, let's hope they don't change in the future :)
-// see https://github.com/JetBrains/kotlin/blob/master/libraries/kotlin.test/js/src/main/kotlin/kotlin/test/TestApi.kt
-@JsModule("kotlin-test")
-@JsNonModule
-private external val kTest: dynamic
+// region Register a kotlin-test FrameworkAdapter
+// See https://youtrack.jetbrains.com/issue/KT-65360#focus=Comments-27-9069942.0-0
+// See https://youtrack.jetbrains.com/issue/KT-65360#focus=Comments-27-9112906.0-0
+
+private var currentAdapter: FrameworkAdapter? = null
+
+@OptIn(ExperimentalStdlibApi::class)
+@EagerInitialization // Necessary to initialize top-level property in a non-lazy manner
+@Suppress("unused") // Automatically called when the program starts because it's eager
+private val initializeAdapter = run {
+	val jso = js("{}")
+	val currentTransformer: ((FrameworkAdapter) -> FrameworkAdapter)? = globalThis.kotlinTest?.adapterTransformer
+	jso.adapterTransformer = { previousAdapter: FrameworkAdapter ->
+		currentAdapter = previousAdapter
+		currentTransformer?.let { it(previousAdapter) }
+	}
+	globalThis.kotlinTest = jso
+}
+
+private external val globalThis: dynamic
+
+// endregion
 
 actual abstract class TestExecutor {
 
@@ -22,31 +40,32 @@ actual abstract class TestExecutor {
 
 	actual abstract fun SuiteDsl.register()
 
-	// this test shows up as an empty test that always succeeds in reports,
-	// but we need it for the class to be discovered
 	@kotlin.test.Test
 	fun registerTests() {
+		val frameworkAdapter = currentAdapter
+			?: error("No framework adapter were defined, or Prepared couldn't register itself into the existing framework adapter.")
+
 		val name = "Class ${this::class.simpleName}"
-		kTest.kotlin.test.suite(name, false) {
-			JsSuiteDsl(name, config).register()
+		frameworkAdapter.suite(name, ignored = false) {
+			JsSuiteDsl(frameworkAdapter, name, config).register()
 		}
 	}
 }
 
-private class JsSuiteDsl(val suiteName: String, val parentConfig: TestConfig) : SuiteDsl {
+private class JsSuiteDsl(val adapter: FrameworkAdapter, val suiteName: String, val parentConfig: TestConfig) : SuiteDsl {
 	override fun suite(name: String, config: TestConfig, block: SuiteDsl.() -> Unit) {
 		println("Registering suite '$name'…")
 		val thisConfig = parentConfig + config
 		val thisName = "$suiteName • $name"
-		kTest.kotlin.test.suite(thisName, thisConfig[Ignored] != null) {
-			JsSuiteDsl(thisName, thisConfig).block()
+		adapter.suite(thisName, thisConfig[Ignored] != null) {
+			JsSuiteDsl(adapter, thisName, thisConfig).block()
 		}
 	}
 
 	override fun test(name: String, context: CoroutineContext, config: TestConfig, block: suspend TestDsl.() -> Unit) {
 		println("Registering test '$name'…")
 		val thisConfig = parentConfig + config
-		kTest.kotlin.test.test(name, thisConfig[Ignored] != null) {
+		adapter.test(name, thisConfig[Ignored] != null) {
 			runTestDsl(name, context, thisConfig, block)
 		}
 	}
