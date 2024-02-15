@@ -2,12 +2,12 @@
 
 [versions]
 kotest = "5.8.0"              # https://github.com/kotest/kotest/releases
-arrow = "1.2.1"
-kotlinx-coroutines = "1.7.3"
-kotlinx-datetime = "0.4.1"
-gradle-testkit = "8.4"
-parameterize = "0.2.1"
-ktor = "2.3.7"
+arrow = "1.2.1"               # https://github.com/arrow-kt/arrow/releases
+kotlinx-coroutines = "1.7.3"  # https://github.com/Kotlin/kotlinx.coroutines/releases
+kotlinx-datetime = "0.4.1"    # https://github.com/Kotlin/kotlinx-datetime/releases
+gradle-testkit = "8.4"        # https://gradle.org/releases/
+parameterize = "0.2.1"        # https://github.com/BenWoodworth/Parameterize/releases
+ktor = "2.3.7"                # https://ktor.io/docs/releases.html#release-details
 
 [plugins]
 
