@@ -12,8 +12,10 @@ pluginManagement {
 	repositories {
 		gradlePluginPortal()
 
-		// OpenSavvy conventions
-		maven("https://gitlab.com/api/v4/projects/51233470/packages/maven")
+		maven {
+			name = "opensavvy-gradle-conventions"
+			url = uri("https://gitlab.com/api/v4/projects/51233470/packages/maven")
+		}
 	}
 }
 
