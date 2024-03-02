@@ -30,6 +30,7 @@ kotlin {
 	val commonTest by sourceSets.getting {
 		dependencies {
 			implementation(projects.runners.runnerKotest)
+			implementation(projects.compat.compatKotlinxDatetime)
 		}
 	}
 }
