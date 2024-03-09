@@ -38,6 +38,7 @@ pluginManagement {
 
 		gradlePluginPortal()
 		google()
+		mavenCentral()
 
 		// endregion
 	}
