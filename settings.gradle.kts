@@ -11,13 +11,29 @@ rootProject.name = "Playground"
 
 pluginManagement {
 	repositories {
-		gradlePluginPortal()
-		google()
+		// region OpenSavvy Conventions
 
 		maven {
 			name = "opensavvy-gradle-conventions"
 			url = uri("https://gitlab.com/api/v4/projects/51233470/packages/maven")
+
+			metadataSources {
+				gradleMetadata()
+				mavenPom()
+			}
+
+			content {
+				includeGroupAndSubgroups("dev.opensavvy")
+			}
 		}
+
+		// endregion
+		// region Standard repositories
+
+		gradlePluginPortal()
+		google()
+
+		// endregion
 	}
 
 	includeBuild("gradle/conventions")
