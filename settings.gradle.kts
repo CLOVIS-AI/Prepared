@@ -9,6 +9,12 @@
 
 rootProject.name = "Playground"
 
+dependencyResolutionManagement {
+	repositories {
+		mavenCentral()
+	}
+}
+
 pluginManagement {
 	repositories {
 		// region OpenSavvy Conventions
