@@ -1,6 +1,7 @@
 package opensavvy.prepared.compat.gradle
 
 import opensavvy.prepared.compat.filesystem.div
+import kotlin.io.path.createDirectories
 import kotlin.io.path.writeText
 
 // region Build
@@ -132,6 +133,7 @@ val Project.buildKts get() = dir / "build.gradle.kts"
  * @see Gradle.project Select the project
  */
 suspend fun Project.buildGroovy(text: String) = with(dsl) {
+	buildGroovy().parent.createDirectories()
 	buildGroovy().writeText(text)
 }
 
@@ -153,6 +155,7 @@ suspend fun Project.buildGroovy(text: String) = with(dsl) {
  * @see Gradle.project Select the project
  */
 suspend fun Project.buildKts(text: String) = with(dsl) {
+	buildKts().parent.createDirectories()
 	buildKts().writeText(text)
 }
 
