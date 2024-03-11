@@ -1,7 +1,6 @@
 package opensavvy.prepared.compat.gradle
 
 import opensavvy.prepared.compat.filesystem.div
-import org.intellij.lang.annotations.Language
 import kotlin.io.path.writeText
 
 // region Build
@@ -54,7 +53,7 @@ val Gradle.settingsKts get() = dir / "settings.gradle.kts"
  * @see settingsKts Kotlin equivalent
  * @see buildGroovy Build script file
  */
-suspend fun Gradle.settingsGroovy(@Language("groovy") text: String) = with(dsl) {
+suspend fun Gradle.settingsGroovy(text: String) = with(dsl) {
 	settingsGroovy().writeText(text)
 }
 
@@ -74,7 +73,7 @@ suspend fun Gradle.settingsGroovy(@Language("groovy") text: String) = with(dsl) 
  * @see settingsGroovy Groovy equivalent
  * @see buildKts Build script file
  */
-suspend fun Gradle.settingsKts(@Language("kts") text: String) = with(dsl) {
+suspend fun Gradle.settingsKts(text: String) = with(dsl) {
 	settingsKts().writeText(text)
 }
 
@@ -132,7 +131,7 @@ val Project.buildKts get() = dir / "build.gradle.kts"
  * @see settingsGroovy Settings file
  * @see Gradle.project Select the project
  */
-suspend fun Project.buildGroovy(@Language("groovy") text: String) = with(dsl) {
+suspend fun Project.buildGroovy(text: String) = with(dsl) {
 	buildGroovy().writeText(text)
 }
 
@@ -153,7 +152,7 @@ suspend fun Project.buildGroovy(@Language("groovy") text: String) = with(dsl) {
  * @see settingsKts Settings file
  * @see Gradle.project Select the project
  */
-suspend fun Project.buildKts(@Language("kts") text: String) = with(dsl) {
+suspend fun Project.buildKts(text: String) = with(dsl) {
 	buildKts().writeText(text)
 }
 
