@@ -1,13 +1,12 @@
 package opensavvy.prepared.runner.kotest
 
+import io.kotest.core.coroutines.coroutineTestScope
 import io.kotest.core.names.TestName
 import io.kotest.core.spec.KotestTestScope
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.core.spec.style.scopes.RootScope
 import io.kotest.core.spec.style.scopes.addTest
 import io.kotest.core.test.TestType
-import kotlinx.coroutines.test.TestScope
-import kotlinx.coroutines.withContext
 import opensavvy.prepared.suite.SuiteDsl
 import opensavvy.prepared.suite.TestDsl
 import opensavvy.prepared.suite.config.*
@@ -69,10 +68,7 @@ private class NonNestedSuite(private val root: RootScope, private val parentConf
 		)
 
 		root.addTest(testName = TestName(name = prefix child name), disabled = false, type = TestType.Test, config = kotestConfig) {
-			val scope = this as TestScope // TODO: access the TestScope
-			withContext(context) {
-				scope.runTestDslSuspend(name, context, config, block)
-			}
+			coroutineTestScope.runTestDslSuspend(name, context, config, block)
 		}
 	}
 }
