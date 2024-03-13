@@ -25,7 +25,15 @@ import opensavvy.prepared.suite.PreparedDslMarker
 inline fun <Failure, Success> failOnRaise(block: Raise<Failure>.() -> Success): Success {
 	val result = either {
 		traced(block) { trace, failure ->
-			throw AssertionError("An operation raised $failure\n${trace.stackTraceToString()}")
+			var stackTrace = trace.stackTraceToString()
+
+			// The trace starts with a big warning from Arrow about catching its internal exception.
+			// This is actually normal behavior of the Arrow library: https://github.com/arrow-kt/arrow/issues/3388
+			// Since there is nothing to worry about for the user, we just hide it.
+			if (stackTrace.startsWith("arrow.core.raise.Traced: kotlin.coroutines.cancellation.CancellationException should never get swallowed."))
+				stackTrace = stackTrace.replaceBefore("\n", "").replaceFirst("\n", "")
+
+			throw AssertionError("An operation raised $failure.\n$stackTrace")
 				.apply {
 					for (suppressed in trace.suppressedExceptions())
 						addSuppressed(suppressed)
