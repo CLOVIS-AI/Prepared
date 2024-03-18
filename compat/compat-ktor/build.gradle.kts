@@ -33,7 +33,7 @@ kotlin {
 library {
 	name.set("Compatibility with Ktor")
 	description.set("Declare Ktor in-memory servers and clients as test fixtures")
-	homeUrl.set("https://opensavvy.gitlab.io/prepared/api-docs/compat/compat-arrow/index.html")
+	homeUrl.set("https://opensavvy.gitlab.io/groundwork/prepared/api-docs/compat/compat-arrow/index.html")
 
 	license.set {
 		name.set("Apache 2.0")

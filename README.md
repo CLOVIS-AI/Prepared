@@ -52,7 +52,7 @@ fun SuiteDsl.showcase() = suite("Showcase Prepared") {
 }
 ```
 
-To learn more, [read the documentation](https://opensavvy.gitlab.io/prepared/api-docs/suite/index.html).
+To learn more, [read the documentation](https://opensavvy.gitlab.io/groundwork/prepared/api-docs/suite/index.html).
 
 ## Project structure
 

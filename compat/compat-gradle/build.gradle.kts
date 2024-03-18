@@ -25,7 +25,7 @@ kotlin {
 library {
 	name.set("Compatibility with Gradle TestKit")
 	description.set("Test Gradle plugins using Prepared")
-	homeUrl.set("https://opensavvy.gitlab.io/prepared/api-docs/compat/compat-gradle/index.html")
+	homeUrl.set("https://opensavvy.gitlab.io/groundwork/prepared/api-docs/compat/compat-gradle/index.html")
 
 	license.set {
 		name.set("Apache 2.0")
