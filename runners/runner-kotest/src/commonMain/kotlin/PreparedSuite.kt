@@ -1,16 +1,16 @@
 package opensavvy.prepared.runner.kotest
 
+import io.kotest.core.coroutines.coroutineTestScope
 import io.kotest.core.names.TestName
 import io.kotest.core.spec.KotestTestScope
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.core.spec.style.scopes.RootScope
 import io.kotest.core.spec.style.scopes.addTest
 import io.kotest.core.test.TestType
-import io.kotest.core.test.config.UnresolvedTestConfig
 import opensavvy.prepared.suite.SuiteDsl
 import opensavvy.prepared.suite.TestDsl
 import opensavvy.prepared.suite.config.*
-import opensavvy.prepared.suite.runTestDsl
+import opensavvy.prepared.suite.runTestDslSuspend
 import kotlin.coroutines.CoroutineContext
 
 /**
@@ -57,15 +57,18 @@ private class NonNestedSuite(private val root: RootScope, private val parentConf
 	override fun test(name: String, context: CoroutineContext, config: TestConfig, block: suspend TestDsl.() -> Unit) {
 		val thisConfig = parentConfig + config
 
-		val kotestConfig = UnresolvedTestConfig(
+		val kotestConfig = io.kotest.core.test.config.TestConfig(
 			enabled = thisConfig[Ignored] == null,
 			tags = config[Tag]
 				.mapTo(HashSet()) { io.kotest.core.Tag(it.name) }
 				.takeIf { it.isNotEmpty() },
+			testCoroutineDispatcher = true,
+			coroutineTestScope = true,
+			coroutineDebugProbes = true,
 		)
 
 		root.addTest(testName = TestName(name = prefix child name), disabled = false, type = TestType.Test, config = kotestConfig) {
-			runTestDsl(name, context, thisConfig, block)
+			coroutineTestScope.runTestDslSuspend(name, context, config, block)
 		}
 	}
 }
