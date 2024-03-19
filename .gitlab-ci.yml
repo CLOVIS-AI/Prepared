@@ -63,12 +63,14 @@ check[jvm]:
   script:
     - >
       ./gradlew check
+      :koverLog
       -x jsBrowserTest
       -x jsNodeTest
       -x linuxX64Test
       -x iosSimulatorArm64Test
       -PappVersion=$project_version
 
+  coverage: '/application line coverage: (\d+\.?\d*%)/'
   interruptible: true
 
 check[jsBrowser]:
