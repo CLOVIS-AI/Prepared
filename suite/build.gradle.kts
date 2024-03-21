@@ -31,7 +31,7 @@ kotlin {
 library {
 	name.set("Suite")
 	description.set("Magicless test framework for Kotlin Multiplatform")
-	homeUrl.set("https://opensavvy.gitlab.io/prepared/api-docs/suite/index.html")
+	homeUrl.set("https://opensavvy.gitlab.io/groundwork/prepared/api-docs/suite/index.html")
 
 	license.set {
 		name.set("Apache 2.0")

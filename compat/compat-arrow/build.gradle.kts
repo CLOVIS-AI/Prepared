@@ -37,7 +37,7 @@ kotlin {
 library {
 	name.set("Compatibility with Arrow")
 	description.set("Bind Either and Validated to fail test cases, with origin tracing")
-	homeUrl.set("https://opensavvy.gitlab.io/prepared/api-docs/compat/compat-arrow/index.html")
+	homeUrl.set("https://opensavvy.gitlab.io/groundwork/prepared/api-docs/compat/compat-arrow/index.html")
 
 	license.set {
 		name.set("Apache 2.0")

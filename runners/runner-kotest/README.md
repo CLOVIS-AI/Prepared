@@ -66,6 +66,3 @@ module as well.
 
 Kotest expects nested suites to be `suspend`. Because of this, Kotest cannot allow nested suites on Kotlin/JS.
 Prepared supports nested suites on all platforms; they are un-nested automatically when executing with Kotest.
-
-Kotest doesn't expose the underlying dispatcher from [KotlinX.Coroutines.test](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-test/). Prepared needs access to it to implement the [backgroundScope][opensavvy.prepared.suite.backgroundScope] and [time control][opensavvy.prepared.suite.time]. This forces us to declare our own scheduler.
-This is broken on Kotlin/JS at the moment, please see [#12](https://gitlab.com/opensavvy/prepared/-/issues/12), we welcome contributions!
