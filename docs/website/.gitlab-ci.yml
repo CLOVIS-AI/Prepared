@@ -1,0 +1,18 @@
+
+mkdocs:
+  image:
+    name: squidfunk/mkdocs-material
+    entrypoint: [ "/bin/sh", "-c" ]
+  stage: build
+
+  before_script:
+    - cd docs/website
+    - ls
+
+  script:
+    - pwd
+    - mkdocs build --site-dir ../../docs-website
+
+  artifacts:
+    paths:
+      - docs-website
