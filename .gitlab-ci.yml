@@ -27,6 +27,8 @@ hello-world:
     - echo 'Hello world'
   interruptible: true
 
+# region Automatically mirror the previous layer of the playground
+
 mirror-playground:
   stage: deploy
   extends: [ .os.mirror ]
@@ -46,3 +48,5 @@ mirror-playground:
     - if: $CI_PIPELINE_SOURCE == 'schedule'
     - when: manual
       allow_failure: true
+
+# endregion
