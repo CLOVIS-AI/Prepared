@@ -33,3 +33,8 @@ theme:
     - search.suggest
     - toc.follow
     # - toc.integrate
+  icon:
+    edit: material/pencil
+    view: material/eye
+
+edit_uri: edit/main/docs/website

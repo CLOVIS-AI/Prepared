@@ -8,6 +8,8 @@ mkdocs:
   before_script:
     - cd docs/website
     - ls
+    - 'echo "repo_url: $CI_PROJECT_URL">>mkdocs.yml'
+    - 'echo "repo_name: $CI_PROJECT_TITLE">>mkdocs.yml'
 
   script:
     - pwd
