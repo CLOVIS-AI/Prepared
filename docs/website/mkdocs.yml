@@ -38,5 +38,20 @@ theme:
     view: material/eye
   logo: assets/logo.svg
   favicon: assets/logo.svg
+  palette:
+    - media: "(prefers-color-scheme)"
+      toggle:
+        icon: material/brightness-auto
+        name: "System theme (click to switch to light)"
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      toggle:
+        icon: material/brightness-7
+        name: "Light theme (click to switch to dark)"
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: "Dark theme (click to switch to system)"
 
 edit_uri: edit/main/docs/website/docs
