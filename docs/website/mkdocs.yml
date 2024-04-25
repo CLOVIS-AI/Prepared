@@ -36,5 +36,7 @@ theme:
   icon:
     edit: material/pencil
     view: material/eye
+  logo: assets/logo.svg
+  favicon: assets/logo.svg
 
 edit_uri: edit/main/docs/website/docs
