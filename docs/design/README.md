@@ -50,6 +50,8 @@ Here is a template for new records:
 ## Selected solution
 ```
 
+Useful external links: [How to write ADRs](https://www.ozimmer.ch/practices/2023/04/03/ADRCreation.html), [How to review ADRs](https://www.ozimmer.ch/practices/2023/04/05/ADRReview.html).
+
 The following describes all the fields of the template and what they should be filled in with.
 
 **Status:**
