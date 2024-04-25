@@ -59,3 +59,12 @@ theme:
         name: "Dark theme (click to switch to system)"
 
 edit_uri: edit/main/docs/website/docs
+
+nav:
+  - Home: index.md
+
+  - Getting started: []
+
+  - Module1: []
+
+  - Module2: []
