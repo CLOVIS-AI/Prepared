@@ -69,3 +69,6 @@ nav:
   - Module1: []
 
   - Module2: []
+
+  - Reference:
+      - reference.md
