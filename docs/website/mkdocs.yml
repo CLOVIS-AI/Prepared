@@ -59,6 +59,11 @@ theme:
         icon: material/brightness-4
         name: "Dark theme (click to switch to system)"
 
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+
 edit_uri: edit/main/docs/website/docs
 
 nav:
