@@ -47,6 +47,10 @@ if (appGroup != "dev.opensavvy.playground") {
 		if (name.startsWith("publish")) {
 			onlyIf("Publishing is only enabled when built as part of the Playground") { false }
 		}
+
+		if (this is Test) {
+			onlyIf("The template tests do not need to run when not building as part of the Playground") { System.getenv("CI") != null }
+		}
 	}
 }
 
