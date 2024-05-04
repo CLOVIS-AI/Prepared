@@ -15,9 +15,7 @@ kotlin {
 	iosX64()
 
 	sourceSets.commonTest.dependencies {
-		// TODO after https://gitlab.com/opensavvy/automation/gradle-conventions/-/merge_requests/44
-		// replace by a proper version catalog access
-		implementation("org.jetbrains.kotlin:kotlin-test:${opensavvyConventions.versions.kotlin.get()}")
+		implementation(opensavvyConventions.aligned.kotlin.test)
 	}
 
 	sourceSets.jvmTest.dependencies {
