@@ -30,6 +30,7 @@ kotlin {
 			api(projects.suite)
 
 			api(libs.kotest.engine)
+			api(libs.kotest.assertions)
 		}
 	}
 

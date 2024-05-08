@@ -17,6 +17,7 @@ kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-t
 kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinx-datetime" }
 kotest-engine = { module = "io.kotest:kotest-framework-engine", version.ref = "kotest" }
 kotest-runner-junit5 = { module = "io.kotest:kotest-runner-junit5", version.ref = "kotest" }
+kotest-assertions = { module = "io.kotest:kotest-assertions-core", version.ref = "kotest" }
 gradle-testkit = { module = "dev.gradleplugins:gradle-test-kit", version.ref = "gradle-testkit" }
 arrow-core = { module = "io.arrow-kt:arrow-core", version.ref = "arrow" }
 parameterize = { module = "com.benwoodworth.parameterize:parameterize", version.ref = "parameterize" }
