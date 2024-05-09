@@ -38,15 +38,56 @@ class FooTest : TestExecutor() {
 }
 ```
 
-## Implementation notes
+## Configuration
 
-The kotlin-test library doesn't allow declaring tests dynamically.
+### JVM project
 
-- On the JVM, we bypass using kotlin-test, and declare tests to JUnit5 directly.
-- On JS, we access the internals of kotlin-test to declare tests directly.
-- On Native, we haven't found a way to declare tests dynamically—so this module doesn't support Native.
+```kotlin
+// build.gradle.kts
+
+plugins {
+	kotlin("jvm") version "…"
+}
+
+dependencies {
+	implementation("dev.opensavvy.prepared:runner-kotlin-test:…")
+}
+
+tasks.withType<Test> {
+	useJUnitPlatform()
+}
+```
+
+### Multiplatform project
+
+```kotlin
+// build.gradle.kts
+
+plugins {
+	kotlin("multiplatform") version "…"
+}
+
+kotlin {
+	jvm()
+	js()
+
+	sourceSets.commonTest.dependencies {
+		implementation("dev.opensavvy.prepared:runner-kotlin-test:…")
+	}
+}
+
+tasks.withType<Test> {
+	useJUnitPlatform()
+}
+```
+
+## Implementation notes and limitations
+
+The kotlin-test library doesn't allow declaring tests dynamically on all platforms.
+This module implements test execution on each platform differently.
+To learn more, select a platform at the top of this page (below the title).
 
 For this library to be usable in the long term, and in all platforms, we need JetBrains to provide a low-level way to
 declare tests dynamically for all platforms. If you'd like to support this, please vote for [KT-46899](https://youtrack.jetbrains.com/issue/KT-46899/Dynamic-test-API).
 
-To learn more about the platform-specific limitations, select a platform at the top of this page (below the title).
+Before using this runner, you may want to browse its [planned issues](https://gitlab.com/opensavvy/groundwork/prepared/-/issues/?sort=priority&state=opened&label_name%5B%5D=runner%3Akotlin-test&first_page_size=20).
