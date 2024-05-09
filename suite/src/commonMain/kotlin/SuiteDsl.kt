@@ -37,6 +37,31 @@ interface SuiteDsl : PreparedDsl {
 
 	/**
 	 * Creates a child suite named [name] of the current suite.
+	 *
+	 * ### Simple example
+	 *
+	 * ```kotlin
+	 * suite("An example") {
+	 *     test("A test") { … }
+	 *
+	 *     suite("A nested suite") {
+	 *         test("A nested test 1") { … }
+	 *         test("A nested test 2") { … }
+	 *     }
+	 * }
+	 * ```
+	 *
+	 * ### Test configuration
+	 *
+	 * The default configuration for all tests can be passed with the [config] parameter:
+	 *
+	 * ```kotlin
+	 * suite("An example", CoroutineTimeout(2.minutes) + Tag("slow")) {
+	 *     …
+	 * }
+	 * ```
+	 *
+	 * To learn more about the available configuration options, see the subtypes of [TestConfig.Element].
 	 */
 	@PreparedDslMarker
 	fun suite(
@@ -47,6 +72,45 @@ interface SuiteDsl : PreparedDsl {
 
 	/**
 	 * Declares a test named [name] as part of the current suite.
+	 *
+	 * ### Simple example
+	 *
+	 * ```kotlin
+	 * suite("An example") {
+	 *     test("A test") {
+	 *         delay(2.minutes)          // can suspend
+	 *         time.advanceBy(2.minutes) // can control the virtual time
+	 *         launchInBackground { … }  // can start background tasks
+	 *         // …
+	 *     }
+	 * }
+	 * ```
+	 *
+	 * To learn more about the functionality available within tests, see [TestDsl].
+	 *
+	 * ### Coroutine context
+	 *
+	 * Optionally pass the [context] parameter:
+	 * ```kotlin
+	 * test("A test", Auth(user1)) {
+	 *     // …
+	 * }
+	 * ```
+	 *
+	 * Note, however, that:
+	 * - The [CoroutineName][kotlinx.coroutines.CoroutineName] will be automatically set to the test's name.
+	 * - The [Dispatcher][kotlinx.coroutines.CoroutineDispatcher] must not be changed, or it will break the [virtual time][time].
+	 *
+	 * ### Test configuration
+	 *
+	 * The test's configuration can be passed with the [config] parameter:
+	 * ```kotlin
+	 * test("An example", CoroutineTimeout(2.minutes) + Tag("slow")) {
+	 *     // …
+	 * }
+	 * ```
+	 *
+	 * To learn more about the available configuration options, see the subtypes of [TestConfig.Element].
 	 */
 	@PreparedDslMarker
 	fun test(
