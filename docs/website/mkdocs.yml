@@ -83,7 +83,8 @@ nav:
   - Getting started:
       - tutorials/getting-started.md
 
-  - Module1: []
+  - Features:
+      - features/overview.md
 
   - Best practices:
       - practices/overview.md
