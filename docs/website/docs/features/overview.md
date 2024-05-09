@@ -12,7 +12,7 @@ Prepared adds many helpers to facilitate writing tests. To learn about them, eit
 
 ```kotlin
 fun SuiteDsl.testUsers( // (1)!
-	users: Prepared<UserService>,
+	users: Prepared<UserService>, // (4)!
 ) {
 	suite("Example") { // (2)!
 		test("Hello world") { // (3)!
@@ -21,6 +21,17 @@ fun SuiteDsl.testUsers( // (1)!
 
 		test("Another test") {
 			(2 + 2) shouldBe 4
+		}
+	}
+    
+	suite("Test fixtures") {
+		val adminEmail by prepared { // (5)!
+			"account-${random.nextInt()}@mail.com" 
+		}
+		val admin by prepared { users().createUser(adminEmail()) }
+        
+		test("Created email") {
+			admin().email shouldBe adminEmail()
 		}
 	}
 }
@@ -32,3 +43,7 @@ fun SuiteDsl.testUsers( // (1)!
    [Learn more](https://opensavvy.gitlab.io/groundwork/prepared/api-docs/suite/opensavvy.prepared.suite/-suite-dsl/suite.html).
 3. The `test` function declares the existence of a test.
    [Learn more](https://opensavvy.gitlab.io/groundwork/prepared/api-docs/suite/opensavvy.prepared.suite/-suite-dsl/test.html).
+4. Prepared values are fixture generators that always return the same value in a context of a single test, but return different values for different tests.
+   [Learn more](prepared-values.md).
+5. Prepared values are fixture generators that always return the same value in a context of a single test, but return different values for different tests.
+   [Learn more](prepared-values.md).
