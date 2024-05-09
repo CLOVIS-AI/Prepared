@@ -85,7 +85,8 @@ nav:
 
   - Module1: []
 
-  - Module2: []
+  - Best practices:
+      - practices/overview.md
 
   - Reference:
       - reference.md
