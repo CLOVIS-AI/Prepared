@@ -57,12 +57,53 @@ class FooTest : PreparedSpec({
 })
 ```
 
-## Setup
+## Configuration
 
-Follow the [Kotest setup guide](https://kotest.io/docs/framework/project-setup.html), simply adding a dependency on this
-module as well.
+### JVM project
+
+```kotlin
+// build.gradle.kts
+
+plugins {
+	kotlin("jvm") version "…"
+}
+
+dependencies {
+	implementation("dev.opensavvy.prepared:runner-kotest:…")
+}
+
+tasks.withType<Test> {
+	useJUnitPlatform()
+}
+```
+
+### Multiplatform project
+
+```kotlin
+// build.gradle.kts
+
+plugins {
+	kotlin("multiplatform") version "…"
+}
+
+kotlin {
+	jvm()
+	js()
+	// …
+
+	sourceSets.commonTest.dependencies {
+		implementation("dev.opensavvy.prepared:runner-kotest:…")
+	}
+}
+
+tasks.withType<Test> {
+	useJUnitPlatform()
+}
+```
 
 ## Limitations
 
 Kotest expects nested suites to be `suspend`. Because of this, Kotest cannot allow nested suites on Kotlin/JS.
 Prepared supports nested suites on all platforms; they are un-nested automatically when executing with Kotest.
+
+Before using this runner, you may want to browse its [planned work](https://gitlab.com/opensavvy/groundwork/prepared/-/issues/?sort=priority&state=opened&label_name%5B%5D=runner%3Akotest&first_page_size=20).
