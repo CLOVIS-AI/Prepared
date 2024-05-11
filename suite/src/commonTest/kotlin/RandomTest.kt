@@ -17,4 +17,20 @@ class RandomTest : PreparedSpec({
 		}
 	}
 
+	val int1 by randomInt()
+	val int2 by randomInt()
+	val double by randomDouble()
+	val boolean by randomBoolean()
+
+	test("Setting the seed before accessing prepared values guarantees the sequence of numbers") {
+		random.setSeed(43)
+
+		assertSoftly {
+			int1() shouldBe -1828752340
+			int2() shouldBe -1728936224
+			double() shouldBe 0.9383535655576841
+			boolean() shouldBe false
+		}
+	}
+
 })

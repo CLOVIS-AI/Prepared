@@ -245,7 +245,7 @@ suspend fun Random.nextFloat() =
  * @see KotlinRandom.nextBits Standard library.
  * @see nextBits Direct value equivalent.
  */
-fun randomBits(bitCount: Int) = prepared { nextBits(bitCount) }
+fun randomBits(bitCount: Int) = prepared { random.nextBits(bitCount) }
 
 /**
  * Provider for a random integer.
@@ -253,7 +253,7 @@ fun randomBits(bitCount: Int) = prepared { nextBits(bitCount) }
  * @see KotlinRandom.nextInt Standard library.
  * @see nextInt Direct value equivalent.
  */
-fun randomInt() = prepared { nextInt() }
+fun randomInt() = prepared { random.nextInt() }
 
 /**
  * Provider for a random integer.
@@ -261,7 +261,7 @@ fun randomInt() = prepared { nextInt() }
  * @see KotlinRandom.nextInt Standard library.
  * @see nextInt Direct value equivalent.
  */
-fun randomInt(from: Int, until: Int) = prepared { nextInt(from, until) }
+fun randomInt(from: Int, until: Int) = prepared { random.nextInt(from, until) }
 
 /**
  * Provider for a random integer.
@@ -269,7 +269,7 @@ fun randomInt(from: Int, until: Int) = prepared { nextInt(from, until) }
  * @see KotlinRandom.nextLong Standard library.
  * @see nextLong Direct value equivalent.
  */
-fun randomLong() = prepared { nextLong() }
+fun randomLong() = prepared { random.nextLong() }
 
 /**
  * Provider for a random integer.
@@ -277,7 +277,7 @@ fun randomLong() = prepared { nextLong() }
  * @see KotlinRandom.nextLong Standard library.
  * @see nextLong Direct value equivalent.
  */
-fun randomLong(from: Long, until: Long) = prepared { nextLong(from, until) }
+fun randomLong(from: Long, until: Long) = prepared { random.nextLong(from, until) }
 
 /**
  * Provider for a random boolean.
@@ -285,7 +285,7 @@ fun randomLong(from: Long, until: Long) = prepared { nextLong(from, until) }
  * @see KotlinRandom.nextBoolean Standard library.
  * @see nextBoolean Direct value equivalent.
  */
-fun randomBoolean() = prepared { nextBoolean() }
+fun randomBoolean() = prepared { random.nextBoolean() }
 
 /**
  * Provider for a random double.
@@ -293,7 +293,7 @@ fun randomBoolean() = prepared { nextBoolean() }
  * @see KotlinRandom.nextDouble Standard library.
  * @see nextDouble Direct value equivalent.
  */
-fun randomDouble() = prepared { nextDouble() }
+fun randomDouble() = prepared { random.nextDouble() }
 
 /**
  * Provider for a random double.
@@ -301,7 +301,7 @@ fun randomDouble() = prepared { nextDouble() }
  * @see KotlinRandom.nextDouble Standard library.
  * @see nextDouble Direct value equivalent.
  */
-fun randomDouble(from: Double, until: Double) = prepared { nextDouble(from, until) }
+fun randomDouble(from: Double, until: Double) = prepared { random.nextDouble(from, until) }
 
 /**
  * Provider for a random float.
@@ -309,7 +309,7 @@ fun randomDouble(from: Double, until: Double) = prepared { nextDouble(from, unti
  * @see KotlinRandom.nextFloat Standard library.
  * @see nextFloat Direct value equivalent.
  */
-fun randomFloat() = prepared { nextFloat() }
+fun randomFloat() = prepared { random.nextFloat() }
 
 // endregion
 // region Warn on usages of kotlin.random.Random in tests
