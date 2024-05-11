@@ -11,7 +11,10 @@ internal class Cache {
 		lock.withLock(key) { cache[key] } ?: run {
 			val result = compute()
 
-			lock.withLock(key) { cache[key] = result }
+			lock.withLock(key) {
+				if (!cache.containsKey(key))
+					cache[key] = result
+			}
 
 			result
 		}
