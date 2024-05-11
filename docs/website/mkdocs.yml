@@ -86,6 +86,7 @@ nav:
   - Features:
       - features/overview.md
       - features/prepared-values.md
+      - features/shared-values.md
 
   - Best practices:
       - practices/overview.md
