@@ -11,34 +11,17 @@ import kotlin.random.Random.Default.nextInt
 import kotlin.random.Random.Default.nextLong
 import kotlin.random.Random as KotlinRandom
 
-private class ConfigurableRandom {
+private class ConfiguredRandom(
+	private val explicitlyChosen: Boolean,
+	private val seed: Long,
+) {
 
-	private lateinit var source: KotlinRandom
+	val source = KotlinRandom(seed)
+
 	private val lock = Mutex()
 
-	private var seed: Long? = null
-	private var explicitlyChosen: Boolean = false
-
-	suspend fun setSeed(seed: Long) = lock.withLock("setSeed($seed)") {
-		check(!this::source.isInitialized) { "The seed has already been configured, giving the random source $source. It is not allowed to configure the seed multiple times in a single test." }
-		this.seed = seed
-		this.explicitlyChosen = true
-		source = KotlinRandom(seed)
-	}
-
 	suspend fun <T> use(block: (KotlinRandom) -> T): T = lock.withLock("use") {
-		if (!this::source.isInitialized) {
-			val seed = nextLong()
-			this.seed = seed
-			source = KotlinRandom(seed)
-		}
-
 		block(source)
-	}
-
-	suspend fun getUnsafe(): KotlinRandom {
-		use { /* force initialization */ }
-		return source
 	}
 
 	override fun toString() = "Random generator" + when (explicitlyChosen) {
@@ -47,8 +30,14 @@ private class ConfigurableRandom {
 	}
 }
 
+private val seedCacheKey = Any()
+
 // Ensure there is exactly one instance per test
-private val randomSource by prepared { ConfigurableRandom() }
+@Suppress("UNCHECKED_CAST")
+private val randomSource by prepared {
+	val (seed, chosenExplicitly) = environment.cache.cache(seedCacheKey) { nextLong() to false } as Pair<Long, Boolean>
+	ConfiguredRandom(chosenExplicitly, seed)
+}
 
 /**
  * Random control helper. See [random][TestDsl.random].
@@ -78,8 +67,10 @@ class Random internal constructor(private val dsl: TestDsl) {
 	 * This function can only be called before the first random value is generated for the current test,
 	 * otherwise it throws [IllegalStateException].
 	 */
+	@Suppress("UNCHECKED_CAST")
 	suspend fun setSeed(seed: Long) = with(dsl) {
-		randomSource().setSeed(seed)
+		val (storedSeed, chosenExplicitly) = environment.cache.cache(seedCacheKey) { seed to true } as Pair<Long, Boolean>
+		check(storedSeed == seed) { "The random generator has already been configured to use the seed $storedSeed (${if (chosenExplicitly) "explicitly chosen" else "generated randomly on first use"}), impossible to override its seed with $seed" }
 	}
 
 	/**
@@ -95,7 +86,7 @@ class Random internal constructor(private val dsl: TestDsl) {
 	 * In most cases, [use] is probably sufficient.
 	 */
 	suspend fun accessUnsafe(): KotlinRandom = with(dsl) {
-		return randomSource().getUnsafe()
+		return randomSource().source
 	}
 
 	/**

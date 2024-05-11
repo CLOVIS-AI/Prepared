@@ -2,9 +2,18 @@ package opensavvy.prepared.suite
 
 import io.kotest.assertions.assertSoftly
 import io.kotest.matchers.shouldBe
+import io.kotest.matchers.shouldNotBe
 import opensavvy.prepared.runner.kotest.PreparedSpec
 
 class RandomTest : PreparedSpec({
+
+	test("Generate random values without setting a seed") {
+		assertSoftly {
+			random.nextInt() shouldNotBe 972016666
+			random.nextInt() shouldNotBe 1740578880
+			random.nextDouble() shouldNotBe 0.9049568172356872
+		}
+	}
 
 	test("Setting the seed guarantees that the same sequence of numbers is generated") {
 		random.setSeed(42)
