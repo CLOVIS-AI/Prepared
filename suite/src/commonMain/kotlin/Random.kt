@@ -4,6 +4,7 @@ import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlin.jvm.JvmName
 import kotlin.random.Random.Default.nextBits
+import kotlin.random.Random.Default.nextBoolean
 import kotlin.random.Random.Default.nextDouble
 import kotlin.random.Random.Default.nextFloat
 import kotlin.random.Random.Default.nextInt
@@ -284,7 +285,7 @@ fun randomLong(from: Long, until: Long) = prepared { nextLong(from, until) }
  * @see KotlinRandom.nextBoolean Standard library.
  * @see nextBoolean Direct value equivalent.
  */
-fun randomBoolean() = prepared { nextInt() }
+fun randomBoolean() = prepared { nextBoolean() }
 
 /**
  * Provider for a random double.
