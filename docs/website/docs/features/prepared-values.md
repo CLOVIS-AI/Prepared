@@ -137,3 +137,19 @@ test("Edge case") {
 }
 ```
 This allows easily controlling fixtures to reproduce edge cases that happened in CI, etc.
+
+### Cleaning up after the test
+
+Prepared values have access to all functionality of this library, including [finalizers](finalizers.md):
+
+```kotlin
+val database by prepared {
+	val db = Database.startContainerAndConnect()
+	
+    cleanUp {
+		db.stopContainer()
+    }
+    
+    db
+}
+```

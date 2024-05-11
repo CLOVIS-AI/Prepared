@@ -29,7 +29,15 @@ fun SuiteDsl.testUsers( // (1)!
             "account-${random.nextInt()}@mail.com"
         }
 
-        val admin by prepared { users().createUser(adminEmail()) }
+        val admin by prepared {
+            val user = users().createUser(adminEmail())
+            
+            cleanUp("Deleting the created admin") { // (7)! 
+                users().deleteUser(it) 
+            }
+            
+            user
+        }
 
         val bio by shared { // (6)!
             Path.of("foo", "bar").readText()
@@ -58,3 +66,5 @@ fun SuiteDsl.testUsers( // (1)!
    [Learn more](prepared-values.md).
 6. Shared values are lazy generators whose output is shared between multiple tests.
    [Learn more](shared-values.md).
+7. Finalizers are useful to co-locate clean up code next to value generation.
+   [Learn more](finalizers.md).
