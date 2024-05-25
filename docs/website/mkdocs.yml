@@ -1,7 +1,7 @@
-site_name: OpenSavvy Playground
+site_name: OpenSavvy Prepared
 site_author: OpenSavvy & contributors
 site_description: >
-  Project template with CI/CD and IDE configuration.
+  Magicless testing framework for Kotlin Multiplatform, featuring time management, parameterization and isolated fixtures.
 
 theme:
   name: material
@@ -80,11 +80,17 @@ use_directory_urls: false
 nav:
   - Home: index.md
 
-  - Getting started: []
+  - Getting started:
+      - tutorials/getting-started.md
 
-  - Module1: []
+  - Features:
+      - features/overview.md
+      - features/prepared-values.md
+      - features/shared-values.md
+      - features/finalizers.md
 
-  - Module2: []
+  - Best practices:
+      - practices/overview.md
 
   - Reference:
       - reference.md

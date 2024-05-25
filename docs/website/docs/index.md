@@ -4,4 +4,48 @@ template: home.html
 
 # Welcome!
 
-The OpenSavvy Playground is a project template with pre-configured CI/CD, documentation generator, etc.
+OpenSavvy Prepared helps declare isolated tests quickly with an expressive DSL, that can run on any Kotlin platform.
+
+## Let's take a sneak peak
+
+The simplest test is declared as a simple function:
+
+```kotlin
+test("Foo") {
+	/* … */
+}
+```
+
+Tests can be organized into suites, which can be nested any number of times:
+
+```kotlin
+suite("My test suite") {
+	test("A first test") { /* … */ }
+	
+	suite("A nested suite") {
+		test("A second test") { /* … */ }
+		test("A third test") { /* … */ }
+	}
+}
+```
+
+Additionally, Prepared exposes many advanced features:
+
+- Isolated test fixtures,
+- Time control,
+- Background task management¸
+- Randomness control,
+- Temporary filesystems,
+- …and [more](features/overview.md).
+
+## Prepared isn't a test runner
+
+The goal of Prepared is to simplify how we declare tests, how we go from a thought to code. Test runners are libraries that execute test batteries and report results to your build system. Prepared isn't a test runner, but [it is compatible with a few existing ones](features/runners.md).
+
+## Prepared isn't an assertion library
+
+Assertion libraries provide utilities to compare values. Popular choices are [Kotlin.test](https://kotlinlang.org/api/latest/kotlin.test/), [Kotest Assertions](https://kotest.io/docs/assertions/assertions.html), [Strikt](https://strikt.io/), [AssertK](https://github.com/willowtreeapps/assertk)… just use the one you prefer!
+
+## Prepared isn't an IntelliJ plugin (yet?)
+
+Prepared is a simple Kotlin library. It doesn't have a Gradle plugin, nor does it have an IntelliJ plugin. Test are reported by the runner, so your IDE can display the test report. However, IntelliJ doesn't know which lines are tests or not, so it cannot display the small green triangle to select which tests to execute. 

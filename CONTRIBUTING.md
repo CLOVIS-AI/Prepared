@@ -73,5 +73,15 @@ These labels should only be applied to issues, not merge requests.
 
 </details>
 
-<!-- **Labels specific to this project** -->
+**Labels specific to this project**
 <!-- Use the same format to document all labels used by this project. -->
+
+<details open>
+<summary>Modules</summary>
+
+- ~"suite": The `:suite` module.
+- ~"runner:kotlin-test": The `:runner-kotlin-test` module.
+- ~"runner:kotest": The `:runner-kotest` module.
+- ~"compat": Any of the submodules of `:compat`.
+
+</details>
