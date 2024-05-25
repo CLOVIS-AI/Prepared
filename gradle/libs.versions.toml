@@ -1,13 +1,13 @@
 # List of dependencies of the project
 
 [versions]
-kotest = "5.8.1"              # https://github.com/kotest/kotest/releases
-arrow = "1.2.3"               # https://github.com/arrow-kt/arrow/releases
-kotlinx-coroutines = "1.8.0"  # https://github.com/Kotlin/kotlinx.coroutines/releases
+kotest = "5.9.0"              # https://github.com/kotest/kotest/releases
+arrow = "1.2.4"               # https://github.com/arrow-kt/arrow/releases
+kotlinx-coroutines = "1.8.1"  # https://github.com/Kotlin/kotlinx.coroutines/releases
 kotlinx-datetime = "0.5.0"    # https://github.com/Kotlin/kotlinx-datetime/releases
 gradle-testkit = "8.6"        # https://gradle.org/releases/
 parameterize = "0.3.0"        # https://github.com/BenWoodworth/Parameterize/releases
-ktor = "2.3.8"                # https://ktor.io/docs/releases.html#release-details
+ktor = "2.3.11"               # https://ktor.io/docs/releases.html#release-details
 
 [plugins]
 
