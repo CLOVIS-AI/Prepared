@@ -4,40 +4,24 @@ import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlin.jvm.JvmName
 import kotlin.random.Random.Default.nextBits
+import kotlin.random.Random.Default.nextBoolean
 import kotlin.random.Random.Default.nextDouble
 import kotlin.random.Random.Default.nextFloat
 import kotlin.random.Random.Default.nextInt
 import kotlin.random.Random.Default.nextLong
 import kotlin.random.Random as KotlinRandom
 
-private class ConfigurableRandom {
+private class ConfiguredRandom(
+	private val explicitlyChosen: Boolean,
+	private val seed: Long,
+) {
 
-	private lateinit var source: KotlinRandom
+	val source = KotlinRandom(seed)
+
 	private val lock = Mutex()
 
-	private var seed: Long? = null
-	private var explicitlyChosen: Boolean = false
-
-	suspend fun setSeed(seed: Long) = lock.withLock("setSeed($seed)") {
-		check(!this::source.isInitialized) { "The seed has already been configured, giving the random source $source. It is not allowed to configure the seed multiple times in a single test." }
-		this.seed = seed
-		this.explicitlyChosen = true
-		source = KotlinRandom(seed)
-	}
-
 	suspend fun <T> use(block: (KotlinRandom) -> T): T = lock.withLock("use") {
-		if (!this::source.isInitialized) {
-			val seed = nextLong()
-			this.seed = seed
-			source = KotlinRandom(seed)
-		}
-
 		block(source)
-	}
-
-	suspend fun getUnsafe(): KotlinRandom {
-		use { /* force initialization */ }
-		return source
 	}
 
 	override fun toString() = "Random generator" + when (explicitlyChosen) {
@@ -46,8 +30,14 @@ private class ConfigurableRandom {
 	}
 }
 
+private val seedCacheKey = Any()
+
 // Ensure there is exactly one instance per test
-private val randomSource by prepared { ConfigurableRandom() }
+@Suppress("UNCHECKED_CAST")
+private val randomSource by prepared {
+	val (seed, chosenExplicitly) = environment.cache.cache(seedCacheKey) { nextLong() to false } as Pair<Long, Boolean>
+	ConfiguredRandom(chosenExplicitly, seed)
+}
 
 /**
  * Random control helper. See [random][TestDsl.random].
@@ -77,8 +67,10 @@ class Random internal constructor(private val dsl: TestDsl) {
 	 * This function can only be called before the first random value is generated for the current test,
 	 * otherwise it throws [IllegalStateException].
 	 */
+	@Suppress("UNCHECKED_CAST")
 	suspend fun setSeed(seed: Long) = with(dsl) {
-		randomSource().setSeed(seed)
+		val (storedSeed, chosenExplicitly) = environment.cache.cache(seedCacheKey) { seed to true } as Pair<Long, Boolean>
+		check(storedSeed == seed) { "The random generator has already been configured to use the seed $storedSeed (${if (chosenExplicitly) "explicitly chosen" else "generated randomly on first use"}), impossible to override its seed with $seed" }
 	}
 
 	/**
@@ -94,7 +86,7 @@ class Random internal constructor(private val dsl: TestDsl) {
 	 * In most cases, [use] is probably sufficient.
 	 */
 	suspend fun accessUnsafe(): KotlinRandom = with(dsl) {
-		return randomSource().getUnsafe()
+		return randomSource().source
 	}
 
 	/**
@@ -244,7 +236,7 @@ suspend fun Random.nextFloat() =
  * @see KotlinRandom.nextBits Standard library.
  * @see nextBits Direct value equivalent.
  */
-fun randomBits(bitCount: Int) = prepared { nextBits(bitCount) }
+fun randomBits(bitCount: Int) = prepared { random.nextBits(bitCount) }
 
 /**
  * Provider for a random integer.
@@ -252,7 +244,7 @@ fun randomBits(bitCount: Int) = prepared { nextBits(bitCount) }
  * @see KotlinRandom.nextInt Standard library.
  * @see nextInt Direct value equivalent.
  */
-fun randomInt() = prepared { nextInt() }
+fun randomInt() = prepared { random.nextInt() }
 
 /**
  * Provider for a random integer.
@@ -260,7 +252,7 @@ fun randomInt() = prepared { nextInt() }
  * @see KotlinRandom.nextInt Standard library.
  * @see nextInt Direct value equivalent.
  */
-fun randomInt(from: Int, until: Int) = prepared { nextInt(from, until) }
+fun randomInt(from: Int, until: Int) = prepared { random.nextInt(from, until) }
 
 /**
  * Provider for a random integer.
@@ -268,7 +260,7 @@ fun randomInt(from: Int, until: Int) = prepared { nextInt(from, until) }
  * @see KotlinRandom.nextLong Standard library.
  * @see nextLong Direct value equivalent.
  */
-fun randomLong() = prepared { nextLong() }
+fun randomLong() = prepared { random.nextLong() }
 
 /**
  * Provider for a random integer.
@@ -276,7 +268,7 @@ fun randomLong() = prepared { nextLong() }
  * @see KotlinRandom.nextLong Standard library.
  * @see nextLong Direct value equivalent.
  */
-fun randomLong(from: Long, until: Long) = prepared { nextLong(from, until) }
+fun randomLong(from: Long, until: Long) = prepared { random.nextLong(from, until) }
 
 /**
  * Provider for a random boolean.
@@ -284,7 +276,7 @@ fun randomLong(from: Long, until: Long) = prepared { nextLong(from, until) }
  * @see KotlinRandom.nextBoolean Standard library.
  * @see nextBoolean Direct value equivalent.
  */
-fun randomBoolean() = prepared { nextInt() }
+fun randomBoolean() = prepared { random.nextBoolean() }
 
 /**
  * Provider for a random double.
@@ -292,7 +284,7 @@ fun randomBoolean() = prepared { nextInt() }
  * @see KotlinRandom.nextDouble Standard library.
  * @see nextDouble Direct value equivalent.
  */
-fun randomDouble() = prepared { nextDouble() }
+fun randomDouble() = prepared { random.nextDouble() }
 
 /**
  * Provider for a random double.
@@ -300,7 +292,7 @@ fun randomDouble() = prepared { nextDouble() }
  * @see KotlinRandom.nextDouble Standard library.
  * @see nextDouble Direct value equivalent.
  */
-fun randomDouble(from: Double, until: Double) = prepared { nextDouble(from, until) }
+fun randomDouble(from: Double, until: Double) = prepared { random.nextDouble(from, until) }
 
 /**
  * Provider for a random float.
@@ -308,7 +300,7 @@ fun randomDouble(from: Double, until: Double) = prepared { nextDouble(from, unti
  * @see KotlinRandom.nextFloat Standard library.
  * @see nextFloat Direct value equivalent.
  */
-fun randomFloat() = prepared { nextFloat() }
+fun randomFloat() = prepared { random.nextFloat() }
 
 // endregion
 // region Warn on usages of kotlin.random.Random in tests
