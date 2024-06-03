@@ -11,6 +11,7 @@ import kotlin.coroutines.EmptyCoroutineContext
  *
  * Tasks started in this scope respect the controlled [time].
  */
+@PreparedDslMarker
 val TestDsl.foregroundScope: CoroutineScope
 	get() = environment.coroutineScope
 
@@ -25,6 +26,7 @@ val TestDsl.foregroundScope: CoroutineScope
  *
  * Tasks started in this scope respect the controlled [time].
  */
+@PreparedDslMarker
 val TestDsl.backgroundScope: CoroutineScope
 	get() = environment.coroutineScope.backgroundScope
 
@@ -36,6 +38,7 @@ val TestDsl.backgroundScope: CoroutineScope
  *
  * The task will respect the controlled [time].
  */
+@PreparedDslMarker
 fun TestDsl.launch(
 	context: CoroutineContext = EmptyCoroutineContext,
 	start: CoroutineStart = CoroutineStart.DEFAULT,
@@ -53,6 +56,7 @@ fun TestDsl.launch(
  *
  * The task will respect the controlled [time].
  */
+@PreparedDslMarker
 fun TestDsl.launchInBackground(
 	context: CoroutineContext = EmptyCoroutineContext,
 	start: CoroutineStart = CoroutineStart.DEFAULT,
