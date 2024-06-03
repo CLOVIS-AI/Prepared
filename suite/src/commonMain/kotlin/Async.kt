@@ -43,7 +43,7 @@ fun TestDsl.launch(
 	context: CoroutineContext = EmptyCoroutineContext,
 	start: CoroutineStart = CoroutineStart.DEFAULT,
 	block: suspend CoroutineScope.() -> Unit,
-) = foregroundScope.launch(context, start, block)
+) = foregroundScope.launch(CoroutineName("Test foreground task") + context, start, block)
 
 /**
  * Starts a task in the [backgroundScope] scope. The test will **not** wait for this task before finishing.
@@ -61,4 +61,4 @@ fun TestDsl.launchInBackground(
 	context: CoroutineContext = EmptyCoroutineContext,
 	start: CoroutineStart = CoroutineStart.DEFAULT,
 	block: suspend CoroutineScope.() -> Unit,
-) = backgroundScope.launch(context, start, block)
+) = backgroundScope.launch(CoroutineName("Test background task") + context, start, block)
