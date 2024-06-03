@@ -9,7 +9,11 @@ import kotlin.coroutines.EmptyCoroutineContext
  *
  * The test will only finish when all tasks started in this scope are finished.
  *
+ * To start a single coroutine, see [launch].
+ *
  * Tasks started in this scope respect the controlled [time].
+ *
+ * @see backgroundScope
  */
 @PreparedDslMarker
 val TestDsl.foregroundScope: CoroutineScope
@@ -24,7 +28,11 @@ val TestDsl.foregroundScope: CoroutineScope
  * This is useful to execute background services which are not part of the system-under-test, yet are expected to be running
  * by the system-under-test.
  *
+ * To start a single coroutines, see [launchInBackground].
+ *
  * Tasks started in this scope respect the controlled [time].
+ *
+ * @see foregroundScope
  */
 @PreparedDslMarker
 val TestDsl.backgroundScope: CoroutineScope
@@ -37,6 +45,8 @@ val TestDsl.backgroundScope: CoroutineScope
  * To execute tasks in parallel, explicitly use a [CoroutineDispatcher].
  *
  * The task will respect the controlled [time].
+ *
+ * @see launchInBackground
  */
 @PreparedDslMarker
 fun TestDsl.launch(
@@ -55,6 +65,8 @@ fun TestDsl.launch(
  * To execute tasks in parallel, explicitly use a [CoroutineDispatcher].
  *
  * The task will respect the controlled [time].
+ *
+ * @see launch
  */
 @PreparedDslMarker
 fun TestDsl.launchInBackground(
