@@ -36,6 +36,13 @@ fun SuiteDsl.testUsers( // (1)!
                 users().deleteUser(it) 
             }
             
+            launchInBackground { // (8)!
+                while (true) {
+                    delay(1000)
+                    users().increaseAgeOf(it)
+                }
+            }
+            
             user
         }
 
@@ -68,3 +75,5 @@ fun SuiteDsl.testUsers( // (1)!
    [Learn more](shared-values.md).
 7. Finalizers are useful to co-locate clean up code next to value generation.
    [Learn more](finalizers.md).
+8. Tests can create asynchronous tasks that run in the foreground or in the background.
+   [Learn more](async.md).

@@ -91,6 +91,7 @@ nav:
       - features/prepared-values.md
       - features/shared-values.md
       - features/finalizers.md
+      - features/async.md
 
   - Best practices:
       - practices/overview.md
