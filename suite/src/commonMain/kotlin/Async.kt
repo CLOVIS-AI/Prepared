@@ -9,8 +9,13 @@ import kotlin.coroutines.EmptyCoroutineContext
  *
  * The test will only finish when all tasks started in this scope are finished.
  *
+ * To start a single coroutine, see [launch].
+ *
  * Tasks started in this scope respect the controlled [time].
+ *
+ * @see backgroundScope
  */
+@PreparedDslMarker
 val TestDsl.foregroundScope: CoroutineScope
 	get() = environment.coroutineScope
 
@@ -23,8 +28,13 @@ val TestDsl.foregroundScope: CoroutineScope
  * This is useful to execute background services which are not part of the system-under-test, yet are expected to be running
  * by the system-under-test.
  *
+ * To start a single coroutines, see [launchInBackground].
+ *
  * Tasks started in this scope respect the controlled [time].
+ *
+ * @see foregroundScope
  */
+@PreparedDslMarker
 val TestDsl.backgroundScope: CoroutineScope
 	get() = environment.coroutineScope.backgroundScope
 
@@ -35,12 +45,15 @@ val TestDsl.backgroundScope: CoroutineScope
  * To execute tasks in parallel, explicitly use a [CoroutineDispatcher].
  *
  * The task will respect the controlled [time].
+ *
+ * @see launchInBackground
  */
+@PreparedDslMarker
 fun TestDsl.launch(
 	context: CoroutineContext = EmptyCoroutineContext,
 	start: CoroutineStart = CoroutineStart.DEFAULT,
 	block: suspend CoroutineScope.() -> Unit,
-) = foregroundScope.launch(context, start, block)
+) = foregroundScope.launch(CoroutineName("Test foreground task") + context, start, block)
 
 /**
  * Starts a task in the [backgroundScope] scope. The test will **not** wait for this task before finishing.
@@ -52,9 +65,12 @@ fun TestDsl.launch(
  * To execute tasks in parallel, explicitly use a [CoroutineDispatcher].
  *
  * The task will respect the controlled [time].
+ *
+ * @see launch
  */
+@PreparedDslMarker
 fun TestDsl.launchInBackground(
 	context: CoroutineContext = EmptyCoroutineContext,
 	start: CoroutineStart = CoroutineStart.DEFAULT,
 	block: suspend CoroutineScope.() -> Unit,
-) = backgroundScope.launch(context, start, block)
+) = backgroundScope.launch(CoroutineName("Test background task") + context, start, block)

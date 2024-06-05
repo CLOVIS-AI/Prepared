@@ -62,7 +62,6 @@ private class NonNestedSuite(private val root: RootScope, private val parentConf
 			tags = config[Tag]
 				.mapTo(HashSet()) { io.kotest.core.Tag(it.name) }
 				.takeIf { it.isNotEmpty() },
-			testCoroutineDispatcher = true,
 			coroutineTestScope = true,
 			coroutineDebugProbes = true,
 		)
