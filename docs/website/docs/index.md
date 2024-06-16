@@ -46,6 +46,8 @@ The goal of Prepared is to simplify how we declare tests, how we go from a thoug
 
 Assertion libraries provide utilities to compare values. Popular choices are [Kotlin.test](https://kotlinlang.org/api/latest/kotlin.test/), [Kotest Assertions](https://kotest.io/docs/assertions/assertions.html), [Strikt](https://strikt.io/), [AssertK](https://github.com/willowtreeapps/assertk)… just use the one you prefer!
 
+Instead of any specific assertion libraries, we recommend using [Power Assert](https://kotlinlang.org/docs/power-assert.html), which is able to generate good error messages from regular Kotlin code, without needing an assertion library at all.
+
 ## Prepared isn't an IntelliJ plugin (yet?)
 
 Prepared is a simple Kotlin library. It doesn't have a Gradle plugin, nor does it have an IntelliJ plugin. Test are reported by the runner, so your IDE can display the test report. However, IntelliJ doesn't know which lines are tests or not, so it cannot display the small green triangle to select which tests to execute. 
