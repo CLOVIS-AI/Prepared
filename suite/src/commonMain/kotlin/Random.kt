@@ -26,7 +26,7 @@ private class ConfiguredRandom(
 
 	override fun toString() = "Random generator" + when (explicitlyChosen) {
 		true -> " with the explicitly selected seed $seed"
-		false -> " with seed $seed. To reproduce this execution, add 'random.setSeed($seed)' at the start of the test, before any random generation."
+		false -> " with seed $seed. To reproduce this execution, add 'random.setSeed(${seed}L)' at the start of the test, before any random generation."
 	}
 }
 
