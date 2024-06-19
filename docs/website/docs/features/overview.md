@@ -26,7 +26,7 @@ fun SuiteDsl.testUsers( // (1)!
 
     suite("Test fixtures") {
         val adminEmail by prepared { // (5)!
-            "account-${random.nextInt()}@mail.com"
+            "account-${random.nextInt()}@mail.com" // (9)!
         }
 
         val admin by prepared {
@@ -77,3 +77,5 @@ fun SuiteDsl.testUsers( // (1)!
    [Learn more](finalizers.md).
 8. Tests can create asynchronous tasks that run in the foreground or in the background.
    [Learn more](async.md).
+9. Generate randomized values with full seed control using the `random` helper.
+   [Learn more](random.md).

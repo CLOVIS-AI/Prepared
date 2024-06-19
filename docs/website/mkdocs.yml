@@ -92,6 +92,7 @@ nav:
       - features/shared-values.md
       - features/finalizers.md
       - features/async.md
+      - features/random.md
 
   - Best practices:
       - practices/overview.md
