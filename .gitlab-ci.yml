@@ -71,6 +71,7 @@ check[jvm]:
       -x jsNodeTest
       -x wasmJsBrowserTest
       -x wasmJsNodeTest
+      -x wasmWasiNodeTest
       -x linuxX64Test
       -x iosSimulatorArm64Test
       koverVerify --rerun
@@ -104,7 +105,7 @@ check[nodeJs]:
 
   script:
     - >
-      ./gradlew jsNodeTest wasmJsNodeTest
+      ./gradlew jsNodeTest wasmJsNodeTest wasmWasiNodeTest
       -PappVersion=$project_version
 
   interruptible: true
