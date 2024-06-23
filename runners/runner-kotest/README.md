@@ -84,6 +84,11 @@ tasks.withType<Test> {
 
 plugins {
 	kotlin("multiplatform") version "…"
+
+	// ⚠ Without the Kotest plugin, tests for some platforms 
+	// may not run, without warnings ⚠
+	// https://plugins.gradle.org/plugin/io.kotest.multiplatform
+	id("io.kotest.multiplatform") version "…"
 }
 
 kotlin {
