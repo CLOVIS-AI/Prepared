@@ -90,4 +90,4 @@ To learn more, select a platform at the top of this page (below the title).
 For this library to be usable in the long term, and in all platforms, we need JetBrains to provide a low-level way to
 declare tests dynamically for all platforms. If you'd like to support this, please vote for [KT-46899](https://youtrack.jetbrains.com/issue/KT-46899/Dynamic-test-API).
 
-Before using this runner, you may want to browse its [planned issues](https://gitlab.com/opensavvy/groundwork/prepared/-/issues/?sort=priority&state=opened&label_name%5B%5D=runner%3Akotlin-test&first_page_size=20).
+Before using this runner, you may want to browse its [planned work](https://gitlab.com/opensavvy/groundwork/prepared/-/issues/?sort=priority&state=opened&label_name%5B%5D=runner%3Akotlin-test&first_page_size=20).
