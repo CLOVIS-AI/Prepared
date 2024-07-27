@@ -36,14 +36,13 @@ kotlin {
 		dependencies {
 			api(projects.suite)
 
-			api(libs.kotest.engine)
-			api(libs.kotest.assertions)
+			api("io.kotest:kotest-framework-engine:${opensavvyConventions.versions.kotest.get()}")
 		}
 	}
 
 	val jvmMain by sourceSets.getting {
 		dependencies {
-			api(libs.kotest.runner.junit5)
+			api("io.kotest:kotest-runner-junit5:${opensavvyConventions.versions.kotest.get()}")
 		}
 	}
 }
