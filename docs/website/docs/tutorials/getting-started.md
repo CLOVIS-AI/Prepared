@@ -142,9 +142,6 @@ Here are a few popular choices:
     !!! warning
         Kotlin Multiplatform is not supported.
 
-    !!! warning
-        Strikt does not seem to be in active development.
-
 === "AssertK"
 
     [AssertK](https://github.com/willowtreeapps/assertk) is a Kotlin library inspired by AssertJ.
