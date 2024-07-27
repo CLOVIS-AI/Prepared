@@ -169,3 +169,27 @@ Here are a few popular choices:
     **Configuration**
 
     Add a dependency on `com.willowtreeapps.assertk:assertk`.
+
+=== "Truthish"
+
+    [Truthish](https://github.com/varabyte/truthish) is a Kotlin library inspired by [Google Truth](https://github.com/google/truth).
+
+    **Usage**
+
+    ```kotlin
+    // Equality check
+    assertThat("Hello world").isEqualTo("Hello world")
+
+    // Collection check
+    assertThat(listOf(1, 2, 3))
+        .contains(2)
+
+    // Thrown exceptions
+    assertThrows<IllegalStateException> {
+        error("foo")
+    }
+    ```
+
+    **Configuration**
+
+    Add a dependency on `com.varabyte.truthish:truthish`.
