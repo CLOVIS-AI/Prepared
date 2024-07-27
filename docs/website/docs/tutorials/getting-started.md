@@ -76,6 +76,30 @@ Here are a few popular choices:
     !!! info
         This library is already included if you use the `kotlin-test` runner.
 
+=== "Power Assert"
+
+    [Power Assert](https://kotlinlang.org/docs/power-assert.html) is an official compiler plugin that generates detailed error messages from regular assertions, no complex assertion library required.
+
+    **Usage**
+
+    In the following examples, Power Assert is configured to instrument the `kotlin.check` function (this is not the default configuration).
+
+    ```kotlin
+    // Equality check
+    check("Hello world" == "Hello world")
+
+    // Collection check
+    check(2 in listOf(1, 2, 3))
+    ```
+
+    Power Assert does not support catching exceptions nor assertion grouping.
+    However, Power Assert can be used alongside other assertion libraries, that do.
+
+    **Configuration**
+
+    Add the Gradle plugin `kotlin("plugin.power-assert")` with the same version as the Kotlin plugin.
+    See the [documentation](https://kotlinlang.org/docs/power-assert.html#apply-the-plugin).
+
 === "Kotest Assertions"
 
     [Kotest Assertions](https://kotest.io/docs/assertions/assertions.html) is a part of the Kotest framework.
