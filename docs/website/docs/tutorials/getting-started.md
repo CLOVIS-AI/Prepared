@@ -140,7 +140,7 @@ Here are a few popular choices:
     Add a dependency on `io.strikt:strikt-core`.
 
     !!! warning
-        Kotlin Multiplatform is not supported.
+        Strikt only supports the JVM platform.
 
 === "AssertK"
 
