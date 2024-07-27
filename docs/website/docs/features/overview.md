@@ -4,11 +4,11 @@ Prepared adds many helpers to facilitate writing tests. To learn about them, eit
 
 ??? warning "This example is not idiomatic!"
     This example is written specifically to showcase all features in a single place. It is not considered idiomatic.
-    For more information, visit [the best practices section](../practices/overview.md).
+    For more information, visit [the best practices section](../practices/index).
 
 ??? note "Assertion library"
     This example uses the Kotest assertion library.
-    [Learn more about assertion libraries](../tutorials/getting-started.md#assertion-libraries).
+    [Learn more about assertion libraries](../tutorials/index#assertion-libraries).
 
 ```kotlin
 fun SuiteDsl.testUsers( // (1)!
@@ -62,7 +62,7 @@ fun SuiteDsl.testUsers( // (1)!
 ```
 
 1. The `SuiteDsl` receiver enables the declaration of tests and suites that are compatible with any test runner.
-   To learn more, see [the getting started section](../tutorials/getting-started.md#test-runners).
+   To learn more, see [the getting started section](../tutorials/index#test-runners).
 2. The `suite` function creates a nested container to organize related tests into a single unit.
    [Learn more](https://opensavvy.gitlab.io/groundwork/prepared/api-docs/suite/opensavvy.prepared.suite/-suite-dsl/suite.html).
 3. The `test` function declares the existence of a test.

@@ -40,7 +40,7 @@ Additionally, Prepared exposes many advanced features:
 
 ## Prepared isn't a test runner
 
-The goal of Prepared is to simplify how we declare tests, how we go from a thought to code. Test runners are libraries that execute test batteries and report results to your build system. Prepared isn't a test runner, but [it is compatible with a few existing ones](tutorials/getting-started.md#test-runners).
+The goal of Prepared is to simplify how we declare tests, how we go from a thought to code. Test runners are libraries that execute test batteries and report results to your build system. Prepared isn't a test runner, but [it is compatible with a few existing ones](tutorials/index#test-runners).
 
 ## Prepared isn't an assertion library
 
