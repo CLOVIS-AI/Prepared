@@ -76,5 +76,10 @@ private class NonNestedSuite(private val root: RootScope, private val parentConf
  * Appends [name] at the end of `this`, handling the case where `this` is `null`.
  */
 private infix fun String?.child(name: String) =
-	if (this != null) "$this • $name"
-	else name
+	when {
+		// See https://kotest.io/docs/framework/conditional/conditional-tests-with-focus-and-bang.html
+		this != null && name.startsWith("f:") -> "f:$this • $name"
+		this != null && name.startsWith("!") -> "!$this • $name"
+		this != null -> "$this • $name"
+		else -> name
+	}

@@ -113,7 +113,8 @@ This runner automatically enables some Kotest features:
 - Always uses the KotlinX.Coroutine dispatcher,
 - KotlinX.Coroutines debug probes are always enabled,
 - [Ignored tests][opensavvy.prepared.suite.config.Ignored] are mapped to Kotest ignored tests,
-- [Test tags][opensavvy.prepared.suite.config.Tag] are mapped to Kotest test tags.
+- [Test tags][opensavvy.prepared.suite.config.Tag] are mapped to Kotest test tags,
+- [Focus and Bang](https://kotest.io/docs/framework/conditional/conditional-tests-with-focus-and-bang.html) are supported. Unlike regular Kotest, both features also work with tests declared in suites.
 
 ## Limitations
 
