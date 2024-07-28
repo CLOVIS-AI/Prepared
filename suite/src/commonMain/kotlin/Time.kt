@@ -125,6 +125,11 @@ val Time.nowMillis: Long
 
 /**
  * Advances the current time by [delay].
+ *
+ * ### Stability warning
+ *
+ * The KotlinX.Coroutines team is considering removing this functionality.
+ * Learn more in [#3919](https://github.com/Kotlin/kotlinx.coroutines/issues/3919).
  */
 @ExperimentalCoroutinesApi
 fun Time.advanceByMillis(delay: Long) {
@@ -145,6 +150,11 @@ fun Time.advanceByMillis(delay: Long) {
  *     assertEquals(2.minutes, elapsed)
  * }
  * ```
+ *
+ * ### Stability warning
+ *
+ * The KotlinX.Coroutines team is considering removing this functionality.
+ * Learn more in [#3919](https://github.com/Kotlin/kotlinx.coroutines/issues/3919).
  */
 @ExperimentalCoroutinesApi
 fun Time.advanceBy(delay: Duration) {
@@ -184,6 +194,11 @@ fun Time.advanceBy(delay: Duration) {
  *
  * This method advances time until all the last [foreground tasks][TestDsl.launch]'s scheduled time.
  * There may be [background tasks][TestDsl.launchInBackground] that are scheduled for later.
+ *
+ * ### Stability warning
+ *
+ * The KotlinX.Coroutines team is considering removing this functionality.
+ * Learn more in [#3919](https://github.com/Kotlin/kotlinx.coroutines/issues/3919).
  */
 @ExperimentalCoroutinesApi
 fun Time.advanceUntilIdle() {
@@ -211,6 +226,11 @@ fun Time.advanceUntilIdle() {
  *     time.runCurrent() // prints "Hello world!"
  * }
  * ```
+ *
+ * ### Stability warning
+ *
+ * The KotlinX.Coroutines team is considering removing this functionality.
+ * Learn more in [#3919](https://github.com/Kotlin/kotlinx.coroutines/issues/3919).
  */
 @ExperimentalCoroutinesApi
 fun Time.runCurrent() {
