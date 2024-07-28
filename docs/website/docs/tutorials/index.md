@@ -14,35 +14,35 @@ A test runner is responsible to communicate with the rest of the build tooling: 
 
 Prepared doesn't include a built-in test runner.
 
-### Kotlin-test
+=== "Kotlin-test"
 
-The `kotlin-test` runner is based on the [Kotlin standard test library](https://kotlinlang.org/api/core/kotlin-test/).
-To decide whether it is appropriate for your project, see the available platforms and see the required configuration, see [the reference](https://opensavvy.gitlab.io/groundwork/prepared/api-docs/runners/runner-kotlin-test/index.html).
+    The `kotlin-test` runner is based on the [Kotlin standard test library](https://kotlinlang.org/api/core/kotlin-test/).
+    To decide whether it is appropriate for your project, see the available platforms and see the required configuration, refer to [the reference](https://opensavvy.gitlab.io/groundwork/prepared/api-docs/runners/runner-kotlin-test/index.html).
 
-### Kotest
+=== "Kotest"
 
-The `kotest` runner is based on the [Kotest framework](https://kotest.io/docs/framework/framework.html).
-To decide whether it is appropriate for your project, see the available platforms and see the required configuration, see [the reference](https://opensavvy.gitlab.io/groundwork/prepared/api-docs/runners/runner-kotest/index.html).
+    The `kotest` runner is based on the [Kotest framework](https://kotest.io/docs/framework/framework.html).
+    To decide whether it is appropriate for your project, see the available platforms and see the required configuration, refer to [the reference](https://opensavvy.gitlab.io/groundwork/prepared/api-docs/runners/runner-kotest/index.html).
 
-### Without a runner
+=== "Without a runner"
 
-Prepared can also be accessed without any runner. This mode allows declaring tests, but not running them.
-This is useful when creating a test utility module that is imported into other test modules.
-By not depending on any runner, the test utility module can be imported into a project that uses any runner.
-
-To do this, simply declare a dependency on `dev.opensavvy.prepared:suite`. To learn more, see [the reference](https://opensavvy.gitlab.io/groundwork/prepared/api-docs/suite/index.html).
-
-Test suites can be exported as top-level functions:
-
-```kotlin
-fun SuiteDsl.testUsers(users: Prepared<UserService>) = suite("User service $users") {
-	test("foo") {
-		// …
+	Prepared can also be accessed without any runner. This mode allows declaring tests, but not running them.
+	This is useful when creating a test utility module that is imported into other test modules.
+	By not depending on any runner, the test utility module can be imported into a project that uses any runner.
+	
+	To do this, simply declare a dependency on `dev.opensavvy.prepared:suite`. To learn more, refer to [the reference](https://opensavvy.gitlab.io/groundwork/prepared/api-docs/suite/index.html).
+	
+	Test suites can be exported as top-level functions:
+	
+	```kotlin
+	fun SuiteDsl.testUsers(users: Prepared<UserService>) = suite("User service $users") {
+		test("foo") {
+			// …
+		}
 	}
-}
-```
-
-To learn more, visit [the feature list](../features/overview.md).
+	```
+	
+	To learn more, visit [the feature list](../features/overview.md).
 
 ## Assertion libraries
 
@@ -76,7 +76,31 @@ Here are a few popular choices:
     !!! info
         This library is already included if you use the `kotlin-test` runner.
 
-=== "Kotest Assertions"
+=== "Power Assert"
+
+    [Power Assert](https://kotlinlang.org/docs/power-assert.html) is an official compiler plugin that generates detailed error messages from regular assertions, no complex assertion library required.
+
+    **Usage**
+
+    In the following examples, Power Assert is configured to instrument the `kotlin.check` function (this is not the default configuration).
+
+    ```kotlin
+    // Equality check
+    check("Hello world" == "Hello world")
+
+    // Collection check
+    check(2 in listOf(1, 2, 3))
+    ```
+
+    Power Assert does not support catching exceptions nor assertion grouping.
+    However, Power Assert can be used alongside other assertion libraries, that do.
+
+    **Configuration**
+
+    Add the Gradle plugin `kotlin("plugin.power-assert")` with the same version as the Kotlin plugin.
+    See the [documentation](https://kotlinlang.org/docs/power-assert.html#apply-the-plugin).
+
+=== "Kotest"
 
     [Kotest Assertions](https://kotest.io/docs/assertions/assertions.html) is a part of the Kotest framework.
     Kotest provides assertion helpers for many libraries, called "matcher modules".
@@ -140,10 +164,7 @@ Here are a few popular choices:
     Add a dependency on `io.strikt:strikt-core`.
 
     !!! warning
-        Kotlin Multiplatform is not supported.
-
-    !!! warning
-        Strikt does not seem to be in active development.
+        Strikt only supports the JVM platform.
 
 === "AssertK"
 
@@ -172,3 +193,27 @@ Here are a few popular choices:
     **Configuration**
 
     Add a dependency on `com.willowtreeapps.assertk:assertk`.
+
+=== "Truthish"
+
+    [Truthish](https://github.com/varabyte/truthish) is a Kotlin library inspired by [Google Truth](https://github.com/google/truth).
+
+    **Usage**
+
+    ```kotlin
+    // Equality check
+    assertThat("Hello world").isEqualTo("Hello world")
+
+    // Collection check
+    assertThat(listOf(1, 2, 3))
+        .contains(2)
+
+    // Thrown exceptions
+    assertThrows<IllegalStateException> {
+        error("foo")
+    }
+    ```
+
+    **Configuration**
+
+    Add a dependency on `com.varabyte.truthish:truthish`.

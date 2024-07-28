@@ -84,7 +84,7 @@ nav:
   - Home: index.md
 
   - Getting started:
-      - tutorials/getting-started.md
+      - tutorials/index.md
 
   - Features:
       - features/overview.md
@@ -95,7 +95,7 @@ nav:
       - features/random.md
 
   - Best practices:
-      - practices/overview.md
+      - practices/index.md
 
   - Reference:
       - reference.md
