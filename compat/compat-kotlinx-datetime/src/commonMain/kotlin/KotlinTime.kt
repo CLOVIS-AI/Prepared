@@ -6,7 +6,6 @@ import kotlinx.coroutines.test.TestCoroutineScheduler
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 import opensavvy.prepared.suite.Time
-import opensavvy.prepared.suite.advanceByMillis
 import opensavvy.prepared.suite.nowMillis
 
 @ExperimentalCoroutinesApi
@@ -53,13 +52,33 @@ val Time.now: Instant
 /**
  * Advances the virtual time until it reaches [instant].
  *
+ * ### Comparison with delayUntil
+ *
+ * This function is identical in behavior to [delayUntil].
+ * It exists because tests often read better when using it to set the initial date:
+ * ```kotlin
+ * test("Some test") {
+ *     // Given:
+ *     time.set(Instant.parse("2024-02-13T21:32:41Z"))
+ *
+ *     // When:
+ *     // …
+ *     delayUntil(Instant.parse("2024-02-13T21:35:01Z"))
+ *     // …
+ *
+ *     // Then:
+ *     // …
+ * }
+ * ```
+ *
+ * We recommend using [set] to set the initial date at the very start of a test, and using [delayUntil] inside the test
+ * logic.
+ *
  * It is not possible to set the time to a date in the past.
  */
 @ExperimentalCoroutinesApi
-fun Time.set(instant: Instant) {
-	val diff = instant.toEpochMilliseconds() - nowMillis
-	require(diff >= 0) { "Cannot advance to $instant, which is in the past of the current virtual time, $now" }
-	advanceByMillis(diff)
+suspend fun Time.set(instant: Instant) {
+	delayUntil(instant)
 }
 
 /**
@@ -77,17 +96,42 @@ fun Time.set(instant: Instant) {
  * }
  * ```
  *
+ * ### Comparison with delayUntil
+ *
+ * This function is identical in behavior to [delayUntil].
+ * It exists because tests often read better when using it to set the initial date:
+ * ```kotlin
+ * test("Some test") {
+ *     // Given:
+ *     time.set("2024-02-13T21:32:41Z")
+ *
+ *     // When:
+ *     // …
+ *     delayUntil("2024-02-13T21:35:01Z")
+ *     // …
+ *
+ *     // Then:
+ *     // …
+ * }
+ * ```
+ *
+ * We recommend using [set] to set the initial date at the very start of a test, and using [delayUntil] inside the test
+ * logic.
+ *
  * @see now Access the current time
  * @see delay Wait for some duration
  * @see delayUntil Wait for a specific time
  */
 @ExperimentalCoroutinesApi
-fun Time.set(isoString: String) {
+suspend fun Time.set(isoString: String) {
 	set(Instant.parse(isoString))
 }
 
 /**
  * Delays until the virtual time reaches [instant], executing all enqueued tasks in order.
+ *
+ * `delayUntil` is useful to artificially trigger time-dependent algorithms.
+ * To set the initial time at the start of the test, use [set].
  */
 @ExperimentalCoroutinesApi
 suspend fun Time.delayUntil(instant: Instant) {
@@ -98,6 +142,9 @@ suspend fun Time.delayUntil(instant: Instant) {
 
 /**
  * Delays until the virtual time reaches [isoString], formatted as an ISO 8601 timestamp, executing all enqueued tasks in order.
+ *
+ * `delayUntil` is useful to artificially trigger time-dependent algorithms.
+ * To set the initial time at the start of the test, use [set].
  *
  * @see set Set the current time
  * @see now Access the current time
