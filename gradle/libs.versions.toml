@@ -1,7 +1,6 @@
 # List of dependencies of the project
 
 [versions]
-kotest = "5.9.0"              # https://github.com/kotest/kotest/releases
 arrow = "1.2.4"               # https://github.com/arrow-kt/arrow/releases
 kotlinx-coroutines = "1.8.1"  # https://github.com/Kotlin/kotlinx.coroutines/releases
 kotlinx-datetime = "0.5.0"    # https://github.com/Kotlin/kotlinx-datetime/releases
@@ -15,9 +14,6 @@ ktor = "2.3.11"               # https://ktor.io/docs/releases.html#release-detai
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinx-coroutines" }
 kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinx-datetime" }
-kotest-engine = { module = "io.kotest:kotest-framework-engine", version.ref = "kotest" }
-kotest-runner-junit5 = { module = "io.kotest:kotest-runner-junit5", version.ref = "kotest" }
-kotest-assertions = { module = "io.kotest:kotest-assertions-core", version.ref = "kotest" }
 gradle-testkit = { module = "dev.gradleplugins:gradle-test-kit", version.ref = "gradle-testkit" }
 arrow-core = { module = "io.arrow-kt:arrow-core", version.ref = "arrow" }
 parameterize = { module = "com.benwoodworth.parameterize:parameterize", version.ref = "parameterize" }

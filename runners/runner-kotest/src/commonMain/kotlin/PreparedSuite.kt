@@ -1,16 +1,15 @@
 package opensavvy.prepared.runner.kotest
 
-import io.kotest.core.coroutines.coroutineTestScope
 import io.kotest.core.names.TestName
 import io.kotest.core.spec.KotestTestScope
 import io.kotest.core.spec.style.StringSpec
+import io.kotest.core.spec.style.scopes.ContainerScope
 import io.kotest.core.spec.style.scopes.RootScope
 import io.kotest.core.spec.style.scopes.addTest
 import io.kotest.core.test.TestType
 import opensavvy.prepared.suite.SuiteDsl
 import opensavvy.prepared.suite.TestDsl
 import opensavvy.prepared.suite.config.*
-import opensavvy.prepared.suite.runTestDslSuspend
 import kotlin.coroutines.CoroutineContext
 
 /**
@@ -67,10 +66,14 @@ private class NonNestedSuite(private val root: RootScope, private val parentConf
 		)
 
 		root.addTest(testName = TestName(name = prefix child name), disabled = false, type = TestType.Test, config = kotestConfig) {
-			coroutineTestScope.runTestDslSuspend(name, context, config, block)
+			executeTest(name, context, config, block)
 		}
 	}
 }
+
+// Workaround to avoid using the coroutine dispatcher on KJS.
+// See https://gitlab.com/opensavvy/groundwork/prepared/-/issues/59
+internal expect suspend fun ContainerScope.executeTest(name: String, context: CoroutineContext, config: TestConfig, block: suspend TestDsl.() -> Unit)
 
 /**
  * Appends [name] at the end of `this`, handling the case where `this` is `null`.
