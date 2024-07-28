@@ -1,4 +1,4 @@
-# Overview
+# Features overview
 
 Prepared adds many helpers to facilitate writing tests. To learn about them, either select them in the menu on the left of this page, or click on one of the annotations in this complete example:
 
