@@ -93,6 +93,7 @@ nav:
       - features/finalizers.md
       - features/async.md
       - features/random.md
+      - features/time.md
 
   - Best practices:
       - practices/index.md
