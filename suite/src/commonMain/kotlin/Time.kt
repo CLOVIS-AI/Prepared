@@ -32,6 +32,28 @@ class Time private constructor(
 
 	/**
 	 * Accessor for the underlying [TestCoroutineScheduler], which controls the current time.
+	 *
+	 * Delay-skipping behavior is implemented by this dispatcher. Only `delay` calls within this dispatcher
+	 * can be skipped and can advance the virtual time. That is, using code like `withContext(Dispatchers.IO) { … }`
+	 * overrides the dispatcher and disables delay-skipping for the entire block.
+	 *
+	 * Sometimes, you may need to instantiate a service within your tests, that you want to internally use delay-skipping.
+	 * In these situations, you may need to pass the scheduler:
+	 *
+	 * ```kotlin
+	 * test("Test a cron service") {
+	 *    val cron = CronService(coroutineContext = time.scheduler)
+	 *    var witness = false
+	 *
+	 *    cron.runIn(2.minutes) { witness = true }
+	 *
+	 *    check(witness == false)
+	 *    delay(2.minutes)
+	 *    check(witness == true)
+	 * }
+	 * ```
+	 *
+	 * If the service expects a `CoroutineScope`, see [foregroundScope] and [backgroundScope] instead.
 	 */
 	val scheduler: TestCoroutineScheduler,
 ) {
