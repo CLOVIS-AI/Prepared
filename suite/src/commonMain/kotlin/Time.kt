@@ -118,6 +118,25 @@ val TestDsl.time
 
 /**
  * Accesses the current time inside the test, in milliseconds.
+ *
+ * ### Example
+ *
+ * ```kotlin
+ * test("Using the virtual time") {
+ *     val initial = time.nowMillis
+ *
+ *     // …do something…
+ *     delay(5000)
+ *
+ *     check(time.nowMillis == initial + 5000)
+ * }
+ * ```
+ *
+ * For the specific use-case of measuring elapsed time, see [Time.source].
+ *
+ * ### Integration with datetime libraries
+ *
+ * To retrieve an `Instant` instead of `Long`, use the KotlinX.Datetime or the Java Time compatibility libraries.
  */
 @ExperimentalCoroutinesApi
 val Time.nowMillis: Long
