@@ -85,6 +85,7 @@ nav:
 
   - Getting started:
       - tutorials/index.md
+      - tutorials/syntax.md
 
   - Features:
       - features/overview.md
