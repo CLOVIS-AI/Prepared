@@ -4,7 +4,6 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.test.TestCoroutineScheduler
 import opensavvy.prepared.suite.Time
-import opensavvy.prepared.suite.advanceByMillis
 import opensavvy.prepared.suite.nowMillis
 import java.time.Clock
 import java.time.Instant
@@ -40,17 +39,40 @@ val Time.nowJava: Instant
 /**
  * Advances the virtual time until it reaches [instant].
  *
+ * This function is identical in behavior to [delayUntil].
+ * It exists because tests often read better when using it to set the initial date:
+ * ```kotlin
+ * test("Some test") {
+ *     // Given:
+ *     time.set(Instant.parse("2024-02-13T21:32:41Z"))
+ *
+ *     // When:
+ *     // …
+ *     delayUntil(Instant.parse("2024-02-13T21:35:01Z"))
+ *     // …
+ *
+ *     // Then:
+ *     // …
+ * }
+ * ```
+ *
+ * We recommend using [set] to set the initial date at the very start of a test, and using [delayUntil] inside the test
+ * logic.
+ *
  * It is not possible to set the time to a date in the past.
  */
 @ExperimentalCoroutinesApi
-fun Time.set(instant: Instant) {
-	val diff = instant.toEpochMilli() - nowMillis
-	require(diff >= 0) { "Cannot advance to $instant, which is in the past of the current virtual time, $nowJava" }
-	advanceByMillis(diff)
+suspend fun Time.set(instant: Instant) {
+	delayUntil(instant)
 }
 
 /**
  * Delays until the virtual time reaches [instant], executing all enqueued tasks in order.
+ *
+ * `delayUntil` is useful to artificially trigger time-dependent algorithms.
+ * To set the initial time at the start of the test, use [set].
+ *
+ * It is not possible to set the time to a date in the past.
  */
 @ExperimentalCoroutinesApi
 suspend fun Time.delayUntil(instant: Instant) {

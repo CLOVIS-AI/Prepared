@@ -32,6 +32,28 @@ class Time private constructor(
 
 	/**
 	 * Accessor for the underlying [TestCoroutineScheduler], which controls the current time.
+	 *
+	 * Delay-skipping behavior is implemented by this dispatcher. Only `delay` calls within this dispatcher
+	 * can be skipped and can advance the virtual time. That is, using code like `withContext(Dispatchers.IO) { … }`
+	 * overrides the dispatcher and disables delay-skipping for the entire block.
+	 *
+	 * Sometimes, you may need to instantiate a service within your tests, that you want to internally use delay-skipping.
+	 * In these situations, you may need to pass the scheduler:
+	 *
+	 * ```kotlin
+	 * test("Test a cron service") {
+	 *    val cron = CronService(coroutineContext = time.scheduler)
+	 *    var witness = false
+	 *
+	 *    cron.runIn(2.minutes) { witness = true }
+	 *
+	 *    check(witness == false)
+	 *    delay(2.minutes)
+	 *    check(witness == true)
+	 * }
+	 * ```
+	 *
+	 * If the service expects a `CoroutineScope`, see [foregroundScope] and [backgroundScope] instead.
 	 */
 	val scheduler: TestCoroutineScheduler,
 ) {
@@ -118,6 +140,25 @@ val TestDsl.time
 
 /**
  * Accesses the current time inside the test, in milliseconds.
+ *
+ * ### Example
+ *
+ * ```kotlin
+ * test("Using the virtual time") {
+ *     val initial = time.nowMillis
+ *
+ *     // …do something…
+ *     delay(5000)
+ *
+ *     check(time.nowMillis == initial + 5000)
+ * }
+ * ```
+ *
+ * For the specific use-case of measuring elapsed time, see [Time.source].
+ *
+ * ### Integration with datetime libraries
+ *
+ * To retrieve an `Instant` instead of `Long`, use the KotlinX.Datetime or the Java Time compatibility libraries.
  */
 @ExperimentalCoroutinesApi
 val Time.nowMillis: Long
@@ -125,6 +166,11 @@ val Time.nowMillis: Long
 
 /**
  * Advances the current time by [delay].
+ *
+ * ### Stability warning
+ *
+ * The KotlinX.Coroutines team is considering removing this functionality.
+ * Learn more in [#3919](https://github.com/Kotlin/kotlinx.coroutines/issues/3919).
  */
 @ExperimentalCoroutinesApi
 fun Time.advanceByMillis(delay: Long) {
@@ -145,6 +191,11 @@ fun Time.advanceByMillis(delay: Long) {
  *     assertEquals(2.minutes, elapsed)
  * }
  * ```
+ *
+ * ### Stability warning
+ *
+ * The KotlinX.Coroutines team is considering removing this functionality.
+ * Learn more in [#3919](https://github.com/Kotlin/kotlinx.coroutines/issues/3919).
  */
 @ExperimentalCoroutinesApi
 fun Time.advanceBy(delay: Duration) {
@@ -184,6 +235,11 @@ fun Time.advanceBy(delay: Duration) {
  *
  * This method advances time until all the last [foreground tasks][TestDsl.launch]'s scheduled time.
  * There may be [background tasks][TestDsl.launchInBackground] that are scheduled for later.
+ *
+ * ### Stability warning
+ *
+ * The KotlinX.Coroutines team is considering removing this functionality.
+ * Learn more in [#3919](https://github.com/Kotlin/kotlinx.coroutines/issues/3919).
  */
 @ExperimentalCoroutinesApi
 fun Time.advanceUntilIdle() {
@@ -211,6 +267,11 @@ fun Time.advanceUntilIdle() {
  *     time.runCurrent() // prints "Hello world!"
  * }
  * ```
+ *
+ * ### Stability warning
+ *
+ * The KotlinX.Coroutines team is considering removing this functionality.
+ * Learn more in [#3919](https://github.com/Kotlin/kotlinx.coroutines/issues/3919).
  */
 @ExperimentalCoroutinesApi
 fun Time.runCurrent() {

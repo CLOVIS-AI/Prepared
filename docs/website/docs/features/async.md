@@ -79,10 +79,10 @@ When written properly, this service accepts a `CoroutineScope` on creation.
 
 To allow the service to create foreground or background tasks, pass it either [`foregroundScope`](https://opensavvy.gitlab.io/groundwork/prepared/api-docs/suite/opensavvy.prepared.suite/foreground-scope.html) or [`backgroundScope`](https://opensavvy.gitlab.io/groundwork/prepared/api-docs/suite/opensavvy.prepared.suite/background-scope.html):
 
-```kotlin
+```kotlin hl_lines="6 12"
 val inMemoryCache by prepared { // (1)!
     // Let's declare a cache that is used by our system-under-test,
-    // but isn't what we are trying to test. 
+    // but isn't what we are trying to test, so we give it a background scope. 
     Cache()
         .inMemory()
         .expireAfter(2.minutes, backgroundScope)
@@ -90,7 +90,7 @@ val inMemoryCache by prepared { // (1)!
 
 val systemUnderTest by prepared {
     // We are trying to test this system, and we want to ensure
-    // it doesn't leak coroutines.
+    // it doesn't leak coroutines after operations are done.
     SystemUnderTest(foregroundScope, inMemoryCache())
 }
 

@@ -89,12 +89,13 @@ nav:
       - tutorials/index.md
 
   - Features:
-      - features/overview.md
+      - features/index.md
       - features/prepared-values.md
       - features/shared-values.md
       - features/finalizers.md
       - features/async.md
       - features/random.md
+      - features/time.md
 
   - Best practices:
       - practices/index.md

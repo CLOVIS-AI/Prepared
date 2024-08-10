@@ -36,7 +36,7 @@ Additionally, Prepared exposes many advanced features:
 - Background task management¸
 - Randomness control,
 - Temporary filesystems,
-- …and [more](features/overview.md).
+- …and [more](features/index).
 
 ## Prepared isn't a test runner
 
