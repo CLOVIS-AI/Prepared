@@ -214,6 +214,8 @@ Here are a few popular choices:
     }
     ```
 
+    Assertion grouping is not supported, see [#7](https://github.com/varabyte/truthish/issues/7).
+
     **Configuration**
 
     Add a dependency on `com.varabyte.truthish:truthish`.
