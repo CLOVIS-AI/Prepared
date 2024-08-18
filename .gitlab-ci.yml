@@ -75,7 +75,10 @@ check[jvm]:
       -x linuxX64Test
       -x macosX64Test
       -x macosArm64Test
+      -x iosX64Test
       -x iosSimulatorArm64Test
+      -x watchosX64Test
+      -x tvosX64Test
       koverVerify --rerun
       -PappVersion=$project_version
 
@@ -129,7 +132,9 @@ check[iosArm64]:
 
   script:
     - >
-      ./gradlew iosSimulatorArm64Test
+      ./gradlew 
+      iosSimulatorArm64Test 
+      watchosSimulatorArm64Test
       --no-configuration-cache
       -PappVersion=$project_version
 
@@ -171,6 +176,13 @@ publish-maven:gitlab[ios]:
       publishIosX64PublicationToGitLabRepository
       publishMacosX64PublicationToGitLabRepository
       publishMacosArm64PublicationToGitLabRepository
+      publishWatchosX64PublicationToGitLabRepository
+      publishWatchosArm32PublicationToGitLabRepository
+      publishWatchosArm64PublicationToGitLabRepository
+      publishWatchosSimulatorArm64PublicationToGitLabRepository
+      publishTvosX64PublicationToGitLabRepository
+      publishTvosArm64PublicationToGitLabRepository
+      publishTvosSimulatorArm64PublicationToGitLabRepository
       --no-configuration-cache
       -PappVersion=$project_version
 
