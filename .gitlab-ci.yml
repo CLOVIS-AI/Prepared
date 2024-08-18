@@ -73,6 +73,8 @@ check[jvm]:
       -x wasmJsNodeTest
       -x wasmWasiNodeTest
       -x linuxX64Test
+      -x macosX64Test
+      -x macosArm64Test
       -x iosSimulatorArm64Test
       koverVerify --rerun
       -PappVersion=$project_version
@@ -167,6 +169,8 @@ publish-maven:gitlab[ios]:
       publishIosArm64PublicationToGitLabRepository
       publishIosSimulatorArm64PublicationToGitLabRepository
       publishIosX64PublicationToGitLabRepository
+      publishMacosX64PublicationToGitLabRepository
+      publishMacosArm64PublicationToGitLabRepository
       --no-configuration-cache
       -PappVersion=$project_version
 
