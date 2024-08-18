@@ -26,6 +26,7 @@ kotlin {
 	tvosX64()
 	tvosArm64()
 	tvosSimulatorArm64()
+	mingwX64()
 	wasmJs {
 		browser()
 		nodejs()

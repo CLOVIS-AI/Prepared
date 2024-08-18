@@ -73,6 +73,7 @@ check[jvm]:
       -x wasmJsNodeTest
       -x wasmWasiNodeTest
       -x linuxX64Test
+      -x mingwX64Test
       -x macosX64Test
       -x macosArm64Test
       -x iosX64Test
@@ -121,7 +122,7 @@ check[linuxX64]:
 
   script:
     - >
-      ./gradlew linuxX64Test
+      ./gradlew linuxX64Test mingwX64Test
       -PappVersion=$project_version
 
   interruptible: true
