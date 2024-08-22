@@ -8,7 +8,7 @@ Prepared adds many helpers to facilitate writing tests. To learn about them, eit
 
 ??? note "Assertion library"
     This example uses the Kotest assertion library.
-    [Learn more about assertion libraries](../tutorials/index#assertion-libraries).
+    [Learn more about assertion libraries](../tutorials/index.md#assertion-libraries).
 
 ```kotlin
 fun SuiteDsl.testUsers( // (1)!
