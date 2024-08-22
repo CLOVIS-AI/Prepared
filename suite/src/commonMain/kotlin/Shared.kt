@@ -114,10 +114,13 @@ class SharedDelegate<T> internal constructor(
  * to generate multiple [Shared] instances from the same block in exactly the same way,
  * this is not recommended.
  *
- * This is because there is no way to parameterize the encapsulated block which is used to generate the values.
- * Therefore, the only way for the block to give different values on each execution is if it relies on side
- * effects. However, as explained in the [Shared] documentation, shared values should not be used when
- * side effects are present. Instead, using [Prepared] and [PreparedProvider], which encapsulate side effects safely.
+ * Shared values should only be used when all of these are true:
+ * - The generated value is immutable,
+ * - The generated value is too expensive to compute each test,
+ * - The generation of this value does not involve side effects which may change the output of a test.
+ *
+ * If these conditions are met, then generating multiple values from the same [SharedProvider] makes no sense,
+ * as it will necessarily return the same value.
  *
  * This class exists because of its other use-case: capturing the name of the property it is instantiated to,
  * using the `by` keyword. See [shared] and [provideDelegate].
