@@ -42,7 +42,7 @@ Prepared doesn't include a built-in test runner.
 	}
 	```
 	
-	To learn more, visit [the feature list](../features/overview.md).
+	To learn more, visit [the feature list](../features/index.md).
 
 ## Assertion libraries
 
