@@ -25,10 +25,14 @@ fun interface Display {
 			else
 				text
 		}
+
+		override fun toString() = "Display.Short"
 	}
 
 	object Full : Display {
 		override fun display(value: Any?): String =
 			value.toString()
+
+		override fun toString() = "Display.Full"
 	}
 }
