@@ -39,7 +39,7 @@ test("Test 2") {
 Shared values otherwise behave the same as prepared values, and their syntax is identical.
 
 ??? note "Creating multiple shared values from the same generator"
-    Although this is supported, it is not supported.
+    Although this is supported, it is not recommended.
     To learn why, see [the reference](https://opensavvy.gitlab.io/groundwork/prepared/api-docs/suite/opensavvy.prepared.suite/-shared-provider/index.html).
 
 ### Shared values do not have access to the test context
