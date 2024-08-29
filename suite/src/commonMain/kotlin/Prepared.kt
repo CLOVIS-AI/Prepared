@@ -2,6 +2,7 @@ package opensavvy.prepared.suite
 
 import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.withContext
+import opensavvy.prepared.suite.display.Display
 import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.EmptyCoroutineContext
 import kotlin.reflect.KProperty
@@ -65,6 +66,7 @@ import kotlin.reflect.KProperty
  */
 class Prepared<out T> internal constructor(
 	val name: String,
+	internal val display: Display,
 	private val block: suspend TestDsl.() -> T,
 ) {
 
@@ -73,7 +75,7 @@ class Prepared<out T> internal constructor(
 		scope.environment.cache.cache(this) {
 			withContext(CoroutineName("Preparing $name")) {
 				val result = scope.block()
-				println("» Prepared ‘$name’: $result")
+				println("» Prepared ‘$name’: ${display.display(result)}")
 				result
 			}
 		} as T
@@ -121,6 +123,7 @@ class PreparedDelegate<T> internal constructor(
  * It is also possible to use a provider to generate values without binding them to a [Prepared] instance; see [TestDsl.immediate].
  */
 class PreparedProvider<T> internal constructor(
+	internal val display: Display,
 	internal val block: suspend TestDsl.() -> T,
 ) {
 	/**
@@ -128,7 +131,7 @@ class PreparedProvider<T> internal constructor(
 	 */
 	@Suppress("MemberVisibilityCanBePrivate")
 	fun named(name: String) =
-		Prepared(name = name, block = block)
+		Prepared(name = name, block = block, display = display)
 
 	/**
 	 * Provides a [Prepared] instance bound to the given [property].
@@ -142,6 +145,13 @@ class PreparedProvider<T> internal constructor(
 	operator fun provideDelegate(thisRef: Any?, property: KProperty<*>) =
 		PreparedDelegate(named(property.name))
 }
+
+@Deprecated("Old variant that didn't allow specifying a custom display. Will be removed in 2.0.0.", level = DeprecationLevel.HIDDEN)
+@PreparedDslMarker
+fun <T> prepared(
+	context: CoroutineContext = EmptyCoroutineContext,
+	block: suspend TestDsl.() -> T,
+) = prepared(context, Display.Short, block)
 
 /**
  * Declares a lazily-prepared value which will be constructed by calling [block] during test execution.
@@ -159,12 +169,21 @@ class PreparedProvider<T> internal constructor(
 @PreparedDslMarker
 fun <T> prepared(
 	context: CoroutineContext = EmptyCoroutineContext,
+	display: Display = Display.Short,
 	block: suspend TestDsl.() -> T,
-) = PreparedProvider {
+) = PreparedProvider(display) {
 	withContext(context) {
 		block()
 	}
 }
+
+@Deprecated("Old variant that didn't allow specifying a custom display. Will be removed in 2.0.0.", level = DeprecationLevel.HIDDEN)
+@PreparedDslMarker
+fun <T> prepared(
+	name: String,
+	context: CoroutineContext = EmptyCoroutineContext,
+	block: suspend TestDsl.() -> T,
+) = prepared(name, context, Display.Short, block)
 
 /**
  * Declares a lazily-prepared value called [name] which will be constructed by calling [block] during test execution.
@@ -181,8 +200,9 @@ fun <T> prepared(
 fun <T> prepared(
 	name: String,
 	context: CoroutineContext = EmptyCoroutineContext,
+	display: Display = Display.Short,
 	block: suspend TestDsl.() -> T,
-) = Prepared(name) {
+) = Prepared(name, display) {
 	withContext(context) {
 		block()
 	}

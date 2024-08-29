@@ -3,6 +3,7 @@ package opensavvy.prepared.suite
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
+import opensavvy.prepared.suite.display.Display
 import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.EmptyCoroutineContext
 import kotlin.reflect.KProperty
@@ -59,6 +60,7 @@ import kotlin.reflect.KProperty
  */
 class Shared<out T> internal constructor(
 	val name: String,
+	private val display: Display,
 	private val block: suspend () -> T,
 ) {
 
@@ -81,7 +83,7 @@ class Shared<out T> internal constructor(
 
 		val stored = result
 		check(stored is Option.Present) { "The stored result is $stored, even though we just passed the block that is expected to initialize it, that should be impossible" }
-		println("» Shared ‘${name}’: ${stored.value} " + if (fromHere) "(initialized by this test)" else "(reusing an already initialized value)")
+		println("» Shared ‘${name}’: ${display.display(stored.value)} " + if (fromHere) "(initialized by this test)" else "(reusing an already initialized value)")
 		return stored.value
 	}
 
@@ -126,6 +128,7 @@ class SharedDelegate<T> internal constructor(
  * using the `by` keyword. See [shared] and [provideDelegate].
  */
 class SharedProvider<T> internal constructor(
+	private val display: Display,
 	private val block: suspend () -> T,
 ) {
 
@@ -137,7 +140,7 @@ class SharedProvider<T> internal constructor(
 	 */
 	@Deprecated("The primary use-case for this method is to generate multiple shared values from a single provider. This implies you are relying on side effects in the shared value generation. This is not recommended. See the documentation of Shared and SharedProvider to learn more.")
 	fun named(name: String) =
-		Shared(name = name, block = block)
+		Shared(name = name, display = display, block = block)
 
 	/**
 	 * Provides a [Shared] instance bound to the given [property].
@@ -145,8 +148,15 @@ class SharedProvider<T> internal constructor(
 	 * @see shared
 	 */
 	operator fun provideDelegate(thisRef: Any?, property: KProperty<*>) =
-		SharedDelegate(Shared(property.name, block))
+		SharedDelegate(Shared(property.name, display, block))
 }
+
+@Deprecated("Old variant that didn't allow specifying a custom display. Will be removed in 2.0.0.", level = DeprecationLevel.HIDDEN)
+@PreparedDslMarker
+fun <T> shared(
+	context: CoroutineContext = EmptyCoroutineContext,
+	block: suspend () -> T,
+) = shared(context, Display.Short, block)
 
 /**
  * Declares a lazily-computed value that is constructed by calling [block], and is then shared between all tests.
@@ -166,12 +176,21 @@ class SharedProvider<T> internal constructor(
 @PreparedDslMarker
 fun <T> shared(
 	context: CoroutineContext = EmptyCoroutineContext,
+	display: Display = Display.Short,
 	block: suspend () -> T,
-) = SharedProvider {
+) = SharedProvider(display) {
 	withContext(context) {
 		block()
 	}
 }
+
+@Deprecated("Old variant that didn't allow specifying a custom display. Will be removed in 2.0.0.", level = DeprecationLevel.HIDDEN)
+@PreparedDslMarker
+fun <T> shared(
+	name: String,
+	context: CoroutineContext = EmptyCoroutineContext,
+	block: suspend () -> T,
+) = shared(name, context, Display.Short, block)
 
 /**
  * Declares a lazily-computer value called [name] that is constructed by calling [block], and is then shared between all tests.
@@ -190,8 +209,9 @@ fun <T> shared(
 fun <T> shared(
 	name: String,
 	context: CoroutineContext = EmptyCoroutineContext,
+	display: Display = Display.Short,
 	block: suspend () -> T,
-) = Shared(name) {
+) = Shared(name, display) {
 	withContext(context) {
 		block()
 	}
