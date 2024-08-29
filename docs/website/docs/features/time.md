@@ -1,8 +1,9 @@
-# Time control
+# Date and time control
 
 Tests run in virtual time: a fixed timescale which is controlled by the developer.
 
 The current virtual time can be accessed using the [`time.nowMillis`](https://opensavvy.gitlab.io/groundwork/prepared/api-docs/suite/opensavvy.prepared.suite/now-millis.html) property.
+To control the current date as proper datetime types, or to inject a controllable clock into other services, see [Using the virtual time](#using-the-virtual-date-and-time).
 
 ## Delay-skipping
 
@@ -111,7 +112,7 @@ test("Measure how long an operation takes in real time") {
 }
 ```
 
-## Using the virtual time
+## Using the virtual date and time
 
 Often, `time.nowMillis` is insufficient: we want to trigger algorithms at specific dates in time, for example to check that an algorithm behaves correctly even at midnight on New Year's. Prepared offers compatibility modules to generate datetime objects from popular libraries.
 
