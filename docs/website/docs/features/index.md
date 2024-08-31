@@ -38,11 +38,21 @@ fun SuiteDsl.testUsers() = suite("Test users") {
 				// …
 			}
 		}
+        
+		parameterize { //(2)!
+			val a by parameterOf(1, 2, 3, 4)
+			val b by parameter('a'..'z')
+            
+			test("Test $a $b") {
+				// …
+			}
+		}
 	}
 }
 ```
 
 1.  Because tests are declared as regular function calls, any Kotlin language feature, like loops, can be used to declare complex suites. No need to learn annotation-based test parameterization anymore!
+2.  For more complex cases, the `parameterize` DSL can be used to declare many tests quickly. Here, 104 tests will be declared (4 × 26). [Learn more](parameterize.md).
 
 To learn more about tests and suites, see [the dedicated page](../tutorials/syntax.md).
 

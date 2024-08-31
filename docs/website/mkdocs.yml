@@ -98,6 +98,7 @@ nav:
       - features/random.md
       - features/time.md
       - features/files.md
+      - features/parameterize.md
 
   - Best practices:
       - practices/index.md
