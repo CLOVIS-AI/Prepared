@@ -95,10 +95,12 @@ nav:
       - features/shared-values.md
       - features/finalizers.md
       - features/async.md
-      - features/random.md
-      - features/time.md
-      - features/files.md
       - features/parameterize.md
+
+      - Controlling external data:
+          - features/time.md
+          - features/random.md
+          - features/files.md
 
   - Best practices:
       - practices/index.md
