@@ -50,6 +50,7 @@ library {
 
 val appGroup: String? by project
 
+@Suppress("UnstableApiUsage") // 'onlyIf' is unstable
 if (appGroup != "dev.opensavvy.playground") {
 	tasks.configureEach {
 		if (name.startsWith("publish")) {
