@@ -55,6 +55,11 @@ workflow:
   tags:
     - saas-macos-medium-m1
 
+  retry:
+    max: 1
+    exit_codes:
+      - 1  # Sometimes, the runner breaks and doesn't actually run the test
+
 # endregion
 # region Check
 
