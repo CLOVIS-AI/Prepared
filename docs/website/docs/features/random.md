@@ -1,4 +1,4 @@
-# Randomness control
+# Randomness
 
 Randomness can be useful to generate arbitrary test data (e.g. for fuzzing, property testing, generating default values…). However, tests that exhibit randomness are quickly hard to debug: re-running them may give a different result!
 

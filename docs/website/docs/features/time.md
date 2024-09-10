@@ -1,4 +1,4 @@
-# Date and time control
+# Date and time
 
 Tests run in virtual time: a fixed timescale which is controlled by the developer.
 
