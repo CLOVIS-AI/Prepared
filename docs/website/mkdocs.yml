@@ -102,6 +102,9 @@ nav:
           - features/random.md
           - features/files.md
 
+      - Integrations:
+          - features/compat-ktor.md
+
   - Best practices:
       - practices/index.md
 
