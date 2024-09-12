@@ -60,7 +60,7 @@ fun SuiteDsl.pingTest() = suite("Testing the ping server") {
 }
 ```
 
-To learn more about configuring the test server, see [the official documentation](https://ktor.io/docs/testing.html). In particular, you will learn how to
+To learn more about configuring the test server, see [the official documentation](https://ktor.io/docs/testing.html).
 
 ## Testing a client
 
@@ -68,21 +68,18 @@ If we have a client we want to test, we can use the same approach to instead cre
 Let's assume we have the following client:
 
 ```kotlin
-import kotlin.time.TimeSource
-import kotlin.time.measureTime
-
 /**
  * A simple method that checks if a server is online.
  */
-suspend fun HttpClient.isOnline(): Boolean {
-	return get("/ping").status.isSuccess()
-}
+suspend fun HttpClient.isOnline(): Boolean =
+	get("/ping").status.isSuccess()
 ```
 
 We want to write tests to ensure that:
 
-- If the server does respond, the measurement is correct,
-- If the server doesn't have this route, the function does return `null`.
+- If the server does have this endpoint, the function returns `true`,
+- If the server does not have this endpoint, the function returns `false`,
+- If the server does have this endpoint, but it fails, returns `false`.
 
 In this example, we use the Kotest assertions:
 
@@ -99,14 +96,33 @@ val unpingableServer by preparedServer {
 	// No '/ping' route
 }
 
-test("The client queries the ping route correctly") {
+val brokenServer by preparedServer {
+	routing {
+		get("/ping") {
+			error("This server is broken")
+		}
+	}
+}
+
+test("A server with a /ping route that responds is online") {
 	pingableServer().client.isOnline() shouldBe true
 }
 
-test("The client fails graciously when the server doesn't respond") {
-	// Tests that the client detects the server is offline, without throwing an exception or breaking in any other way
+test("A server without a /ping route is offline") {
+	// Tests that the client detects the server is offline, 
+	// without throwing an exception or breaking in any other way
 	incompleteServer().client.isOnline() shouldBe false
+}
+
+test("A server with a broken /ping route is offline") {
+	// Tests that the client detects the server is offline, 
+	// without throwing an exception or breaking in any other way
+	brokenServer().client.isOnline() shouldBe false
 }
 ```
 
-Of course, both techniques can be combined to test both the client and server together.
+## Testing both
+
+When writing multiplatform fullstack applications, we can share our entire DTO logic between client and server. Using the techniques outlined in this article, we can easily test that they are both capable of communicating, by configuring our real server in the `preparedServer` function, and our real client in the `preparedClient` function.
+
+This way, we ensure that our API always evolves in lockstep: our client and server are always able to communicate with each other, because we wrote tests for it. This guarantee isn't possible with other testing technologies (like Wiremock) because they test the server and the client against stubs which have no guarantee of corresponding to the real world.
