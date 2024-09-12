@@ -105,6 +105,7 @@ nav:
       - Integrations:
           - features/compat-ktor.md
           - features/compat-arrow.md
+          - features/compat-gradle.md
 
   - Best practices:
       - practices/index.md
