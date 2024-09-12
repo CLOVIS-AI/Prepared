@@ -1,12 +1,13 @@
-# Module Compatibility with Ktor
+# Ktor
 
-Test your Ktor clients and servers using an in-memory implementation.
+[Ktor](https://ktor.io/) is a popular, coroutine-first HTTP library developed by JetBrains. Ktor allows developing client and server applications, allowing to share code between all platforms and roles. 
 
-<a href="https://search.maven.org/search?q=dev.opensavvy.prepared.compat-ktor"><img src="https://img.shields.io/maven-central/v/dev.opensavvy.prepared/compat-ktor.svg?label=Maven%20Central"></a>
+Prepared provides helpers to easily test clients and servers.
 
-This module is built upon the [Ktor Test Host](https://ktor.io/docs/testing.html).
-It uses an in-memory implementation of the server and client engines, allowing faster tests.
-Since both the client and server run in the same process, these tests are easier to debug.
+!!! info "Configuration"
+    Add a dependency on `dev.opensavvy.prepared:compat-ktor` to use the features on this page.
+
+    See the [reference](https://opensavvy.gitlab.io/groundwork/prepared/api-docs/compat/compat-ktor/index.html).
 
 ## Testing a server
 
@@ -25,32 +26,28 @@ fun Application.ping() {
 }
 ```
 
-We want to write tests that ensures that:
+We want to write tests to ensure:
 
 - If the correct endpoint is requested, the response is correct,
 - If an incorrect endpoint is requested, the server returns a 404 error.
 
-We use the [preparedServer][opensavvy.prepared.compat.ktor.preparedServer] function to instantiate a server:
+We use the  to instantiate a server:
 
 ```kotlin
-// Declare the server
-val server by preparedServer {
-	// Configure the server with our application module…
-	ping()
-	// …if you use the application.conf file, 
-	// the module is loaded automatically.
+val server by preparedServer { //(1)!
+	ping() //(2)!
 }
 
-// Declare a client (in this case, we need no further configuration)
-val client by server.preparedClient()
+val client by server.preparedClient() //(3)!
 ```
 
-In this example, we use the Kotest assertions:
+1.  The [`preparedServer`](https://opensavvy.gitlab.io/groundwork/prepared/api-docs/compat/compat-ktor/opensavvy.prepared.compat.ktor/prepared-server.html) function declares a Ktor server as a [prepared value](prepared-values.md).
+2.  Load the server module we want to test. <br/>If you use the `application.conf` file, modules are loaded automatically.
+3.  The [`preparedClient`](https://opensavvy.gitlab.io/groundwork/prepared/api-docs/compat/compat-ktor/opensavvy.prepared.compat.ktor/prepared-client.html) function declares a Ktor client based on a server, as a [prepared value](prepared-values.md).
 
 ```kotlin
 fun SuiteDsl.pingTest() = suite("Testing the ping server") {
 	test("The /ping route returns Pong") {
-		// Referring to the client automatically instantiates the server
 		client().get("/ping").body<String>() shouldBe "Pong"
 	}
 
@@ -59,6 +56,11 @@ fun SuiteDsl.pingTest() = suite("Testing the ping server") {
 	}
 }
 ```
+
+Because the server and client are declared as [prepared values](prepared-values.md), referring to the client automatically instantiates the server. The server is automatically stopped at the end of the test.
+
+!!! info
+    This example uses the [Kotest assertion library](../tutorials/index.md#assertion-libraries).
 
 To learn more about configuring the test server, see [the official documentation](https://ktor.io/docs/testing.html).
 
@@ -80,8 +82,6 @@ We want to write tests to ensure that:
 - If the server does have this endpoint, the function returns `true`,
 - If the server does not have this endpoint, the function returns `false`,
 - If the server does have this endpoint, but it fails, returns `false`.
-
-In this example, we use the Kotest assertions:
 
 ```kotlin
 val pingableServer by preparedServer {
@@ -120,6 +120,9 @@ test("A server with a broken /ping route is offline") {
 	brokenServer().client.isOnline() shouldBe false
 }
 ```
+
+!!! info
+    This example uses the [Kotest assertion library](../tutorials/index.md#assertion-libraries).
 
 ## Testing both
 
