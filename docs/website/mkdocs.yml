@@ -104,6 +104,7 @@ nav:
 
       - Integrations:
           - features/compat-ktor.md
+          - features/compat-arrow.md
 
   - Best practices:
       - practices/index.md
