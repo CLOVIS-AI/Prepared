@@ -30,7 +30,7 @@ inline fun <Failure, Success> failOnRaise(block: Raise<Failure>.() -> Success): 
 			// The trace starts with a big warning from Arrow about catching its internal exception.
 			// This is actually normal behavior of the Arrow library: https://github.com/arrow-kt/arrow/issues/3388
 			// Since there is nothing to worry about for the user, we just hide it.
-			if (stackTrace.startsWith("arrow.core.raise.Traced: kotlin.coroutines.cancellation.CancellationException should never get swallowed."))
+			if (stackTrace.startsWith("arrow.core.raise.Traced: kotlin.coroutines.cancellation.CancellationException should never get swallowed.") || stackTrace.startsWith("Traced: kotlin.coroutines.cancellation.CancellationException should never get swallowed."))
 				stackTrace = stackTrace.replaceBefore("\n", "").replaceFirst("\n", "")
 
 			throw AssertionError("An operation raised $failure.\n$stackTrace")
