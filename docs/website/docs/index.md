@@ -31,12 +31,12 @@ suite("My test suite") {
 
 Additionally, Prepared exposes many advanced features:
 
-- Isolated test fixtures,
-- Time control,
-- Background task management¸
-- Randomness control,
-- Temporary filesystems,
-- …and [more](features/index).
+- [Isolated test fixtures](features/prepared-values.md),
+- [Time control](features/time.md),
+- [Background task management](features/async.md)¸
+- [Randomness control](features/random.md),
+- [Temporary filesystems](features/files.md),
+- …and [more](features/index.md).
 
 ## Prepared isn't a test runner
 
