@@ -6,7 +6,7 @@ template: home.html
 
 OpenSavvy Prepared helps declare isolated tests quickly with an expressive DSL, that can run on any Kotlin platform.
 
-## Let's take a sneak peak
+## Let's take a sneak peek
 
 The simplest test is declared as a simple function:
 
