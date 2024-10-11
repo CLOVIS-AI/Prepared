@@ -1,4 +1,4 @@
-import org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl
+import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 
 plugins {
 	alias(opensavvyConventions.plugins.base)
@@ -43,7 +43,7 @@ kotlin {
 		nodejs()
 	}
 
-	val commonMain by sourceSets.getting {
+	sourceSets.commonMain {
 		dependencies {
 			api(projects.suite)
 
@@ -51,7 +51,7 @@ kotlin {
 		}
 	}
 
-	val jvmMain by sourceSets.getting {
+	sourceSets.jvmMain {
 		dependencies {
 			api("io.kotest:kotest-runner-junit5:${opensavvyConventions.versions.kotest.asProvider().get()}")
 		}

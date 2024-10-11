@@ -6,13 +6,13 @@ plugins {
 kotlin {
 	jvm()
 
-	val commonMain by sourceSets.getting {
+	sourceSets.commonMain {
 		dependencies {
 			api(projects.suite)
 		}
 	}
 
-	val commonTest by sourceSets.getting {
+	sourceSets.commonTest {
 		dependencies {
 			implementation(projects.runners.runnerKotest)
 		}
