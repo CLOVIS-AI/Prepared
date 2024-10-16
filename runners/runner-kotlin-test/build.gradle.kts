@@ -22,7 +22,7 @@ kotlin {
 		}
 	}
 
-	val commonMain by sourceSets.getting {
+	sourceSets.commonMain {
 		dependencies {
 			api(projects.suite)
 
@@ -31,19 +31,19 @@ kotlin {
 		}
 	}
 
-	val commonTest by sourceSets.getting {
+	sourceSets.commonTest {
 		dependencies {
 			implementation(projects.compat.compatKotlinxDatetime)
 		}
 	}
 
-	val jvmMain by sourceSets.getting {
+	sourceSets.jvmMain {
 		dependencies {
 			api(opensavvyConventions.aligned.kotlin.test.junit5)
 		}
 	}
 
-	val jsMain by sourceSets.getting {
+	sourceSets.jsMain {
 		dependencies {
 			api(opensavvyConventions.aligned.kotlin.test.js)
 		}

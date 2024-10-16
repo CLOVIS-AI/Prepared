@@ -32,14 +32,14 @@ kotlin {
 	tvosSimulatorArm64()
 	mingwX64()
 
-	val commonMain by sourceSets.getting {
+	sourceSets.commonMain {
 		dependencies {
 			api(projects.suite)
 			api(libs.arrow.core)
 		}
 	}
 
-	val commonTest by sourceSets.getting {
+	sourceSets.commonTest {
 		dependencies {
 			implementation(projects.runners.runnerKotest)
 		}

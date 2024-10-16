@@ -6,7 +6,7 @@ plugins {
 kotlin {
 	jvm()
 
-	val commonMain by sourceSets.getting {
+	sourceSets.commonMain {
 		dependencies {
 			api(projects.suite)
 			api(projects.compat.compatFilesystem)
@@ -15,7 +15,7 @@ kotlin {
 		}
 	}
 
-	val commonTest by sourceSets.getting {
+	sourceSets.commonTest {
 		dependencies {
 			implementation(projects.runners.runnerKotest)
 		}

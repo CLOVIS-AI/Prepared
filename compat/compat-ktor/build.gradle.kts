@@ -26,14 +26,14 @@ kotlin {
 	tvosArm64()
 	tvosSimulatorArm64()
 
-	val commonMain by sourceSets.getting {
+	sourceSets.commonMain {
 		dependencies {
 			api(projects.suite)
 			api(libs.ktor.testHost)
 		}
 	}
 
-	val commonTest by sourceSets.getting {
+	sourceSets.commonTest {
 		dependencies {
 			implementation(projects.runners.runnerKotest)
 		}
