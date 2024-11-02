@@ -38,14 +38,12 @@ import opensavvy.prepared.suite.prepared
  */
 fun preparedServer(configuration: TestApplicationBuilder.(test: TestDsl) -> Unit = {}) = prepared {
 	val application = TestApplication {
-		environment {
-			parentCoroutineContext = environment.coroutineScope.coroutineContext
+		serverConfig {
+			parentCoroutineContext = this@prepared.environment.coroutineScope.coroutineContext
 		}
 
 		configuration(this@prepared)
 	}
-
-	application.start()
 
 	cleanUp("Stopping the test server") {
 		application.stop()

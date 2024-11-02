@@ -6,7 +6,7 @@ kotlinx-coroutines = "1.9.0"  # https://github.com/Kotlin/kotlinx.coroutines/rel
 kotlinx-datetime = "0.6.1"    # https://github.com/Kotlin/kotlinx-datetime/releases
 gradle-testkit = "8.10.1"     # https://gradle.org/releases/
 parameterize = "0.3.3"        # https://github.com/BenWoodworth/Parameterize/releases
-ktor = "2.3.11"               # https://ktor.io/docs/releases.html#release-details
+ktor = "3.0.1"                # https://ktor.io/docs/releases.html#release-details
 
 [plugins]
 
