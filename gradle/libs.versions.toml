@@ -2,7 +2,7 @@
 
 [versions]
 arrow = "1.2.4"               # https://github.com/arrow-kt/arrow/releases
-kotlinx-coroutines = "1.8.1"  # https://github.com/Kotlin/kotlinx.coroutines/releases
+kotlinx-coroutines = "1.9.0"  # https://github.com/Kotlin/kotlinx.coroutines/releases
 kotlinx-datetime = "0.6.1"    # https://github.com/Kotlin/kotlinx-datetime/releases
 gradle-testkit = "8.10.1"     # https://gradle.org/releases/
 parameterize = "0.3.3"        # https://github.com/BenWoodworth/Parameterize/releases
