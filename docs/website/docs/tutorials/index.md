@@ -212,9 +212,15 @@ Here are a few popular choices:
     assertThrows<IllegalStateException> {
         error("foo")
     }
-    ```
 
-    Assertion grouping is not supported, see [#7](https://github.com/varabyte/truthish/issues/7).
+    // Assertion grouping
+    assertAll {
+        with(Person("foo", 12)) {
+            that(name).isEqualTo("foo")
+            that(age).isEqualTo(12)
+        }
+    }
+    ```
 
     **Configuration**
 
