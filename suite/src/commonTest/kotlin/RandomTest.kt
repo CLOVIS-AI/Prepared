@@ -4,6 +4,13 @@ import io.kotest.assertions.assertSoftly
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
 import opensavvy.prepared.runner.kotest.PreparedSpec
+import opensavvy.prepared.suite.random.nextBoolean
+import opensavvy.prepared.suite.random.nextDouble
+import opensavvy.prepared.suite.random.nextInt
+import opensavvy.prepared.suite.random.random
+import opensavvy.prepared.suite.random.randomBoolean
+import opensavvy.prepared.suite.random.randomDouble
+import opensavvy.prepared.suite.random.randomInt
 
 class RandomTest : PreparedSpec({
 

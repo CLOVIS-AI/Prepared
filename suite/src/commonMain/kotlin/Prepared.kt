@@ -32,7 +32,7 @@ import kotlin.reflect.KProperty
  * Prepared values are constructed lazily when they are accessed within a test.
  * Because of this, they have access to the test's [TestDsl] and can `suspend`.
  *
- * For the specific use-case of generating random values, see [random][TestDsl.random].
+ * For the specific use-case of generating random values, see [random][opensavvy.prepared.suite.random.random].
  *
  * ### Comparison with other frameworks
  *

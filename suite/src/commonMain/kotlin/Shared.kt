@@ -50,7 +50,7 @@ import kotlin.reflect.KProperty
  * accesses it. Side effects, if any, will only be observable in the first test.
  *
  * Additionally, **shared values cannot access most features of this library**, including [time control][TestDsl.time],
- * [randomness control][TestDsl.random], [finalizers][TestDsl.cleanUp], etc.
+ * [randomness control][opensavvy.prepared.suite.random.random], [finalizers][TestDsl.cleanUp], etc.
  * This is because these features are based on side effects, which this class swallows silently.
  *
  * To summarize:

@@ -1,7 +1,9 @@
-package opensavvy.prepared.suite
+package opensavvy.prepared.suite.random
 
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
+import opensavvy.prepared.suite.TestDsl
+import opensavvy.prepared.suite.prepared
 import kotlin.jvm.JvmName
 import kotlin.random.Random.Default.nextBits
 import kotlin.random.Random.Default.nextBoolean
@@ -40,7 +42,7 @@ private val randomSource by prepared {
 }
 
 /**
- * Random control helper. See [random][TestDsl.random].
+ * Random control helper. See [random][random].
  */
 class Random internal constructor(private val dsl: TestDsl) {
 
@@ -138,7 +140,7 @@ class Random internal constructor(private val dsl: TestDsl) {
  * itself, using [prepared] values. However, the functions mentioned above are only available on this helper, which
  * only exists in tests.
  *
- * To simplify this pattern, we also expose [randomInt] and similar functions which expose [prepared providers][PreparedProvider].
+ * To simplify this pattern, we also expose [randomInt] and similar functions which expose [prepared providers][opensavvy.prepared.suite.PreparedProvider].
  *
  * ```kotlin
  * val int by randomInt()
@@ -232,7 +234,7 @@ suspend fun Random.nextFloat() =
 
 /**
  * Provider for random bits.
- * @see TestDsl.random Learn more about random values and reproducibility.
+ * @see random Learn more about random values and reproducibility.
  * @see KotlinRandom.nextBits Standard library.
  * @see nextBits Direct value equivalent.
  */
@@ -240,7 +242,7 @@ fun randomBits(bitCount: Int) = prepared { random.nextBits(bitCount) }
 
 /**
  * Provider for a random integer.
- * @see TestDsl.random Learn more about random values and reproducibility.
+ * @see random Learn more about random values and reproducibility.
  * @see KotlinRandom.nextInt Standard library.
  * @see nextInt Direct value equivalent.
  */
@@ -248,7 +250,7 @@ fun randomInt() = prepared { random.nextInt() }
 
 /**
  * Provider for a random integer.
- * @see TestDsl.random Learn more about random values and reproducibility.
+ * @see random Learn more about random values and reproducibility.
  * @see KotlinRandom.nextInt Standard library.
  * @see nextInt Direct value equivalent.
  */
@@ -256,7 +258,7 @@ fun randomInt(from: Int, until: Int) = prepared { random.nextInt(from, until) }
 
 /**
  * Provider for a random integer.
- * @see TestDsl.random Learn more about random values and reproducibility.
+ * @see random Learn more about random values and reproducibility.
  * @see KotlinRandom.nextLong Standard library.
  * @see nextLong Direct value equivalent.
  */
@@ -264,7 +266,7 @@ fun randomLong() = prepared { random.nextLong() }
 
 /**
  * Provider for a random integer.
- * @see TestDsl.random Learn more about random values and reproducibility.
+ * @see random Learn more about random values and reproducibility.
  * @see KotlinRandom.nextLong Standard library.
  * @see nextLong Direct value equivalent.
  */
@@ -272,7 +274,7 @@ fun randomLong(from: Long, until: Long) = prepared { random.nextLong(from, until
 
 /**
  * Provider for a random boolean.
- * @see TestDsl.random Learn more about random values and reproducibility.
+ * @see random Learn more about random values and reproducibility.
  * @see KotlinRandom.nextBoolean Standard library.
  * @see nextBoolean Direct value equivalent.
  */
@@ -280,7 +282,7 @@ fun randomBoolean() = prepared { random.nextBoolean() }
 
 /**
  * Provider for a random double.
- * @see TestDsl.random Learn more about random values and reproducibility.
+ * @see random Learn more about random values and reproducibility.
  * @see KotlinRandom.nextDouble Standard library.
  * @see nextDouble Direct value equivalent.
  */
@@ -288,7 +290,7 @@ fun randomDouble() = prepared { random.nextDouble() }
 
 /**
  * Provider for a random double.
- * @see TestDsl.random Learn more about random values and reproducibility.
+ * @see random Learn more about random values and reproducibility.
  * @see KotlinRandom.nextDouble Standard library.
  * @see nextDouble Direct value equivalent.
  */
@@ -296,7 +298,7 @@ fun randomDouble(from: Double, until: Double) = prepared { random.nextDouble(fro
 
 /**
  * Provider for a random float.
- * @see TestDsl.random Learn more about random values and reproducibility.
+ * @see random Learn more about random values and reproducibility.
  * @see KotlinRandom.nextFloat Standard library.
  * @see nextFloat Direct value equivalent.
  */

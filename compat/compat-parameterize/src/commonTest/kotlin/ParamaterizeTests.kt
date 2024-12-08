@@ -10,6 +10,8 @@ import opensavvy.prepared.compat.kotlinx.datetime.now
 import opensavvy.prepared.compat.kotlinx.datetime.set
 import opensavvy.prepared.runner.kotest.preparedSuite
 import opensavvy.prepared.suite.*
+import opensavvy.prepared.suite.random.nextInt
+import opensavvy.prepared.suite.random.random
 import kotlin.time.Duration.Companion.minutes
 import kotlin.time.ExperimentalTime
 

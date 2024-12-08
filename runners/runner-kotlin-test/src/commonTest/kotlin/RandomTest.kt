@@ -1,7 +1,7 @@
 package opensavvy.prepared.runner.kotlin
 
 import opensavvy.prepared.suite.SuiteDsl
-import opensavvy.prepared.suite.randomInt
+import opensavvy.prepared.suite.random.randomInt
 import kotlin.test.assertNotEquals
 
 class RandomTest : TestExecutor() {

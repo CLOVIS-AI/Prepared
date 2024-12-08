@@ -1,6 +1,7 @@
 package opensavvy.prepared.suite
 
 import opensavvy.prepared.suite.config.TestConfig
+import opensavvy.prepared.suite.random.randomInt
 import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.EmptyCoroutineContext
 
