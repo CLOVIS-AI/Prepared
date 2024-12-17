@@ -105,8 +105,8 @@ Randomness is useful to generate test data, but it makes reproducing test failur
 
 Prepared exposes utilities to generate reproducible random tests:
 
-- [random.setSeed][opensavvy.prepared.suite.Random.setSeed] to set the seed for an entire test.
-- [random.nextInt][opensavvy.prepared.suite.nextInt] (and similar functions) to generate random values.
-- [randomInt][opensavvy.prepared.suite.randomInt] (and similar functions) to generate random prepared values.
+- [random.setSeed][opensavvy.prepared.suite.random.Random.setSeed] to set the seed for an entire test.
+- [random.nextInt][opensavvy.prepared.suite.random.nextInt] (and similar functions) to generate random values.
+- [randomInt][opensavvy.prepared.suite.random.randomInt] (and similar functions) to generate random prepared values.
 
-To learn more, see [random][opensavvy.prepared.suite.random].
+To learn more, see [random][opensavvy.prepared.suite.random.random].
