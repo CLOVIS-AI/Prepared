@@ -10,7 +10,6 @@ import io.kotest.core.test.TestType
 import opensavvy.prepared.suite.SuiteDsl
 import opensavvy.prepared.suite.TestDsl
 import opensavvy.prepared.suite.config.*
-import kotlin.coroutines.CoroutineContext
 
 /**
  * Executes a Prepared [SuiteDsl] in a Kotest suite.
@@ -53,7 +52,7 @@ private class NonNestedSuite(private val root: RootScope, private val parentConf
 		NonNestedSuite(root, parentConfig + config, prefix child name).block()
 	}
 
-	override fun test(name: String, context: CoroutineContext, config: TestConfig, block: suspend TestDsl.() -> Unit) {
+	override fun test(name: String, config: TestConfig, block: suspend TestDsl.() -> Unit) {
 		val thisConfig = parentConfig + config
 
 		val kotestConfig = io.kotest.core.test.config.TestConfig(
@@ -66,14 +65,14 @@ private class NonNestedSuite(private val root: RootScope, private val parentConf
 		)
 
 		root.addTest(testName = TestName(name = prefix child name), disabled = false, type = TestType.Test, config = kotestConfig) {
-			executeTest(name, context, config, block)
+			executeTest(name, config, block)
 		}
 	}
 }
 
 // Workaround to avoid using the coroutine dispatcher on KJS.
 // See https://gitlab.com/opensavvy/groundwork/prepared/-/issues/59
-internal expect suspend fun ContainerScope.executeTest(name: String, context: CoroutineContext, config: TestConfig, block: suspend TestDsl.() -> Unit)
+internal expect suspend fun ContainerScope.executeTest(name: String, config: TestConfig, block: suspend TestDsl.() -> Unit)
 
 /**
  * Appends [name] at the end of `this`, handling the case where `this` is `null`.

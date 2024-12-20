@@ -11,7 +11,6 @@ import opensavvy.prepared.suite.config.TestConfig
 import opensavvy.prepared.suite.config.get
 import opensavvy.prepared.suite.config.plus
 import opensavvy.prepared.suite.runTestDslSuspend
-import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.coroutineContext
 
 @ExperimentalKtiApi
@@ -69,7 +68,6 @@ private class PreparedTestNode(
 
 	override fun test(
 		name: String,
-		context: CoroutineContext,
 		config: TestConfig,
 		block: suspend TestDsl.() -> Unit,
 	) {
@@ -78,7 +76,6 @@ private class PreparedTestNode(
 
 		children += PreparedTestTree.Test(
 			name = fullName,
-			context = context,
 			config = fullConfig,
 		) {
 			block()
@@ -112,7 +109,6 @@ private sealed class PreparedTestTree {
 
 	class Test(
 		override val name: String,
-		val context: CoroutineContext,
 		override val config: TestConfig,
 		val block: suspend TestDsl.() -> Unit,
 	) : PreparedTestTree() {
@@ -137,7 +133,7 @@ private sealed class PreparedTestTree {
 			})
 			try {
 				val scope = TestScope(currentCoroutineContext())
-				scope.runTestDslSuspend(name, this.context, config, block)
+				scope.runTestDslSuspend(name, config, block)
 
 				reporter.report(object : TestEvent.Finished {
 					override val testName: String
