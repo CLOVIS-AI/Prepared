@@ -11,6 +11,7 @@
       <option name="taskNames">
         <list>
           <option value=":dokkaGeneratePublicationHtml" />
+          <option value=":docs:website:embedDokkaIntoMkDocs" />
         </list>
       </option>
       <option name="vmOptions" />
