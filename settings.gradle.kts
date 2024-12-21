@@ -49,7 +49,7 @@ pluginManagement {
 }
 
 plugins {
-	id("dev.opensavvy.conventions.settings") version "1.5.2"
+	id("dev.opensavvy.conventions.settings") version "1.6.0"
 }
 
 include(
