@@ -7,6 +7,7 @@ kotlinx-datetime = "0.6.1"    # https://github.com/Kotlin/kotlinx-datetime/relea
 gradle-testkit = "8.10.1"     # https://gradle.org/releases/
 parameterize = "0.3.3"        # https://github.com/BenWoodworth/Parameterize/releases
 ktor = "3.0.1"                # https://ktor.io/docs/releases.html#release-details
+kti = { strictly = "0.1.0" }  # https://gitlab.com/opensavvy/groundwork/kotlin-test-initiative/-/releases
 
 [plugins]
 
@@ -18,5 +19,6 @@ gradle-testkit = { module = "dev.gradleplugins:gradle-test-kit", version.ref = "
 arrow-core = { module = "io.arrow-kt:arrow-core", version.ref = "arrow" }
 parameterize = { module = "com.benwoodworth.parameterize:parameterize", version.ref = "parameterize" }
 ktor-testHost = { module = "io.ktor:ktor-server-test-host", version.ref = "ktor" }
+kti = { module = "dev.opensavvy.kti:kotlin-test-initiative", version.ref = "kti" }
 
 [bundles]
