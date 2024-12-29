@@ -5,5 +5,14 @@ plugins {
 
 dependencies {
 	// List the 'library' projects
-	// dokka(projects.core)
+	dokka(projects.suite)
+	dokka(projects.runners.runnerKotest)
+	dokka(projects.runners.runnerKotlinTest)
+	dokka(projects.compat.compatGradle)
+	dokka(projects.compat.compatKotlinxDatetime)
+	dokka(projects.compat.compatJavaTime)
+	dokka(projects.compat.compatFilesystem)
+	dokka(projects.compat.compatArrow)
+	dokka(projects.compat.compatKtor)
+	dokka(projects.compat.compatParameterize)
 }
