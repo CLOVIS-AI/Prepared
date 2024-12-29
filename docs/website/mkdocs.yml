@@ -110,5 +110,8 @@ nav:
   - Best practices:
       - practices/index.md
 
-  - Reference:
+# !!! EMBEDDED DOKKA START, DO NOT COMMIT !!! #
+# !!! EMBEDDED DOKKA END, DO NOT COMMIT !!! #
+
+  - Reference (external):
       - reference.md
