@@ -9,7 +9,6 @@ import opensavvy.prepared.suite.config.plus
 import opensavvy.prepared.suite.runTestDsl
 import org.junit.jupiter.api.*
 import java.util.stream.Stream
-import kotlin.coroutines.CoroutineContext
 
 actual abstract class TestExecutor {
 
@@ -36,13 +35,13 @@ private class JvmSuiteDsl(val parentConfig: TestConfig) : SuiteDsl {
 		nodes += DynamicContainer.dynamicContainer(name, child.nodes)
 	}
 
-	override fun test(name: String, context: CoroutineContext, config: TestConfig, block: suspend TestDsl.() -> Unit) {
+	override fun test(name: String, config: TestConfig, block: suspend TestDsl.() -> Unit) {
 		val thisConfig = parentConfig + config
 		nodes += DynamicTest.dynamicTest(name) {
 			// Immediately fail the test if it is marked as disabled
 			Assumptions.assumeTrue(thisConfig[Ignored] == null)
 
-			runTestDsl(name, context, thisConfig, block)
+			runTestDsl(name, thisConfig, block)
 		}
 	}
 }

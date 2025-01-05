@@ -1,6 +1,8 @@
 package opensavvy.prepared.suite
 
+import opensavvy.prepared.suite.config.Context
 import opensavvy.prepared.suite.config.TestConfig
+import opensavvy.prepared.suite.config.plus
 import opensavvy.prepared.suite.random.randomInt
 import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.EmptyCoroutineContext
@@ -89,19 +91,6 @@ interface SuiteDsl : PreparedDsl {
 	 *
 	 * To learn more about the functionality available within tests, see [TestDsl].
 	 *
-	 * ### Coroutine context
-	 *
-	 * Optionally pass the [context] parameter:
-	 * ```kotlin
-	 * test("A test", Auth(user1)) {
-	 *     // …
-	 * }
-	 * ```
-	 *
-	 * Note, however, that:
-	 * - The [CoroutineName][kotlinx.coroutines.CoroutineName] will be automatically set to the test's name.
-	 * - The [Dispatcher][kotlinx.coroutines.CoroutineDispatcher] must not be changed, or it will break the [virtual time][time].
-	 *
 	 * ### Test configuration
 	 *
 	 * The test's configuration can be passed with the [config] parameter:
@@ -116,10 +105,22 @@ interface SuiteDsl : PreparedDsl {
 	@PreparedDslMarker
 	fun test(
 		name: String,
-		context: CoroutineContext = EmptyCoroutineContext,
 		config: TestConfig = TestConfig.Empty,
 		block: suspend TestDsl.() -> Unit,
 	)
+
+	@Deprecated(
+		"Prefer injecting the coroutine context using the `Context` test configuration.",
+		ReplaceWith("test(name, config + Context(context), block)", "opensavvy.prepared.suite.config.*"),
+		DeprecationLevel.WARNING
+	)
+	@PreparedDslMarker
+	fun test(
+		name: String,
+		context: CoroutineContext = EmptyCoroutineContext,
+		config: TestConfig = TestConfig.Empty,
+		block: suspend TestDsl.() -> Unit,
+	) = test(name, config + Context(context), block)
 
 }
 

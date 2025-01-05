@@ -6,8 +6,8 @@ import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.withContext
 import opensavvy.prepared.suite.config.TestConfig
+import opensavvy.prepared.suite.config.coroutineContext
 import opensavvy.prepared.suite.config.effectiveTimeout
-import kotlin.coroutines.CoroutineContext
 
 private class TestDslImpl(
 	override val environment: TestEnvironment,
@@ -19,9 +19,9 @@ private class TestDslImpl(
  * Regular users of the library should never need to call this function.
  * It is only provided because it is required for people who implement their own test runner.
  */
-fun runTestDsl(name: String, context: CoroutineContext, config: TestConfig, block: suspend TestDsl.() -> Unit): TestResult {
+fun runTestDsl(name: String, config: TestConfig, block: suspend TestDsl.() -> Unit): TestResult {
 	return runTest(timeout = config.effectiveTimeout()) {
-		runTestDslSuspend(name, context, config, block)
+		runTestDslSuspend(name, config, block)
 	}
 }
 
@@ -31,8 +31,8 @@ fun runTestDsl(name: String, context: CoroutineContext, config: TestConfig, bloc
  * Regular users of the library should never need to call this function. It is only provided because it is required
  * for people who implement their own test runner.
  */
-suspend fun TestScope.runTestDslSuspend(name: String, context: CoroutineContext, config: TestConfig, block: suspend TestDsl.() -> Unit) {
-	withContext(context + CoroutineName("Test ‘$name’")) {
+suspend fun TestScope.runTestDslSuspend(name: String, config: TestConfig, block: suspend TestDsl.() -> Unit) {
+	withContext(config.coroutineContext + CoroutineName("Test ‘$name’")) {
 		val test = TestDslImpl(
 			environment = TestEnvironment(name, this@runTestDslSuspend)
 		)

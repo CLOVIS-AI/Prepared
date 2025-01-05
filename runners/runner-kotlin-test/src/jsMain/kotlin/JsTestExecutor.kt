@@ -7,7 +7,6 @@ import opensavvy.prepared.suite.config.TestConfig
 import opensavvy.prepared.suite.config.get
 import opensavvy.prepared.suite.config.plus
 import opensavvy.prepared.suite.runTestDsl
-import kotlin.coroutines.CoroutineContext
 import kotlin.test.FrameworkAdapter
 
 // region Register a kotlin-test FrameworkAdapter
@@ -62,11 +61,11 @@ private class JsSuiteDsl(val adapter: FrameworkAdapter, val suiteName: String, v
 		}
 	}
 
-	override fun test(name: String, context: CoroutineContext, config: TestConfig, block: suspend TestDsl.() -> Unit) {
+	override fun test(name: String, config: TestConfig, block: suspend TestDsl.() -> Unit) {
 		println("Registering test '$name'…")
 		val thisConfig = parentConfig + config
 		adapter.test(name, thisConfig[Ignored] != null) {
-			runTestDsl(name, context, thisConfig, block)
+			runTestDsl(name, thisConfig, block)
 		}
 	}
 }
