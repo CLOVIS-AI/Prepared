@@ -107,8 +107,8 @@ nav:
           - features/compat-arrow.md
           - features/compat-gradle.md
 
-  - Best practices:
-      - practices/index.md
+  #  - Best practices:
+  #      - practices/index.md
 
   - Reference:
       - reference.md
