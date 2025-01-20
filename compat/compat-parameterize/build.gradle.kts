@@ -57,3 +57,7 @@ library {
 		url.set("https://www.apache.org/licenses/LICENSE-2.0.txt")
 	}
 }
+
+kotlin {
+	jvmToolchain(11)
+}
