@@ -82,6 +82,7 @@ markdown_extensions:
   - def_list
   - md_in_html
   - footnotes
+  - tables
   - pymdownx.details
   - pymdownx.superfences
   - pymdownx.highlight:
