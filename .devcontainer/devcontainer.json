@@ -1,5 +1,7 @@
 {
-	"build": {
-		"dockerfile": "Dockerfile"
-	}
+	"dockerComposeFile": [
+		"./docker-compose.yml"
+	],
+	"service": "workspace",
+	"shutdownAction": "stopCompose"
 }
