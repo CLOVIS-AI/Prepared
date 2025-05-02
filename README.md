@@ -8,7 +8,7 @@ Testing frameworks are composed of three different components:
 - The **runner** is the program that executes the tests.
 
 OpenSavvy Prepared is a **structure** library: it concentrates on the way tests are declared.
-It is possible to use other libraries (e.g. [Kotlin Test](https://kotlinlang.org/api/latest/kotlin.test/), [Kotest](https://kotest.io/), [Strikt](https://strikt.io/)…) to declare assertions.
+It is possible to use other libraries (e.g. [Kotlin Test](https://kotlinlang.org/api/latest/kotlin.test/), [Kotest](https://kotest.io/), [Strikt](https://strikt.io/), [Atrium](https://atriumlib.org)…) to declare assertions.
 
 ```kotlin
 // Declare tests using a regular Kotlin DSL, no annotations or other magic

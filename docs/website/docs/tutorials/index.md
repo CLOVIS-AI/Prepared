@@ -133,9 +133,38 @@ Here are a few popular choices:
     !!! info
         This library is already included if you use the `kotest` runner.
 
+=== "Atrium"
+
+    [Atrium](https://atriumlib.org/) is a Kotlin library inspired by AssertJ with two api styles, fluent and infix.
+    The following shows the infix api (take a look at the [examples in the docs](https://github.com/robstoll/atrium?tab=readme-ov-file#examples) for fluent).
+
+    **Usage**
+
+    ```kotlin
+    // Equality check
+    expect("Hello world") toEqual "Hello world"
+
+    // Collection check
+    expect(listOf(1, 2, 3)) toContain 2
+
+    // Thrown exceptions
+    expect { error("foo") }.toThrow<IllegalStateException>()
+
+    // Assertion grouping
+    expect(Person("foo", 12)) {
+        its { name } toEqual "foo"
+        its { age } toEqual 12
+    }
+    ```
+
+    **Configuration**
+
+    Add a dependency on `ch.tutteli.atrium:atrium-fluent` or `ch.tutteli.atrium:atrium-infix`.
+
+
 === "Strikt"
 
-    [Strikt](https://strikt.io/) is a Kotlin library inspired by AssertJ.
+    [Strikt](https://strikt.io/) is a Kotlin library inspired by AssertJ and Atrium.
 
     **Usage**
 
