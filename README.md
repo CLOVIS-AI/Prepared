@@ -1,7 +1,5 @@
 # OpenSavvy Prepared
 
-> This project is experimental.
-
 Testing frameworks are composed of three different components:
 - The **assertions** check that values are what we expect,
 - The **structure** is the way tests are declared and discovered,
