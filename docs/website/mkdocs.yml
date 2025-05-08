@@ -1,5 +1,5 @@
 site_name: OpenSavvy Prepared
-site_author: OpenSavvy & contributors
+site_author: OpenSavvy and contributors
 site_description: >
   Magicless testing framework for Kotlin Multiplatform, featuring time management, parameterization and isolated fixtures.
 
