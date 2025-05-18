@@ -1,11 +1,12 @@
-import org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl
+@file:OptIn(ExperimentalWasmDsl::class)
+
+import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 
 plugins {
 	alias(opensavvyConventions.plugins.base)
 	alias(opensavvyConventions.plugins.kotlin.library)
 }
 
-@OptIn(ExperimentalWasmDsl::class)
 kotlin {
 	jvm()
 	js {
