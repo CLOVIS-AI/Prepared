@@ -14,6 +14,12 @@ dependencyResolutionManagement {
 	repositories {
 		mavenCentral()
 	}
+
+	versionCatalogs {
+		create("libsCommon") {
+			from(files("gradle/common.versions.toml"))
+		}
+	}
 }
 
 pluginManagement {

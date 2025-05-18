@@ -11,6 +11,9 @@ dependencyResolutionManagement {
 		create("libs") {
 			from(files("../libs.versions.toml"))
 		}
+		create("libsCommon") {
+			from(files("../common.versions.toml"))
+		}
 	}
 }
 

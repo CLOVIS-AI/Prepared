@@ -37,11 +37,11 @@ kotlin {
 	}
 
 	sourceSets.commonTest.dependencies {
-		implementation(opensavvyConventions.aligned.kotlin.test)
+		implementation(libsCommon.kotlin.test)
 	}
 
 	sourceSets.jvmTest.dependencies {
-		implementation(opensavvyConventions.aligned.kotlin.test.junit5)
+		implementation(libsCommon.kotlin.test.junit5)
 	}
 }
 
