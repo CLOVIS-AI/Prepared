@@ -24,6 +24,8 @@ dependencies {
 	dokka(projects.suite)
 	dokka(projects.runners.runnerKotest)
 	dokka(projects.runners.runnerKotlinTest)
+	dokka(projects.runners.runnerTestInitiative)
+	dokka(projects.runners.runnerTestballoon)
 	dokka(projects.compat.compatGradle)
 	dokka(projects.compat.compatKotlinxDatetime)
 	dokka(projects.compat.compatJavaTime)

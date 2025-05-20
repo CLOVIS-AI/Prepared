@@ -70,4 +70,5 @@ include(
 	"runners:runner-kotlin-test",
 	"runners:runner-kotest",
 	"runners:runner-test-initiative",
+	"runners:runner-testballoon",
 )
