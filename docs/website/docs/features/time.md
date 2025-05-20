@@ -116,6 +116,10 @@ test("Measure how long an operation takes in real time") {
 
 Often, `time.nowMillis` is insufficient: we want to trigger algorithms at specific dates in time, for example to check that an algorithm behaves correctly even at midnight on New Year's. Prepared offers compatibility modules to generate datetime objects from popular libraries.
 
+=== "Kotlin.time"
+
+    The new `kotlin.time` package is supported by default with no additional dependencies.
+
 === "KotlinX.Datetime"
 
     Add a dependency on `dev.opensavvy.prepared:compat-kotlinx-datetime`.
@@ -127,6 +131,18 @@ Often, `time.nowMillis` is insufficient: we want to trigger algorithms at specif
     See the [reference](https://opensavvy.gitlab.io/groundwork/prepared/api-docs/compat/compat-java-time/index.html).
 
 ### Accessing the current time
+
+=== "Kotlin.time"
+
+    [`time.now`](https://opensavvy.gitlab.io/groundwork/prepared/api-docs/suite/opensavvy.prepared.suite/now.html) can be used to access the current time as an `Instant`:
+
+    ```kotlin
+    test("Access the current time") {
+        println(time.now)  // 1970-01-01T00:00:00Z
+        delay(2.hours)
+        println(time.now)  // 1970-01-01T02:00:00Z
+    }
+    ```
 
 === "KotlinX.Datetime"
 
@@ -153,6 +169,19 @@ Often, `time.nowMillis` is insufficient: we want to trigger algorithms at specif
     ```
 
 ### Setting the time at the start of a test
+
+=== "Kotlin.time"
+
+    By default, the virtual time is set to UNIX Time 0, January 1st, 1970 at 00:00:00. To set the initial time to another initial date, use [`time.set`](https://opensavvy.gitlab.io/groundwork/prepared/api-docs/suite/opensavvy.prepared.suite/set.html):
+
+    ```kotlin
+    test("Set the initial time of a test") {
+        time.set("2024-12-31T05:00:00Z")
+        
+        delay(4.hours)
+        println(time.now)    // 2024-12-31T09:00:00Z
+    }
+    ```
 
 === "KotlinX.Datetime"
 
@@ -183,6 +212,20 @@ Often, `time.nowMillis` is insufficient: we want to trigger algorithms at specif
 
 ### Injecting the virtual time into the system-under-test
 
+=== "Kotlin.time"
+
+    Algorithms we want to test need to have access to the virtual time. Traditionally, this is done by accepting a `Clock` in the algorithm's constructor. We can generate such a clock with [`time.clock`](https://opensavvy.gitlab.io/groundwork/prepared/api-docs/suite/opensavvy.prepared.suite/clock.html):
+
+    ```kotlin
+    test("Test an algorithm that performs time-sensitive operations") {
+        startAlgorithm(time.clock)
+        delay(2.days + 5.hours)
+        endAlgorithm()
+
+        // …check the final state…
+    }
+    ```    
+
 === "KotlinX.Datetime"
 
     Algorithms we want to test need to have access to the virtual time. Traditionally, this is done by accepting a `Clock` in the algorithm's constructor. We can generate such a clock with [`time.clock`](https://opensavvy.gitlab.io/groundwork/prepared/api-docs/compat/compat-kotlinx-datetime/opensavvy.prepared.compat.kotlinx.datetime/clock.html):
@@ -212,6 +255,22 @@ Often, `time.nowMillis` is insufficient: we want to trigger algorithms at specif
     ```
 
 ### Waiting until a specific time
+
+=== "Kotlin.time"
+
+    Instead of using `delay` to wait for a specific duration, we can also use [`delayUntil`](https://opensavvy.gitlab.io/groundwork/prepared/api-docs/suite/opensavvy.prepared.suite/delay-until.html) to wait until a specific instant.
+
+    ```kotlin
+    test("Observe what happens when the year changes") {
+        time.set("2024-12-31T05:00:00Z")
+
+        startAlgoithm(time.clock)
+        time.delayUntil("2025-01-01T01:00:00Z")
+        endAlgorithm()
+
+        // …check the final state…
+    }
+    ```
 
 === "KotlinX.Datetime"
 
