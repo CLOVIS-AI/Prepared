@@ -3,6 +3,9 @@ mkdocs:
   image: registry.gitlab.com/opensavvy/automation/containers/mkdocs:$ci_containers
   stage: build
 
+  variables:
+    GIT_DEPTH: 0
+
   before_script:
     - cd docs/website
     - ls
