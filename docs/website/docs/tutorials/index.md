@@ -19,6 +19,11 @@ Prepared doesn't include a built-in test runner.
     The `kotlin-test` runner is based on the [Kotlin standard test library](https://kotlinlang.org/api/core/kotlin-test/).
     To decide whether it is appropriate for your project, see the available platforms and see the required configuration, refer to [the reference](https://opensavvy.gitlab.io/groundwork/prepared/api-docs/runners/runner-kotlin-test/index.html).
 
+=== "TestBalloon"
+
+    The TestBalloon runner is based on the [TestBalloon framework](https://github.com/infix-de/testBalloon/).
+    To decide whether it is appropriate for your project, see the available platforms and see the required configuration, refer to [the reference](https://opensavvy.gitlab.io/groundwork/prepared/api-docs/runners/runner-testballoon/index.html).
+
 === "Kotest"
 
     The `kotest` runner is based on the [Kotest framework](https://kotest.io/docs/framework/framework.html).
