@@ -17,11 +17,60 @@ Prepared doesn't include a built-in test runner.
 === "Kotlin-test"
 
     The `kotlin-test` runner is based on the [Kotlin standard test library](https://kotlinlang.org/api/core/kotlin-test/).
+
+    ```kotlin
+    class FooTest : TestExecutor() {
+        override fun SuiteDsl.register() {
+            test("Test 1") {
+                assertEquals("Hello world", "Hello world")
+            }
+
+            suite("A group of tests") {
+                test("Test 2") { /* … */ }
+                test("Test 3") { /* … */ }
+            }
+        }
+    }
+    ```
+
     To decide whether it is appropriate for your project, see the available platforms and see the required configuration, refer to [the reference](https://opensavvy.gitlab.io/groundwork/prepared/api-docs/runners/runner-kotlin-test/index.html).
+
+=== "TestBalloon"
+
+    The TestBalloon runner is based on the [TestBalloon framework](https://github.com/infix-de/testBalloon/).
+
+    ```kotlin
+    val FooTest by preparedSuite {
+        test("Test 1") {
+            check("Hello world" == "Hello world")
+        }
+
+        suite("A group of tests") {
+            test("Test 2") { /* … */ }
+            test("Test 3") { /* … */ }
+        }
+    }
+    ```
+
+    To decide whether it is appropriate for your project, see the available platforms and see the required configuration, refer to [the reference](https://opensavvy.gitlab.io/groundwork/prepared/api-docs/runners/runner-testballoon/index.html).
 
 === "Kotest"
 
     The `kotest` runner is based on the [Kotest framework](https://kotest.io/docs/framework/framework.html).
+
+    ```kotlin
+    val FooTest : PreparedSpec({
+        test("Test 1") {
+            "Hello world" shouldBe "Hello world"
+        }
+
+        suite("A group of tests") {
+            test("Test 2") { /* … */ }
+            test("Test 3") { /* … */ }
+        }
+    })
+    ```
+
     To decide whether it is appropriate for your project, see the available platforms and see the required configuration, refer to [the reference](https://opensavvy.gitlab.io/groundwork/prepared/api-docs/runners/runner-kotest/index.html).
 
 === "Without a runner"
