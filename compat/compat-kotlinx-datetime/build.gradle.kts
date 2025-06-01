@@ -3,7 +3,7 @@ import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 plugins {
 	alias(opensavvyConventions.plugins.base)
 	alias(opensavvyConventions.plugins.kotlin.library)
-	alias(opensavvyConventions.plugins.aligned.kotest)
+	alias(libsCommon.plugins.kotest)
 }
 
 @OptIn(ExperimentalWasmDsl::class)
