@@ -26,8 +26,7 @@ kotlin {
 		dependencies {
 			api(projects.suite)
 
-			api(opensavvyConventions.aligned.kotlin.test.common)
-			api(opensavvyConventions.aligned.kotlin.test.annotations)
+			api(libsCommon.kotlin.test)
 		}
 	}
 
@@ -39,13 +38,7 @@ kotlin {
 
 	sourceSets.jvmMain {
 		dependencies {
-			api(opensavvyConventions.aligned.kotlin.test.junit5)
-		}
-	}
-
-	sourceSets.jsMain {
-		dependencies {
-			api(opensavvyConventions.aligned.kotlin.test.js)
+			api(libsCommon.kotlin.test.junit5)
 		}
 	}
 }

@@ -47,13 +47,13 @@ kotlin {
 		dependencies {
 			api(projects.suite)
 
-			api("io.kotest:kotest-framework-engine:${opensavvyConventions.versions.kotest.asProvider().get()}")
+			api("io.kotest:kotest-framework-engine:${libsCommon.versions.kotest.asProvider().get()}")
 		}
 	}
 
 	sourceSets.jvmMain {
 		dependencies {
-			api("io.kotest:kotest-runner-junit5:${opensavvyConventions.versions.kotest.asProvider().get()}")
+			api("io.kotest:kotest-runner-junit5:${libsCommon.versions.kotest.asProvider().get()}")
 		}
 	}
 }
