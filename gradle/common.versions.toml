@@ -12,7 +12,7 @@ compose = "1.8.0"
 
 # https://github.com/kotest/kotest/releases
 kotest = "5.9.1"
-kotest-plugin = "6.0.0.M2"
+kotest-plugin = "6.0.0.M3"
 
 [plugins]
 kotlin = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
