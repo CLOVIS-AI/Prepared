@@ -1,6 +1,5 @@
 package opensavvy.prepared.compat.arrow.core
 
-import arrow.core.raise.ExperimentalTraceApi
 import arrow.core.raise.Raise
 import arrow.core.raise.either
 import opensavvy.prepared.suite.PreparedDslMarker
@@ -18,7 +17,6 @@ import opensavvy.prepared.suite.PreparedDslMarker
  * }
  * ```
  */
-@ExperimentalTraceApi
 @PreparedDslMarker
 inline fun <Failure> assertRaises(expected: Failure, block: Raise<Failure>.() -> Any?) {
 	either(block).fold(
@@ -46,7 +44,6 @@ inline fun <Failure> assertRaises(expected: Failure, block: Raise<Failure>.() ->
  * }
  * ```
  */
-@ExperimentalTraceApi
 @PreparedDslMarker
 inline fun <reified Failure> assertRaisesWith(block: Raise<Any?>.() -> Any?) {
 	either(block).fold(
