@@ -1,7 +1,6 @@
 package opensavvy.prepared.compat.filesystem
 
-import io.kotest.core.spec.style.StringSpec
-import opensavvy.prepared.runner.kotest.preparedSuite
+import opensavvy.prepared.runner.testballoon.preparedSuite
 import opensavvy.prepared.suite.SuiteDsl
 import kotlin.io.path.ExperimentalPathApi
 import kotlin.io.path.writeText
@@ -16,6 +15,6 @@ fun SuiteDsl.testRandomFiles() = suite("Random files") {
 	}
 }
 
-class RandomFilesTest : StringSpec({
-	preparedSuite { testRandomFiles() }
-})
+val RandomFilesTest by preparedSuite {
+	testRandomFiles()
+}

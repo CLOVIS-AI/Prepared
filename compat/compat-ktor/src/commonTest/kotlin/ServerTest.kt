@@ -6,10 +6,9 @@ import io.ktor.client.call.*
 import io.ktor.client.plugins.*
 import io.ktor.client.request.*
 import io.ktor.http.*
-import io.ktor.server.application.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import opensavvy.prepared.runner.kotest.PreparedSpec
+import opensavvy.prepared.runner.testballoon.preparedSuite
 
 val server by preparedServer {
 	routing {
@@ -25,7 +24,7 @@ val failFastClient by server.preparedClient {
 	expectSuccess = true
 }
 
-class ServerTest : PreparedSpec({
+val ServerTest by preparedSuite {
 	test("The client can execute a request to the server") {
 		basicClient().get("/ping").body<String>() shouldBe "Pong"
 	}
@@ -39,4 +38,4 @@ class ServerTest : PreparedSpec({
 			failFastClient().get("/does-not-exist").body<String>()
 		}
 	}
-})
+}

@@ -3,7 +3,7 @@ import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 plugins {
 	alias(opensavvyConventions.plugins.base)
 	alias(opensavvyConventions.plugins.kotlin.library)
-	alias(libsCommon.plugins.kotest)
+	alias(libs.plugins.testBalloon)
 }
 
 @OptIn(ExperimentalWasmDsl::class)
@@ -32,6 +32,9 @@ kotlin {
 		browser()
 		nodejs()
 	}
+	wasmWasi {
+		nodejs()
+	}
 
 	sourceSets.commonMain {
 		dependencies {
@@ -42,7 +45,7 @@ kotlin {
 
 	sourceSets.commonTest {
 		dependencies {
-			implementation(projects.runners.runnerKotest)
+			implementation(projects.runners.runnerTestballoon)
 		}
 	}
 }

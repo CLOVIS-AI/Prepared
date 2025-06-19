@@ -1,6 +1,6 @@
 package opensavvy.prepared.suite.config
 
-import opensavvy.prepared.runner.kotest.PreparedSpec
+import opensavvy.prepared.runner.testballoon.preparedSuite
 
 private data class UniqueConfig(
 	val id: Int,
@@ -20,7 +20,7 @@ private data class MultiConfig(
 	companion object : TestConfig.Key.Multi<MultiConfig>
 }
 
-class TestConfigTest : PreparedSpec({
+val TestConfigTest by preparedSuite {
 
 	test("Combining multiple unique configurations only keeps the last one") {
 		val config = UniqueConfig(43) + UniqueConfig(1)
@@ -42,4 +42,4 @@ class TestConfigTest : PreparedSpec({
 		check(config[MultiConfig] == listOf(MultiConfig(43), MultiConfig(1)))
 	}
 
-})
+}

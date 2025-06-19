@@ -3,13 +3,15 @@ package opensavvy.prepared.compat.filesystem
 import opensavvy.prepared.compat.filesystem.pkg.PkgPackage
 import opensavvy.prepared.compat.filesystem.resources.ExperimentalResourceApi
 import opensavvy.prepared.compat.filesystem.resources.resource
-import opensavvy.prepared.runner.kotest.PreparedSpec
+import opensavvy.prepared.runner.testballoon.preparedSuite
+
+private object ResourcesTestClass
 
 @OptIn(ExperimentalResourceApi::class)
-class ResourcesTest : PreparedSpec({
+val ResourcesTest by preparedSuite {
 
 	suite("Read from different paths") {
-		val fromCurrentClass by resource<ResourcesTest>("resource-text.txt")
+		val fromCurrentClass by resource<ResourcesTestClass>("resource-text.txt")
 			.read()
 
 		val fromSubPackage by resource<PkgPackage>("test.txt")
@@ -31,4 +33,4 @@ class ResourcesTest : PreparedSpec({
 		}
 	}
 
-})
+}

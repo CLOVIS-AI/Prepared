@@ -3,23 +3,23 @@ import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 plugins {
 	alias(opensavvyConventions.plugins.base)
 	alias(opensavvyConventions.plugins.kotlin.library)
-	alias(libsCommon.plugins.kotest)
+	alias(libs.plugins.testBalloon)
 }
 
 @OptIn(ExperimentalWasmDsl::class)
 kotlin {
 	jvm()
 	js {
-		nodejs()
 		browser()
+		nodejs()
 	}
 	linuxX64()
 	linuxArm64()
 	macosX64()
 	macosArm64()
 	iosArm64()
-	iosSimulatorArm64()
 	iosX64()
+	iosSimulatorArm64()
 	watchosX64()
 	watchosArm32()
 	watchosArm64()
@@ -32,6 +32,9 @@ kotlin {
 		browser()
 		nodejs()
 	}
+	wasmWasi {
+		nodejs()
+	}
 
 	sourceSets.commonMain {
 		dependencies {
@@ -42,7 +45,7 @@ kotlin {
 
 	sourceSets.commonTest {
 		dependencies {
-			implementation(projects.runners.runnerKotest)
+			implementation(projects.runners.runnerTestballoon)
 		}
 	}
 }

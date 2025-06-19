@@ -1,12 +1,10 @@
 package opensavvy.prepared.compat.ktor
 
-import io.kotest.matchers.shouldBe
 import io.ktor.client.request.*
 import io.ktor.http.*
-import io.ktor.server.application.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import opensavvy.prepared.runner.kotest.PreparedSpec
+import opensavvy.prepared.runner.testballoon.preparedSuite
 
 val pingableServer by preparedServer {
 	routing {
@@ -20,12 +18,12 @@ val incompleteServer by preparedServer {
 	// No '/ping' route
 }
 
-class ClientTest : PreparedSpec({
+val ClientTest by preparedSuite {
 	test("The pingable server responds to pings") {
-		pingableServer().client.get("/ping").status shouldBe HttpStatusCode.OK
+		check(pingableServer().client.get("/ping").status == HttpStatusCode.OK)
 	}
 
 	test("The client fails graciously when the server doesn't respond") {
-		incompleteServer().client.get("/ping").status shouldBe HttpStatusCode.NotFound
+		check(incompleteServer().client.get("/ping").status == HttpStatusCode.NotFound)
 	}
-})
+}
