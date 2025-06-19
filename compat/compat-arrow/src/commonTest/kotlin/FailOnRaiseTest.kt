@@ -1,19 +1,20 @@
 package opensavvy.prepared.compat.arrow.core
 
 import arrow.core.raise.ExperimentalTraceApi
-import io.kotest.assertions.throwables.shouldThrow
-import opensavvy.prepared.runner.kotest.PreparedSpec
+import opensavvy.prepared.runner.testballoon.preparedSuite
 
 @Suppress("unused")
 @OptIn(ExperimentalTraceApi::class)
-class FailOnRaiseTest : PreparedSpec({
+val FailOnRaiseTest by preparedSuite {
 	test("Successful operation") {
 		failOnRaise<Nothing, Int> { 5 }
 	}
 
 	test("Failed operation") {
-		shouldThrow<AssertionError> {
+		try {
 			failOnRaise { raise(5) }
+			error("Should have thrown an AssertionError")
+		} catch (e: AssertionError) {
 		}
 	}
-})
+}
