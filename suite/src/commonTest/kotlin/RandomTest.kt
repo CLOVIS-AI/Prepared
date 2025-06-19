@@ -1,18 +1,9 @@
 package opensavvy.prepared.suite
 
-import io.kotest.assertions.assertSoftly
-import io.kotest.matchers.shouldBe
-import io.kotest.matchers.shouldNotBe
-import opensavvy.prepared.runner.kotest.PreparedSpec
-import opensavvy.prepared.suite.random.nextBoolean
-import opensavvy.prepared.suite.random.nextDouble
-import opensavvy.prepared.suite.random.nextInt
-import opensavvy.prepared.suite.random.random
-import opensavvy.prepared.suite.random.randomBoolean
-import opensavvy.prepared.suite.random.randomDouble
-import opensavvy.prepared.suite.random.randomInt
+import opensavvy.prepared.runner.testballoon.preparedSuite
+import opensavvy.prepared.suite.random.*
 
-class RandomTest : PreparedSpec({
+val RandomTest by preparedSuite {
 
 	test("Generate random values without setting a seed") {
 		check(random.nextInt() != 972016666)
@@ -43,4 +34,4 @@ class RandomTest : PreparedSpec({
 		check(boolean() == false)
 	}
 
-})
+}

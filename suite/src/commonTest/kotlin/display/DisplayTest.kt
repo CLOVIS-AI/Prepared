@@ -1,8 +1,8 @@
 package opensavvy.prepared.suite.display
 
-import opensavvy.prepared.runner.kotest.PreparedSpec
+import opensavvy.prepared.runner.testballoon.preparedSuite
 
-class DisplayTest : PreparedSpec({
+val DisplayTest by preparedSuite {
 
 	suite("Short") {
 		test("Simple") {
@@ -55,4 +55,4 @@ class DisplayTest : PreparedSpec({
 		}
 	}
 
-})
+}
