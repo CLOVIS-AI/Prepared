@@ -1,6 +1,7 @@
 plugins {
 	alias(opensavvyConventions.plugins.base)
 	alias(opensavvyConventions.plugins.kotlin.library)
+	alias(libs.plugins.testBalloon)
 }
 
 kotlin {
@@ -14,7 +15,7 @@ kotlin {
 
 	sourceSets.commonTest {
 		dependencies {
-			implementation(projects.runners.runnerKotest)
+			implementation(projects.runners.runnerTestballoon)
 		}
 	}
 }
