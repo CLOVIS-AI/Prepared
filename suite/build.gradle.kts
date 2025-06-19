@@ -32,6 +32,9 @@ kotlin {
 		browser()
 		nodejs()
 	}
+	wasmWasi {
+		nodejs()
+	}
 
 	sourceSets.commonMain {
 		dependencies {
