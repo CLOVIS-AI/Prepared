@@ -56,7 +56,7 @@ opensavvy-pedestal-enumset = { module = "dev.opensavvy.pedestal:enumset", versio
 opensavvy-prepared = { module = "dev.opensavvy.prepared:suite", version.ref = "prepared" }
 opensavvy-prepared-kotest = { module = "dev.opensavvy.prepared:runner-kotest", version.ref = "prepared" }
 opensavvy-prepared-testBalloon = { module = "dev.opensavvy.prepared:runner-testballoon", version.ref = "prepared" }
-opensavvy-prepared-kotlin = { module = "dev.opensavvy.prepared:runner-kotlin-test", version.ref = "prepared" }
+opensavvy-prepared-kotlinTest = { module = "dev.opensavvy.prepared:runner-kotlin-test", version.ref = "prepared" }
 opensavvy-prepared-arrow = { module = "dev.opensavvy.prepared:compat-arrow", version.ref = "prepared" }
 opensavvy-prepared-filesystem = { module = "dev.opensavvy.prepared:compat-filesystem", version.ref = "prepared" }
 opensavvy-prepared-gradle = { module = "dev.opensavvy.prepared:compat-gradle", version.ref = "prepared" }
