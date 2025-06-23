@@ -12,7 +12,7 @@ compose = "1.8.2"
 
 # https://github.com/kotest/kotest/releases
 kotest = "5.9.1"
-kotest-plugin = "6.0.0.M3"
+kotest-plugin = "6.0.0.M4"
 
 # https://github.com/infix-de/testBalloon/releases
 testBalloon = "0.3.3-K2.2.0-RC"
