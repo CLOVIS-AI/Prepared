@@ -8,7 +8,7 @@
 kotlin = "2.2.0"
 
 # https://github.com/JetBrains/compose-multiplatform/releases
-compose = "1.8.0"
+compose = "1.8.2"
 
 # https://github.com/kotest/kotest/releases
 kotest = "5.9.1"
