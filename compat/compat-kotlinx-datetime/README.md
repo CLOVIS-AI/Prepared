@@ -1,4 +1,4 @@
-# Module Compatibility with KotlinX.Datetime
+# Module Compatibility with KotlinX.Datetime (DEPRECATED)
 
 Control the virtual time during tests using KotlinX.Datetime.
 
@@ -6,6 +6,16 @@ Control the virtual time during tests using KotlinX.Datetime.
 
 Builds upon the [virtual time control][opensavvy.prepared.suite.time] available out-of-the-box to allow
 [instancing clocks][opensavvy.prepared.compat.kotlinx.datetime.clock], [setting the current time][opensavvy.prepared.compat.kotlinx.datetime.set] or [waiting for a given time][opensavvy.prepared.compat.kotlinx.datetime.delayUntil].
+
+## Deprecation notice
+
+This module is built on top of the KotlinX.Datetime support for `Instant` and `Clock`, which have been removed in KotlinX.Datetime 0.7.0.
+
+`Instant` and `Clock` have been moved to the Kotlin standard library. The contents of this compatibility module have therefore been integrated into the main Prepared module, Prepared Suite.
+
+All functionality provided by this module is available in Prepared Suite, with a different package name.
+
+This module will not be updated in the future.
 
 ## Example
 
