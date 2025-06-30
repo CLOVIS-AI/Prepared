@@ -57,6 +57,10 @@ suspend fun TestScope.runTestDslSuspend(name: String, config: TestConfig, block:
 		try {
 			test.block()
 			successful = true
+		} catch (e: Throwable) {
+			println()
+			println("An ${e::class.simpleName ?: e::class} was thrown during the test. The details are displayed at the end of the test, possibly after the finalizers.")
+			throw e
 		} finally {
 			with(test.environment.finalizers) { test.executeAllFinalizers(successful = successful) }
 		}
