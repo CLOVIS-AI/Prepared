@@ -167,6 +167,7 @@ publish-maven:gitlab:
       when: never
     - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
     - if: $CI_COMMIT_TAG
+    - when: manual
 
 publish-maven:gitlab[ios]:
   extends: [ .kotlin-native-iosArm64 ]
@@ -198,6 +199,7 @@ publish-maven:gitlab[ios]:
       when: never
     - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
     - if: $CI_COMMIT_TAG
+    - when: manual
 
 publish-maven:central:initialize:
   extends: [ .kotlin-jvm ]
