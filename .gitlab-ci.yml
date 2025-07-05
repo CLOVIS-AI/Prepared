@@ -158,44 +158,11 @@ publish-maven:gitlab:
   script:
     - >
       ./gradlew publishAllPublicationsToGitLabRepository
-      --no-configuration-cache
       -PappVersion=$project_version
 
   interruptible: false
   rules:
     - if: $PUBLISH_MAVEN == "no" || $PUBLISH_MAVEN_GITLAB == "no"
-      when: never
-    - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
-    - if: $CI_COMMIT_TAG
-    - when: manual
-
-publish-maven:gitlab[ios]:
-  extends: [ .kotlin-native-iosArm64 ]
-  needs:
-    - os.version
-  stage: deploy
-
-  script:
-    - >
-      ./gradlew
-      publishIosArm64PublicationToGitLabRepository
-      publishIosSimulatorArm64PublicationToGitLabRepository
-      publishIosX64PublicationToGitLabRepository
-      publishMacosX64PublicationToGitLabRepository
-      publishMacosArm64PublicationToGitLabRepository
-      publishWatchosX64PublicationToGitLabRepository
-      publishWatchosArm32PublicationToGitLabRepository
-      publishWatchosArm64PublicationToGitLabRepository
-      publishWatchosSimulatorArm64PublicationToGitLabRepository
-      publishTvosX64PublicationToGitLabRepository
-      publishTvosArm64PublicationToGitLabRepository
-      publishTvosSimulatorArm64PublicationToGitLabRepository
-      --no-configuration-cache
-      -PappVersion=$project_version
-
-  interruptible: false
-  rules:
-    - if: $PUBLISH_MAVEN == "no" || $PUBLISH_MAVEN_GITLAB == "no" || $PUBLISH_MAVEN_IOS == "no"
       when: never
     - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
     - if: $CI_COMMIT_TAG
