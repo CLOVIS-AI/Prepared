@@ -168,6 +168,26 @@ publish-maven:gitlab:
     - if: $CI_COMMIT_TAG
     - when: manual
 
+publish-maven:central:snapshots:
+  extends: [ .kotlin-jvm ]
+  needs:
+    - os.version
+  stage: deploy
+
+  script:
+    - >
+      ./gradlew :publishAggregationToCentralPortalSnapshots
+      -PappVersion="${project_version}-SNAPSHOT"
+
+  interruptible: false
+  rules:
+    - if: $OSSRH_USERNAME == null || $OSSRH_PASSWORD == null
+      when: never
+    - if: $PUBLISH_MAVEN == "no" || $PUBLISH_MAVEN_CENTRAL == "no"
+      when: never
+    - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
+    - when: manual
+
 publish-maven:central:initialize:
   extends: [ .kotlin-jvm ]
   needs:
