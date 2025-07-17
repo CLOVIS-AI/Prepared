@@ -25,18 +25,18 @@ plugins {
 
 dependencies {
 	// List the 'library' projects
-	dokka(projects.suite)
-	dokka(projects.runners.runnerKotest)
-	dokka(projects.runners.runnerKotlinTest)
-	dokka(projects.runners.runnerTestInitiative)
-	dokka(projects.runners.runnerTestballoon)
-	dokka(projects.compat.compatGradle)
-	dokka(projects.compat.compatKotlinxDatetime)
-	dokka(projects.compat.compatJavaTime)
-	dokka(projects.compat.compatFilesystem)
-	dokka(projects.compat.compatArrow)
-	dokka(projects.compat.compatKtor)
-	dokka(projects.compat.compatParameterize)
+	library(projects.suite)
+	library(projects.runners.runnerKotest)
+	library(projects.runners.runnerKotlinTest)
+	library(projects.runners.runnerTestInitiative)
+	library(projects.runners.runnerTestballoon)
+	library(projects.compat.compatGradle)
+	library(projects.compat.compatKotlinxDatetime)
+	library(projects.compat.compatJavaTime)
+	library(projects.compat.compatFilesystem)
+	library(projects.compat.compatArrow)
+	library(projects.compat.compatKtor)
+	library(projects.compat.compatParameterize)
 }
 
 // region Check the users of the project didn't forget to rename the group
@@ -44,6 +44,15 @@ dependencies {
 val projectPath: String? = System.getenv("CI_PROJECT_PATH")
 if (projectPath != null && projectPath != "opensavvy/playgrounds/gradle" && group == "dev.opensavvy.playground") {
 	error("The project is declared to be in the group '$group', which is recognized as the Gradle Playground, but it's hosted in '$projectPath', which is not the Playground. Maybe you forgot to rename the group when importing the Playground in your own project?")
+}
+
+// endregion
+// region Enable the :lib template if we're in the playground
+
+if (group == "dev.opensavvy.playground") {
+	dependencies {
+		library(projects.gradle.templates.templateLib)
+	}
 }
 
 // endregion
