@@ -6,7 +6,7 @@ import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 plugins {
 	alias(opensavvyConventions.plugins.base)
 	alias(opensavvyConventions.plugins.kotlin.application)
-	alias(libsCommon.plugins.kotest)
+	alias(libsCommon.plugins.ksp)
 }
 
 kotlin {
