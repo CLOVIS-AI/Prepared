@@ -34,7 +34,7 @@ import opensavvy.prepared.suite.PreparedDslMarker
  * ```
  */
 @PreparedDslMarker
-inline fun <Failure> assertRaises(expected: Failure, block: Raise<Failure>.() -> Any?) {
+inline fun <Failure> checkRaises(expected: Failure, block: Raise<Any?>.() -> Any?) {
 	either(block).fold(
 		ifLeft = {
 			if (it != expected)
@@ -61,7 +61,7 @@ inline fun <Failure> assertRaises(expected: Failure, block: Raise<Failure>.() ->
  * ```
  */
 @PreparedDslMarker
-inline fun <reified Failure> assertRaisesWith(block: Raise<Any?>.() -> Any?) {
+inline fun <reified Failure> checkRaises(block: Raise<Any?>.() -> Any?) {
 	either(block).fold(
 		ifLeft = {
 			if (it !is Failure)
@@ -73,3 +73,39 @@ inline fun <reified Failure> assertRaisesWith(block: Raise<Any?>.() -> Any?) {
 		},
 	)
 }
+
+/**
+ * Fails the test if [block] doesn't raise with [expected].
+ *
+ * ### Example
+ *
+ * ```kotlin
+ * test("√-1 raises") {
+ *     assertRaises(NegativeSquareRoot) {
+ *         sqrt(-1.0)
+ *     }
+ * }
+ * ```
+ */
+@PreparedDslMarker
+@Deprecated("This function has been renamed checkThrows.", ReplaceWith("opensavvy.prepared.compat.arrow.core.checkRaises(expected, block)"), DeprecationLevel.WARNING)
+inline fun <Failure> assertRaises(expected: Failure, block: Raise<Failure>.() -> Any?) =
+	checkRaises(expected, block)
+
+/**
+ * Fails the test if [block] doesn't raise with a value of type [Failure].
+ *
+ * ### Example
+ *
+ * ```kotlin
+ * test("√-1 raises") {
+ *     assertRaisesWith<NegativeSquareRoot> {
+ *         sqrt(-1.0)
+ *     }
+ * }
+ * ```
+ */
+@PreparedDslMarker
+@Deprecated("This function has been renamed checkThrows.", ReplaceWith("opensavvy.prepared.compat.arrow.core.checkRaises<Failure>(block)"), DeprecationLevel.WARNING)
+inline fun <reified Failure> assertRaisesWith(block: Raise<Any?>.() -> Any?) =
+	checkRaises<Failure>(block)
