@@ -34,7 +34,6 @@ internal interface ResourceLoader {
  * Resources provide special helpers to:
  * - [read] a resource.
  */
-@ExperimentalResourceApi
 class ResourceDesignator internal constructor(
 	private val loader: ResourceLoader,
 	private val path: String,
@@ -58,7 +57,6 @@ class ResourceDesignator internal constructor(
 	 *
 	 * To learn more about the way resources are loaded, see [resource].
 	 */
-	@ExperimentalResourceApi
 	fun read(): PreparedProvider<String> =
 		prepared {
 			val stream = loader.resourceAsStream(path)
@@ -81,7 +79,6 @@ class ResourceDesignator internal constructor(
  *
  * @see ResourceDesignator.read
  */
-@ExperimentalResourceApi
 fun resource(path: String, loader: ClassLoader) = ResourceDesignator(
 	loader = object : ResourceLoader {
 		override fun resourceAsStream(path: String): InputStream? =
@@ -132,7 +129,6 @@ fun resource(path: String, loader: ClassLoader) = ResourceDesignator(
  *
  * @see ResourceDesignator.read
  */
-@ExperimentalResourceApi
 fun resource(path: String, loader: Class<*>) = ResourceDesignator(
 	loader = object : ResourceLoader {
 		override fun resourceAsStream(path: String): InputStream? =
@@ -164,7 +160,6 @@ fun resource(path: String, loader: Class<*>) = ResourceDesignator(
  *
  * @see ResourceDesignator.read
  */
-@ExperimentalResourceApi
 inline fun <reified TargetClass : Any> resource(path: String) =
 	resource(path, TargetClass::class.java)
 
