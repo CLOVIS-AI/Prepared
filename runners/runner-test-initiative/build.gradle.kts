@@ -45,7 +45,7 @@ kotlin {
 library {
 	name.set("Execute with Kotlin Test Initiative compatibility")
 	description.set("Execute Prepared test suites with Kotlin Test Initiative compatibility")
-	homeUrl.set("https://opensavvy.gitlab.io/groundwork/prepared/api-docs/runners/runner-test-initiative/index.html")
+	homeUrl.set("https://prepared.opensavvy.dev/api-docs/runners/runner-test-initiative/index.html")
 
 	license.set {
 		name.set("Apache 2.0")

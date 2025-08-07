@@ -7,11 +7,11 @@ Prepared provides helpers to refer to files even before they are created.
 !!! info "Configuration"
     Add a dependency on `dev.opensavvy.prepared:compat-filesystem` to use the features on this page. Not all platforms are supported. 
 
-    See the [reference](https://opensavvy.gitlab.io/groundwork/prepared/api-docs/compat/compat-filesystem/index.html).
+    See the [reference](https://prepared.opensavvy.dev/api-docs/compat/compat-filesystem/index.html).
 
 ## Creating temporary files and directories
 
-[New files](https://opensavvy.gitlab.io/groundwork/prepared/api-docs/compat/compat-filesystem/opensavvy.prepared.compat.filesystem/create-random-file.html) and [new directories](https://opensavvy.gitlab.io/groundwork/prepared/api-docs/compat/compat-filesystem/opensavvy.prepared.compat.filesystem/create-random-directory.html) can be created as [prepared values](prepared-values.md):
+[New files](https://prepared.opensavvy.dev/api-docs/compat/compat-filesystem/opensavvy.prepared.compat.filesystem/create-random-file.html) and [new directories](https://prepared.opensavvy.dev/api-docs/compat/compat-filesystem/opensavvy.prepared.compat.filesystem/create-random-directory.html) can be created as [prepared values](prepared-values.md):
 
 ```kotlin
 val workingDirectory by createRandomDirectory()
@@ -30,7 +30,7 @@ test("…") {
 }
 ```
 
-1.  The `/` operator can be used to refer to child files or directories before the test starts executing. [Learn more](https://opensavvy.gitlab.io/groundwork/prepared/api-docs/compat/compat-filesystem/opensavvy.prepared.compat.filesystem/div.html).
+1.  The `/` operator can be used to refer to child files or directories before the test starts executing. [Learn more](https://prepared.opensavvy.dev/api-docs/compat/compat-filesystem/opensavvy.prepared.compat.filesystem/div.html).
 
 The files are based on prepared values, so they are created lazily as they are needed, and each test gets a different set of files to work with, ensuring no two tests can attempt to modify the same files.
 
@@ -38,7 +38,7 @@ All the created files are deleted automatically if the test is successful. Howev
 
 ## Reading Java resources
 
-On the JVM, it is possible to organize resources files in the same packages as source classes to avoid conflicts. To access these files, use the [resource](https://opensavvy.gitlab.io/groundwork/prepared/api-docs/compat/compat-filesystem/opensavvy.prepared.compat.filesystem.resources/resource.html) helper:
+On the JVM, it is possible to organize resources files in the same packages as source classes to avoid conflicts. To access these files, use the [resource](https://prepared.opensavvy.dev/api-docs/compat/compat-filesystem/opensavvy.prepared.compat.filesystem.resources/resource.html) helper:
 
 ```kotlin
 package foo.bar.baz

@@ -52,7 +52,7 @@ This approach has a few downsides:
 
 Prepared values are lazy data generators that are executed when they are first referred to by a test, then return the same value for the remainder of the test. Each test receives its own value that is independent of any other test.
 
-Prepared values can be instantiated anywhere, including at the top-level, using the [prepared builder](https://opensavvy.gitlab.io/groundwork/prepared/api-docs/suite/opensavvy.prepared.suite/prepared.html):
+Prepared values can be instantiated anywhere, including at the top-level, using the [prepared builder](https://prepared.opensavvy.dev/api-docs/suite/opensavvy.prepared.suite/prepared.html):
 ```kotlin
 val adminEmail by prepared { "my-account-${random.nextInt()}@mail.com" }
 ```
