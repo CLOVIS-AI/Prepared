@@ -21,7 +21,7 @@ testBalloon = "0.4.0-K2.2.0"
 pedestal = "3.0.0"
 
 # https://opensavvy.gitlab.io/groundwork/prepared/docs/news
-prepared = "2.0.6"
+prepared = "2.1.0"
 
 [plugins]
 kotlin = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
