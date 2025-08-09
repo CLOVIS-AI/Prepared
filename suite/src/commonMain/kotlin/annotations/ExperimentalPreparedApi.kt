@@ -16,17 +16,11 @@
 
 package opensavvy.prepared.suite.annotations
 
-/**
- * Annotates functions that are test entrypoints.
- *
- * These functions accept a first `String` parameter that is the name of
- * the test or test suite.
- *
- * These functions usually accept a last parameter that is the body of the test.
- * It is assumed that a thrown exception means a test failure,
- * and no thrown exceptions means a test success.
- */
-@Target(AnnotationTarget.FUNCTION)
-@Retention(AnnotationRetention.BINARY)
-@ExperimentalPreparedApi("https://gitlab.com/opensavvy/groundwork/prepared/-/issues/86")
-annotation class TestEntrypoint
+@RequiresOptIn("This is part of an experimental API of the Prepared framework. It could change or be removed without warnings.")
+annotation class ExperimentalPreparedApi(
+	/**
+	 * URL to get more information about the experimental status of this specific API.
+	 */
+	@Suppress("unused")
+	val trackingUrl: String,
+)
