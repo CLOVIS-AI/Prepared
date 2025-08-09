@@ -51,7 +51,7 @@ kotlin {
 library {
 	name.set("Compatibility with Parameterize")
 	description.set("Concise DSL for parameterized tests")
-	homeUrl.set("https://opensavvy.gitlab.io/groundwork/prepared/api-docs/compat/compat-parameterize/index.html")
+	homeUrl.set("https://prepared.opensavvy.dev/features/parameterize.html")
 
 	license.set {
 		name.set("Apache 2.0")

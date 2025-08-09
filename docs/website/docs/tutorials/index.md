@@ -33,7 +33,7 @@ Prepared doesn't include a built-in test runner.
     }
     ```
 
-    To decide whether it is appropriate for your project, see the available platforms and see the required configuration, refer to [the reference](https://opensavvy.gitlab.io/groundwork/prepared/api-docs/runners/runner-kotlin-test/index.html).
+    To decide whether it is appropriate for your project, see the available platforms and see the required configuration, refer to [the reference](https://prepared.opensavvy.dev/api-docs/runners/runner-kotlin-test/index.html).
 
 === "TestBalloon"
 
@@ -52,7 +52,7 @@ Prepared doesn't include a built-in test runner.
     }
     ```
 
-    To decide whether it is appropriate for your project, see the available platforms and see the required configuration, refer to [the reference](https://opensavvy.gitlab.io/groundwork/prepared/api-docs/runners/runner-testballoon/index.html).
+    To decide whether it is appropriate for your project, see the available platforms and see the required configuration, refer to [the reference](https://prepared.opensavvy.dev/api-docs/runners/runner-testballoon/index.html).
 
 === "Kotest"
 
@@ -71,7 +71,7 @@ Prepared doesn't include a built-in test runner.
     })
     ```
 
-    To decide whether it is appropriate for your project, see the available platforms and see the required configuration, refer to [the reference](https://opensavvy.gitlab.io/groundwork/prepared/api-docs/runners/runner-kotest/index.html).
+    To decide whether it is appropriate for your project, see the available platforms and see the required configuration, refer to [the reference](https://prepared.opensavvy.dev/api-docs/runners/runner-kotest/index.html).
 
 === "Without a runner"
 
@@ -79,7 +79,7 @@ Prepared doesn't include a built-in test runner.
 	This is useful when creating a test utility module that is imported into other test modules.
 	By not depending on any runner, the test utility module can be imported into a project that uses any runner.
 	
-	To do this, simply declare a dependency on `dev.opensavvy.prepared:suite`. To learn more, refer to [the reference](https://opensavvy.gitlab.io/groundwork/prepared/api-docs/suite/index.html).
+	To do this, simply declare a dependency on `dev.opensavvy.prepared:suite`. To learn more, refer to [the reference](https://prepared.opensavvy.dev/api-docs/suite/index.html).
 	
 	Test suites can be exported as top-level functions:
 	

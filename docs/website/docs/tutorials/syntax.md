@@ -9,7 +9,7 @@ In this article, we showcase how tests are declared with Prepared. Users familia
 
 ## Declaring tests
 
-A test is declared by calling the [`test`](https://opensavvy.gitlab.io/groundwork/prepared/api-docs/suite/opensavvy.prepared.suite/-suite-dsl/test.html) function within a suite:
+A test is declared by calling the [`test`](https://prepared.opensavvy.dev/api-docs/suite/opensavvy.prepared.suite/-suite-dsl/test.html) function within a suite:
 
 ```kotlin
 test("This is the name of the test") {
@@ -19,7 +19,7 @@ test("This is the name of the test") {
 
 Tests can `suspend` and have access to a [wide array of features](../features). You can name tests however you want.
 
-Tests are grouped in suites. Suites are declared by calling the [`suite`](https://opensavvy.gitlab.io/groundwork/prepared/api-docs/suite/opensavvy.prepared.suite/-suite-dsl/suite.html) function within another suite. Suites can be arbitrarily nested:
+Tests are grouped in suites. Suites are declared by calling the [`suite`](https://prepared.opensavvy.dev/api-docs/suite/opensavvy.prepared.suite/-suite-dsl/suite.html) function within another suite. Suites can be arbitrarily nested:
 
 ```kotlin
 suite("Users") {

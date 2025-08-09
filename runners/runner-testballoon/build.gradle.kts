@@ -49,7 +49,7 @@ kotlin {
 library {
 	name.set("Execute with TestBalloon")
 	description.set("Execute Prepared test suites with the TestBalloon multiplatform-first framework")
-	homeUrl.set("https://opensavvy.gitlab.io/groundwork/prepared/api-docs/runners/runner-testballoon/index.html")
+	homeUrl.set("https://prepared.opensavvy.dev/api-docs/runners/runner-testballoon/index.html")
 
 	license.set {
 		name.set("Apache 2.0")

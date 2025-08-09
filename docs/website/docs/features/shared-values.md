@@ -17,7 +17,7 @@ Shared values are computed once on first access, and then are shared between all
 
 ## Using shared values
 
-Shared values can be defined anywhere using the [shared builder](https://opensavvy.gitlab.io/groundwork/prepared/api-docs/suite/opensavvy.prepared.suite/shared.html) (including at the top-level) and are accessed using function-call syntax, similarly to prepared values. 
+Shared values can be defined anywhere using the [shared builder](https://prepared.opensavvy.dev/api-docs/suite/opensavvy.prepared.suite/shared.html) (including at the top-level) and are accessed using function-call syntax, similarly to prepared values. 
 
 ```kotlin
 import java.nio.file.Path
@@ -40,7 +40,7 @@ Shared values otherwise behave the same as prepared values, and their syntax is 
 
 ??? note "Creating multiple shared values from the same generator"
     Although this is supported, it is not recommended.
-    To learn why, see [the reference](https://opensavvy.gitlab.io/groundwork/prepared/api-docs/suite/opensavvy.prepared.suite/-shared-provider/index.html).
+    To learn why, see [the reference](https://prepared.opensavvy.dev/api-docs/suite/opensavvy.prepared.suite/-shared-provider/index.html).
 
 ### Shared values do not have access to the test context
 

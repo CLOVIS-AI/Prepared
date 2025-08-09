@@ -7,7 +7,7 @@ Prepared provides helpers to easily test clients and servers.
 !!! info "Configuration"
     Add a dependency on `dev.opensavvy.prepared:compat-ktor` to use the features on this page.
 
-    See the [reference](https://opensavvy.gitlab.io/groundwork/prepared/api-docs/compat/compat-ktor/index.html).
+    See the [reference](https://prepared.opensavvy.dev/api-docs/compat/compat-ktor/index.html).
 
 ## Testing a server
 
@@ -41,9 +41,9 @@ val server by preparedServer { //(1)!
 val client by server.preparedClient() //(3)!
 ```
 
-1.  The [`preparedServer`](https://opensavvy.gitlab.io/groundwork/prepared/api-docs/compat/compat-ktor/opensavvy.prepared.compat.ktor/prepared-server.html) function declares a Ktor server as a [prepared value](prepared-values.md).
+1.  The [`preparedServer`](https://prepared.opensavvy.dev/api-docs/compat/compat-ktor/opensavvy.prepared.compat.ktor/prepared-server.html) function declares a Ktor server as a [prepared value](prepared-values.md).
 2.  Load the server module we want to test. <br/>If you use the `application.conf` file, modules are loaded automatically.
-3.  The [`preparedClient`](https://opensavvy.gitlab.io/groundwork/prepared/api-docs/compat/compat-ktor/opensavvy.prepared.compat.ktor/prepared-client.html) function declares a Ktor client based on a server, as a [prepared value](prepared-values.md).
+3.  The [`preparedClient`](https://prepared.opensavvy.dev/api-docs/compat/compat-ktor/opensavvy.prepared.compat.ktor/prepared-client.html) function declares a Ktor client based on a server, as a [prepared value](prepared-values.md).
 
 ```kotlin
 fun SuiteDsl.pingTest() = suite("Testing the ping server") {

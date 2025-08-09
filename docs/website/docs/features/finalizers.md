@@ -1,6 +1,6 @@
 # Finalizers
 
-[Finalizers](https://opensavvy.gitlab.io/groundwork/prepared/api-docs/suite/opensavvy.prepared.suite/clean-up.html) allow to execute code at the end of the test.
+[Finalizers](https://prepared.opensavvy.dev/api-docs/suite/opensavvy.prepared.suite/clean-up.html) allow to execute code at the end of the test.
 
 ## Usage
 

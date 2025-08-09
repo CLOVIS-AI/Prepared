@@ -74,7 +74,7 @@ The added indentation levels make the intent of the code harder to understand. I
 !!! info "Configuration"
     Add a dependency on `dev.opensavvy.prepared:compat-parameterize` to use the features in this section.
 
-    See the [reference](https://opensavvy.gitlab.io/groundwork/prepared/api-docs/compat/compat-parameterize/index.html).
+    See the [reference](https://prepared.opensavvy.dev/api-docs/compat/compat-parameterize/index.html).
 
 The previous example can be rewritten as:
 ```kotlin
@@ -93,4 +93,4 @@ fun SuiteDsl.foo() = suite("Foo") {
 
 As you can see, this is much easier to read, and the intent of the test is conveyed much more clearly.
 
-To learn more about this module, and the way it interacts with [prepared values](prepared-values.md), see [the reference](https://opensavvy.gitlab.io/groundwork/prepared/api-docs/compat/compat-parameterize/index.html).
+To learn more about this module, and the way it interacts with [prepared values](prepared-values.md), see [the reference](https://prepared.opensavvy.dev/api-docs/compat/compat-parameterize/index.html).

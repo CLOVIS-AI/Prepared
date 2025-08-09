@@ -7,7 +7,7 @@ All types of Gradle plugins can be tested (settings plugins, project plugins, pr
 !!! info "Configuration"
     Add a dependency on `dev.opensavvy.prepared:compat-gradle` to use the features on this page.
 
-    See the [reference](https://opensavvy.gitlab.io/groundwork/prepared/api-docs/compat/compat-gradle/index.html).
+    See the [reference](https://prepared.opensavvy.dev/api-docs/compat/compat-gradle/index.html).
 
 Prepared provides helpers to entire Gradle builds inside tests. Typically, this is done to test a plugin. In this example, we will create a plugin and test its behavior.
 
@@ -93,7 +93,7 @@ class MainPluginTest : TestExecutor() {
 ```
 
 1.  Declare the project setup in a [prepared value](prepared-values.md) for convenience: we will be able to reuse it between multiple tests.
-2.  Use the [`gradle`](https://opensavvy.gitlab.io/groundwork/prepared/api-docs/compat/compat-gradle/opensavvy.prepared.compat.gradle/gradle.html) extension point and its [`settingsKts`](https://opensavvy.gitlab.io/groundwork/prepared/api-docs/compat/compat-gradle/opensavvy.prepared.compat.gradle/settings-kts.html) function to create the `settings.gradle.kts` file.
+2.  Use the [`gradle`](https://prepared.opensavvy.dev/api-docs/compat/compat-gradle/opensavvy.prepared.compat.gradle/gradle.html) extension point and its [`settingsKts`](https://prepared.opensavvy.dev/api-docs/compat/compat-gradle/opensavvy.prepared.compat.gradle/settings-kts.html) function to create the `settings.gradle.kts` file.
 3.  Create an empty root `build.gradle.kts` file.
 4.  Create a `foo/build.gradle.kts` file that applies our plugin.
 5.  Invokes the [prepared value](prepared-values.md) we defined earlier.

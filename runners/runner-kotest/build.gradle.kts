@@ -67,7 +67,7 @@ tasks.withType(Test::class) {
 library {
 	name.set("Execute with Kotest")
 	description.set("Execute Prepared test suites in projects that use Kotest")
-	homeUrl.set("https://opensavvy.gitlab.io/groundwork/prepared/api-docs/runners/runner-kotest/index.html")
+	homeUrl.set("https://prepared.opensavvy.dev/api-docs/runners/runner-kotest/index.html")
 
 	license.set {
 		name.set("Apache 2.0")

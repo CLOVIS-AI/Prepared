@@ -16,7 +16,7 @@ For example, a test will fail if some foreground tasks are still running at the 
 
 ## Launching foreground tasks
 
-To start a task in the foreground, use [`launch`](https://opensavvy.gitlab.io/groundwork/prepared/api-docs/suite/opensavvy.prepared.suite/launch.html) within a test:
+To start a task in the foreground, use [`launch`](https://prepared.opensavvy.dev/api-docs/suite/opensavvy.prepared.suite/launch.html) within a test:
 ```kotlin
 test("This is a test that starts a foreground task") {
 	launch {
@@ -41,7 +41,7 @@ The launched coroutine has the following properties:
 
 ## Launching background tasks
 
-To start a task in the background, use [`launchInBackground`](https://opensavvy.gitlab.io/groundwork/prepared/api-docs/suite/opensavvy.prepared.suite/launch-in-background.html) within a test:
+To start a task in the background, use [`launchInBackground`](https://prepared.opensavvy.dev/api-docs/suite/opensavvy.prepared.suite/launch-in-background.html) within a test:
 ```kotlin
 test("This is a test that starts a background task") {
 	launchInBackground {
@@ -77,7 +77,7 @@ The launched coroutine has the following properties:
 Sometimes, a service used inside a test must itself be able to start asynchronous operations.
 When written properly, this service accepts a `CoroutineScope` on creation.
 
-To allow the service to create foreground or background tasks, pass it either [`foregroundScope`](https://opensavvy.gitlab.io/groundwork/prepared/api-docs/suite/opensavvy.prepared.suite/foreground-scope.html) or [`backgroundScope`](https://opensavvy.gitlab.io/groundwork/prepared/api-docs/suite/opensavvy.prepared.suite/background-scope.html):
+To allow the service to create foreground or background tasks, pass it either [`foregroundScope`](https://prepared.opensavvy.dev/api-docs/suite/opensavvy.prepared.suite/foreground-scope.html) or [`backgroundScope`](https://prepared.opensavvy.dev/api-docs/suite/opensavvy.prepared.suite/background-scope.html):
 
 ```kotlin hl_lines="6 12"
 val inMemoryCache by prepared { // (1)!
