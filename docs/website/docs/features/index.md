@@ -4,7 +4,6 @@ Prepared adds many helpers to facilitate writing tests. To learn about them, eit
 
 ??? warning "This example is not idiomatic!"
     This example is written specifically to showcase all features in a single place. It is not considered idiomatic.
-    For more information, visit [the best practices section](../practices/index).
 
 ??? note "Assertion library"
     This example uses the Kotest assertion library.
