@@ -1,7 +1,7 @@
 #!/usr/bin/env kotlin
 
-// https://gitlab.com/opensavvy/automation/gitlab-ci.kt/-/releases
-@file:DependsOn("dev.opensavvy.gitlab:gitlab-ci-kotlin-jvm:0.5.0")
+// https://gitlab-ci-kts.opensavvy.dev/news/index.html
+@file:DependsOn("dev.opensavvy.gitlab:gitlab-ci-kotlin-jvm:0.7.0")
 
 import opensavvy.gitlab.ci.gitlabCi
 import opensavvy.gitlab.ci.job
