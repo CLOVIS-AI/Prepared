@@ -25,6 +25,7 @@ fun Job.opensavvyImage(name: String) =
 gitlabCi {
 	val build by stage()
 	val test by stage()
+	val deploy by stage()
 
 	// region Documentation
 
@@ -61,6 +62,24 @@ gitlabCi {
 		}
 
 		interruptible(true)
+	}
+
+	if (Value.isTag) {
+		job("pages", stage = deploy) {
+			image("alpine", "latest")
+			dependsOn(mkdocs, artifacts = true)
+
+			script {
+				shell("mkdir -p public")
+				shell("mv -T docs-website public")
+			}
+
+			artifacts {
+				include("public")
+			}
+
+			interruptible(false)
+		}
 	}
 
 	// endregion
