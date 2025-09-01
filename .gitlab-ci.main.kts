@@ -5,6 +5,8 @@
 
 import opensavvy.gitlab.ci.*
 import opensavvy.gitlab.ci.Environment.EnvironmentTier.Development
+import opensavvy.gitlab.ci.plugins.Gradle.Companion.gradlew
+import opensavvy.gitlab.ci.plugins.Gradle.Companion.useGradle
 import opensavvy.gitlab.ci.script.shell
 
 /**
@@ -21,6 +23,45 @@ val siteUrl = "\$CI_PAGES_URL"
 
 fun Job.opensavvyImage(name: String) =
 	image("registry.gitlab.com/opensavvy/automation/containers/$name", ciContainers)
+
+// region Kotlin Multiplatform
+
+fun Job.jvm() {
+	useGradle()
+	opensavvyImage("java")
+}
+
+fun Job.jsBrowser() {
+	useGradle()
+	opensavvyImage("chromium")
+}
+
+fun Job.jsNode() {
+	useGradle()
+	opensavvyImage("nodejs")
+}
+
+fun Job.nativeLinuxX64() {
+	useGradle()
+	opensavvyImage("java")
+}
+
+fun Job.nativeIosArm64() {
+	useGradle()
+	image("macos-15-xcode-16")
+
+	beforeScript {
+		shell("xcodebuild -downloadPlatform iOS")
+	}
+
+	tag("saas-macos-medium-m1")
+
+	retry(1) {
+		onExitCode(1)
+	}
+}
+
+// endregion
 
 gitlabCi {
 	val build by stage()
@@ -59,6 +100,36 @@ gitlabCi {
 
 		environment {
 			name("review/${Variable.Commit.Ref.slug}/docs")
+			url($$"$URL")
+			tier(Development)
+		}
+
+		interruptible(true)
+	}
+
+	val dokka by job(stage = build) {
+		jvm()
+
+		script {
+			gradlew.tasks(
+				":dokkaGeneratePublicationHtml",
+				$$"-PappVersion=$project_version"
+			)
+		}
+
+		afterScript {
+			shell("mkdir -p api-docs")
+			shell("mv build/dokka/html/* api-docs")
+			shell("""echo "URL=$(.gitlab/ci/review-url.sh api-docs/index.html)">>dokka.env""")
+		}
+
+		artifacts {
+			include("api-docs")
+			dotenv("dokka.env")
+		}
+
+		environment {
+			name("review/${Variable.Commit.Ref.slug}/api-docs")
 			url($$"$URL")
 			tier(Development)
 		}
