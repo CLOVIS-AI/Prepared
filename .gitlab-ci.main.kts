@@ -68,6 +68,97 @@ gitlabCi {
 	val test by stage()
 	val deploy by stage()
 
+	// region Tests
+
+	val checkJvm by job(stage = test) {
+		jvm()
+
+		script {
+			gradlew.tasks(
+				"check :koverLog :koverHtmlReport koverVerify --rerun",
+				"-x jsBrowserTest",
+				"-x jsNodeTest",
+				"-x wasmJsBrowserTest",
+				"-x wasmJsNodeTest",
+				"-x wasmWasiNodeTest",
+				"-x linuxX64Test",
+				"-x mingwX64Test",
+				"-x macosX64Test",
+				"-x macosArm64Test",
+				"-x iosX64Test",
+				"-x iosSimulatorArm64Test",
+				"-x watchosX64Test",
+				"-x tvosX64Test",
+				$$"-PappVersion=$project_version",
+			)
+		}
+
+		afterScript {
+			shell("mkdir -p jvm-cover-report")
+			shell("mv build/reports/kover/html/* jvm-cover-report")
+		}
+
+		artifacts {
+			include("jvm-cover-report")
+			exposeAs("JVM code coverage")
+		}
+
+		interruptible(true)
+	}
+
+	val checkJsBrowser by job(stage = test) {
+		jsBrowser()
+
+		script {
+			gradlew.tasks(
+				"jsBrowserTest wasmJsBrowserTest",
+				$$"-PappVersion=$project_version",
+			)
+		}
+
+		interruptible(true)
+	}
+
+	val checkJsNode by job(stage = test) {
+		jsNode()
+
+		script {
+			gradlew.tasks(
+				"jsNodeTest wasmJsNodeTest wasmWasiNodeTest",
+				$$"-PappVersion=$project_version",
+			)
+		}
+
+		interruptible(true)
+	}
+
+	val checkLinuxX64 by job(stage = test) {
+		nativeLinuxX64()
+
+		script {
+			gradlew.tasks(
+				"linuxX64Test mingwX64Test",
+				$$"-PappVersion=$project_version",
+			)
+		}
+
+		interruptible(true)
+	}
+
+	val checkIosArm64 by job(stage = test) {
+		nativeIosArm64()
+
+		script {
+			gradlew.tasks(
+				"iosSimulatorArm64Test watchosSimulatorArm64Test",
+				$$"-PappVersion=$project_version",
+			)
+		}
+
+		interruptible(true)
+	}
+
+	// endregion
 	// region Documentation
 
 	val mkdocs by job(stage = build) {
