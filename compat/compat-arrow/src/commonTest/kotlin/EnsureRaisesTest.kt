@@ -34,7 +34,7 @@ val CheckRaisesTest by preparedSuite {
 				5
 			}
 		}
-		check(e.message matches "Expected to fail with .*Any, but the operation was successful and returned 5")
+		check(e.message matches "Expected to fail with .*(Any|Object).*, but the operation was successful and returned 5")
 	}
 
 	test("Throws when the wrong thing is raised") {
@@ -52,7 +52,7 @@ val CheckRaisesTest by preparedSuite {
 				5
 			}
 		}
-		check(e.message matches "Expected to fail with .*Any, but the operation was successful and returned 5")
+		check(e.message matches "Expected to fail with .*(Any|Object).*, but the operation was successful and returned 5")
 	}
 
 	test("Throws when the wrong thing is raised") {
