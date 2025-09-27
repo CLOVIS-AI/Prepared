@@ -16,7 +16,20 @@
 
 package opensavvy.prepared.suite
 
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.debug.DebugProbes
+
+@OptIn(ExperimentalCoroutinesApi::class)
+private val installDebugProbes by shared {
+	try {
+		DebugProbes.install()
+		DebugProbes.enableCreationStackTraces = true
+	} catch (e: Throwable) {
+		println("Couldn't install debug probes. Ignoring. Reason: $e")
+	}
+}
+
 internal actual suspend inline fun TestDsl.platformSpecificFeatures(block: suspend TestDsl.() -> Unit) {
-	// Nothing platform-specific on the JVM.
+	installDebugProbes()
 	block()
 }
