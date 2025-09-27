@@ -55,7 +55,7 @@ suspend fun TestScope.runTestDslSuspend(name: String, config: TestConfig, block:
 
 		var successful = false
 		try {
-			test.block()
+			test.platformSpecificFeatures(block)
 			successful = true
 		} catch (e: Throwable) {
 			println()
@@ -66,3 +66,5 @@ suspend fun TestScope.runTestDslSuspend(name: String, config: TestConfig, block:
 		}
 	}
 }
+
+internal expect suspend inline fun TestDsl.platformSpecificFeatures(block: suspend TestDsl.() -> Unit)
