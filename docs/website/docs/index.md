@@ -54,7 +54,7 @@ Additionally, Prepared exposes many other features:
 
 ## Prepared isn't a test runner
 
-The goal of Prepared is to simplify how we declare tests, how we go from a thought to code. Test runners are libraries that execute test batteries and report results to your build system. Prepared isn't a test runner, but [it is compatible with a few existing ones](tutorials/index#test-runners).
+The goal of Prepared is to simplify how we declare tests: how we go from a thought to code. Test runners are libraries that execute test batteries and report results to your build system. Prepared isn't a test runner, but [it is compatible with a few existing ones](tutorials/index#test-runners).
 
 ## Prepared isn't an assertion library
 
@@ -62,6 +62,8 @@ Assertion libraries provide utilities to compare values. Popular choices are [Ko
 
 Instead of any specific assertion libraries, we recommend using [Power Assert](https://kotlinlang.org/docs/power-assert.html), which is able to generate good error messages from regular Kotlin code, without needing an assertion library at all.
 
-## Prepared isn't an IntelliJ plugin (yet?)
+## Prepared isn't an IntelliJ plugin
 
-Prepared is a simple Kotlin library. It doesn't have a Gradle plugin, nor does it have an IntelliJ plugin. Test are reported by the runner, so your IDE can display the test report. However, IntelliJ doesn't know which lines are tests or not, so it cannot display the small green triangle to select which tests to execute. 
+Prepared is a simple Kotlin library. It doesn't have a Gradle plugin, nor does it have an IntelliJ plugin.
+
+If you use the [TestBalloon runner](tutorials/index.md#test-runners), Prepared tests are supported by the TestBalloon IntelliJ plugin. [Learn how to configure it](https://prepared.opensavvy.dev/api-docs/runners/runner-testballoon/index.html).
