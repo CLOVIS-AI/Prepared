@@ -16,6 +16,8 @@
 
 package opensavvy.prepared.suite
 
+import opensavvy.prepared.suite.annotations.ExperimentalPreparedApi
+import opensavvy.prepared.suite.annotations.TestEntrypoint
 import opensavvy.prepared.suite.config.Context
 import opensavvy.prepared.suite.config.TestConfig
 import opensavvy.prepared.suite.config.plus
@@ -82,7 +84,9 @@ interface SuiteDsl : PreparedDsl {
 	 *
 	 * To learn more about the available configuration options, see the subtypes of [TestConfig.Element].
 	 */
+	@OptIn(ExperimentalPreparedApi::class)
 	@PreparedDslMarker
+	@TestEntrypoint
 	fun suite(
 		name: String,
 		config: TestConfig = TestConfig.Empty,
@@ -118,19 +122,23 @@ interface SuiteDsl : PreparedDsl {
 	 *
 	 * To learn more about the available configuration options, see the subtypes of [TestConfig.Element].
 	 */
+	@OptIn(ExperimentalPreparedApi::class)
 	@PreparedDslMarker
+	@TestEntrypoint
 	fun test(
 		name: String,
 		config: TestConfig = TestConfig.Empty,
 		block: suspend TestDsl.() -> Unit,
 	)
 
+	@OptIn(ExperimentalPreparedApi::class)
 	@Deprecated(
 		"Prefer injecting the coroutine context using the `Context` test configuration.",
 		ReplaceWith("test(name, config + Context(context), block)", "opensavvy.prepared.suite.config.*"),
 		DeprecationLevel.WARNING
 	)
 	@PreparedDslMarker
+	@TestEntrypoint
 	fun test(
 		name: String,
 		context: CoroutineContext = EmptyCoroutineContext,

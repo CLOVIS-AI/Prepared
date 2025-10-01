@@ -95,7 +95,7 @@ Prepared doesn't include a built-in test runner.
 
 ## Assertion libraries
 
-Assertion libraries provide utilities for verifying the state of data structures. Prepared is compatible with all assertion libraries that throw exceptions (all the ones we know).
+Assertion libraries provide utilities for verifying the state of data structures. Prepared is compatible with all assertion libraries that throw exceptions.
 
 Here are a few popular choices:
 
@@ -184,10 +184,9 @@ Here are a few popular choices:
 
 === "Atrium"
 
-    [Atrium](https://atriumlib.org/) is a Kotlin library inspired by AssertJ with two api styles, fluent and infix.
-    The following shows the infix api (take a look at the [examples in the docs](https://github.com/robstoll/atrium?tab=readme-ov-file#examples) for fluent).
+    [Atrium](https://atriumlib.org/) is a Kotlin library inspired by AssertJ with two API styles: fluent and infix.
 
-    **Usage**
+    **Infix usage**
 
     ```kotlin
     // Equality check
@@ -205,6 +204,8 @@ Here are a few popular choices:
         its { age } toEqual 12
     }
     ```
+
+    You can learn more about Atrium assertions [here](https://github.com/robstoll/atrium?tab=readme-ov-file#examples).
 
     **Configuration**
 

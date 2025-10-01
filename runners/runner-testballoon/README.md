@@ -55,3 +55,11 @@ val MyMixedTestSuite by testSuite {
 	}
 }
 ```
+
+## IntelliJ plugin
+
+The [TestBalloon IntelliJ plugin](https://plugins.jetbrains.com/plugin/27749-testballoon) can be configured to recognize Prepared tests and suites.
+
+Once you installed the plugin, open “[File | Settings | Tools | TestBalloon](jetbrains://idea/settings?name=Tools--TestBalloon)“, open “Discovery settings”. In the field “Test discoverable annotations“, add `opensavvy.prepared.suite.annotations.TestEntrypoint` to the end, using a space character to separate it with existing values. Save your settings. You may need to reload your build.
+
+You should see the typical green triangles in the margin of Prepared tests and suites, allowing to run or debug a single test.
