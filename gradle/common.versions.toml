@@ -20,10 +20,10 @@ kotest = "6.0.1"
 testBalloon = "0.5.0-K2.2.0"
 
 # https://gitlab.com/opensavvy/groundwork/pedestal/-/releases
-pedestal = "3.0.0"
+pedestal = "3.1.1"
 
-# https://opensavvy.gitlab.io/groundwork/prepared/docs/news
-prepared = "2.1.0"
+# https://prepared.opensavvy.dev/news
+prepared = "2.1.1"
 
 [plugins]
 kotlin = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
