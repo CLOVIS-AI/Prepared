@@ -25,7 +25,6 @@ import opensavvy.prepared.suite.config.TestConfig
 import opensavvy.prepared.suite.runTestDslSuspend
 import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.EmptyCoroutineContext
-import kotlin.time.Duration.Companion.seconds
 import de.infix.testBalloon.framework.TestConfig as BalloonTestConfig
 
 @PreparedDslMarker
@@ -72,7 +71,7 @@ private class TestBalloonSuite(
 
 private fun TestConfig.toBalloon(): BalloonTestConfig {
 	var config = BalloonTestConfig
-		.testScope(isEnabled = true, timeout = this[CoroutineTimeout]?.duration ?: 60.seconds)
+		.testScope(isEnabled = true, timeout = this[CoroutineTimeout]?.duration ?: CoroutineTimeout.Default)
 	
 	if (this[Ignored] != null)
 		config = config.disable()

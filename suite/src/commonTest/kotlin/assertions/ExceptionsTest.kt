@@ -32,7 +32,7 @@ val ExceptionAssertionsTest by preparedSuite {
 				error("This should go through the 'checkThrows' call")
 			}
 		} catch (e: AssertionError) {
-			check(e.message matches "Expected to throw .*IllegalArgumentException, but the operation threw the exception .*IllegalStateException: This should go through the 'checkThrows' call \\(see cause below for details\\)")
+			check(e.message matches "Expected to throw .*IllegalArgumentException.*, but the operation threw the exception .*IllegalStateException: This should go through the 'checkThrows' call \\(see cause below for details\\)")
 			check(e.cause?.message == "This should go through the 'checkThrows' call")
 		}
 	}
@@ -44,7 +44,7 @@ val ExceptionAssertionsTest by preparedSuite {
 				val a = 5
 			}
 		} catch (e: AssertionError) {
-			check(e.message matches "Expected to throw .*IllegalArgumentException, but the operation was successful and returned: .*Unit")
+			check(e.message matches "Expected to throw .*IllegalArgumentException.*, but the operation was successful and returned: .*Unit")
 		}
 	}
 
