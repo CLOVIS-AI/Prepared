@@ -29,13 +29,27 @@ suite("My test suite") {
 }
 ```
 
-Additionally, Prepared exposes many advanced features:
+Prepared's eponymous feature, [prepared values](features/prepared-values.md), allow declaring coroutine-aware fixtures that are initialized once for each test they are mentioned in:
 
-- [Isolated test fixtures](features/prepared-values.md),
+```kotlin
+val database by prepared {
+	Database.connect()
+}
+
+test("Verify the connection") {
+	check(database().isConnected)
+}
+```
+
+Additionally, Prepared exposes many other features:
+
+- [Shared test fixtures](features/shared-values.md),
 - [Time control](features/time.md),
 - [Background task management](features/async.md)¸
 - [Randomness control](features/random.md),
 - [Temporary filesystems](features/files.md),
+- [Easy test parametrization](features/parameterize.md),
+- Compatibility for [Ktor](features/compat-ktor.md), [Arrow](features/compat-arrow.md), [Gradle](features/compat-gradle.md)…
 - …and [more](features/index.md).
 
 ## Prepared isn't a test runner
