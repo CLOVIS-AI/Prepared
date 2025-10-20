@@ -1,16 +1,14 @@
 #!/usr/bin/env kotlin
 
 // https://gitlab-ci-kts.opensavvy.dev/news/index.html
-@file:DependsOn("dev.opensavvy.gitlab:gitlab-ci-kotlin-jvm:0.7.0")
+@file:DependsOn("dev.opensavvy.gitlab:gitlab-ci-kotlin-jvm:0.7.1")
 
 import opensavvy.gitlab.ci.*
 import opensavvy.gitlab.ci.Environment.EnvironmentTier.Development
 import opensavvy.gitlab.ci.script.shell
 
-/**
- * The version of images downloaded from https://gitlab.com/opensavvy/automation/containers
- */
-val ciContainers = "0.8.1"
+// https://gitlab.com/opensavvy/automation/containers/-/releases
+val ciContainers = "0.8.2"
 
 /**
  * The URL of the website built by /docs/website.
