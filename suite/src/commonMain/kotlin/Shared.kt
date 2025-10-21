@@ -23,6 +23,8 @@ import opensavvy.prepared.suite.display.Display
 import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.EmptyCoroutineContext
 import kotlin.reflect.KProperty
+import kotlin.time.Duration
+import kotlin.time.measureTime
 
 /**
  * Pure, immutable lazy value which is shared between all tests.
@@ -88,9 +90,12 @@ class Shared<out T> internal constructor(
 	 */
 	suspend operator fun invoke(): T {
 		var fromHere: Boolean
+		var elapsedTime: Duration? = null
 		lock.withLock {
 			if (result is Option.Empty) {
-				result = Option.Present(block())
+				elapsedTime = measureTime {
+					result = Option.Present(block())
+				}
 				fromHere = true
 			} else {
 				fromHere = false
@@ -99,7 +104,7 @@ class Shared<out T> internal constructor(
 
 		val stored = result
 		check(stored is Option.Present) { "The stored result is $stored, even though we just passed the block that is expected to initialize it, that should be impossible" }
-		println("» Shared ‘${name}’: ${display.display(stored.value)} " + if (fromHere) "(initialized by this test)" else "(reusing an already initialized value)")
+		println("» Shared ‘${name}’: ${display.display(stored.value)} " + if (fromHere) "(initialized by this test in $elapsedTime)" else "(reusing an already initialized value)")
 		return stored.value
 	}
 

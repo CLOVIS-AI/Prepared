@@ -16,11 +16,10 @@
 
 package opensavvy.prepared.suite
 
-import kotlinx.coroutines.CoroutineName
+import kotlinx.coroutines.*
 import kotlinx.coroutines.test.TestResult
 import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.runTest
-import kotlinx.coroutines.withContext
 import opensavvy.prepared.suite.config.TestConfig
 import opensavvy.prepared.suite.config.coroutineContext
 import opensavvy.prepared.suite.config.effectiveTimeout
@@ -53,17 +52,19 @@ suspend fun TestScope.runTestDslSuspend(name: String, config: TestConfig, block:
 			environment = TestEnvironment(name, this@runTestDslSuspend)
 		)
 
-		var successful = false
-		try {
+		val result = runCatching {
 			test.platformSpecificFeatures(block)
-			successful = true
-		} catch (e: Throwable) {
-			println()
-			println("An ${e::class.simpleName ?: e::class} was thrown during the test. The details are displayed at the end of the test, possibly after the finalizers.")
-			throw e
-		} finally {
-			with(test.environment.finalizers) { test.executeAllFinalizers(successful = successful) }
 		}
+
+		if (result.isFailure) {
+			println("An ${result.exceptionOrNull()!!::class.simpleName ?: result.exceptionOrNull()!!::class} was thrown during the test. The details are displayed at the end of the test, possibly after the finalizers.")
+		}
+
+		withContext(NonCancellable) {
+			with(test.environment.finalizers) { test.executeAllFinalizers(successful = result.isSuccess) }
+		}
+
+		result.getOrThrow()
 	}
 }
 

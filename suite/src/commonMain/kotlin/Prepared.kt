@@ -22,6 +22,7 @@ import opensavvy.prepared.suite.display.Display
 import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.EmptyCoroutineContext
 import kotlin.reflect.KProperty
+import kotlin.time.measureTimedValue
 
 /**
  * Lazily-generated value unique to a test case.
@@ -90,8 +91,8 @@ class Prepared<out T> internal constructor(
 	internal suspend fun executeIn(scope: TestDsl): T =
 		scope.environment.cache.cache(this) {
 			withContext(CoroutineName("Preparing $name")) {
-				val result = scope.block()
-				println("» Prepared ‘$name’: ${display.display(result)}")
+				val (result, elapsedTime) = measureTimedValue { scope.block() }
+				println("» Prepared ‘$name’: ${display.display(result)}, took $elapsedTime")
 				result
 			}
 		} as T
