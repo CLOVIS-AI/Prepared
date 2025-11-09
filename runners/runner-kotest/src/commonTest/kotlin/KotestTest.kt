@@ -17,7 +17,6 @@
 package opensavvy.prepared.runner.kotest
 
 import io.kotest.core.spec.style.StringSpec
-import io.kotest.matchers.shouldBe
 import kotlinx.coroutines.delay
 import opensavvy.prepared.suite.config.Ignored
 
@@ -28,7 +27,7 @@ class KotestTest : StringSpec({
 	}
 
 	"Hello world from Kotest" {
-		"hello".length shouldBe 5
+		check("hello".length == 5)
 	}
 
 	// Prepared integration…
@@ -47,7 +46,7 @@ class KotestTest : StringSpec({
 		}
 
 		test("Hello world from Prepared") {
-			"hello".length shouldBe 5
+			check("hello".length == 5)
 		}
 
 		suite("Disabled suite", Ignored) {
@@ -65,7 +64,7 @@ class KotestTest : StringSpec({
 class KotestTest2 : PreparedSpec({
 	suite("Test") {
 		test("Test") {
-			true shouldBe true
+			check(true)
 		}
 	}
 })

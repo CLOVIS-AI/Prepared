@@ -16,12 +16,10 @@
 
 package opensavvy.prepared.runner.kotest
 
-import io.kotest.matchers.shouldBe
-
 class FocusTest : PreparedSpec({
 
 	test("f:This test is focused, and should run") {
-		true shouldBe true
+		check(true)
 	}
 
 	test("This test is not focused, and should not run") {
@@ -30,11 +28,11 @@ class FocusTest : PreparedSpec({
 
 	suite("f:This suite is focused, and should run") {
 		test("First test") {
-			true shouldBe true
+			check(true)
 		}
 
 		test("Second test") {
-			true shouldBe true
+			check(true)
 		}
 	}
 
@@ -44,7 +42,7 @@ class FocusTest : PreparedSpec({
 		}
 
 		test("f:This test is focused") {
-			true shouldBe true
+			check(true)
 		}
 	}
 

@@ -19,10 +19,9 @@ package opensavvy.prepared.runner.kotest
 import io.kotest.core.names.TestName
 import io.kotest.core.spec.KotestTestScope
 import io.kotest.core.spec.style.StringSpec
-import io.kotest.core.spec.style.scopes.ContainerScope
 import io.kotest.core.spec.style.scopes.RootScope
 import io.kotest.core.spec.style.scopes.addTest
-import io.kotest.core.test.TestType
+import io.kotest.core.test.TestScope
 import opensavvy.prepared.suite.SuiteDsl
 import opensavvy.prepared.suite.TestDsl
 import opensavvy.prepared.suite.config.*
@@ -74,13 +73,25 @@ private class NonNestedSuite(private val root: RootScope, private val parentConf
 		val kotestConfig = io.kotest.core.test.config.TestConfig(
 			enabled = thisConfig[Ignored] == null,
 			tags = config[Tag]
-				.mapTo(HashSet()) { io.kotest.core.Tag(it.name) }
-				.takeIf { it.isNotEmpty() },
+				.mapTo(HashSet()) { io.kotest.core.Tag(it.name) },
 			coroutineTestScope = true,
 			coroutineDebugProbes = true,
 		)
 
-		root.addTest(testName = TestName(name = prefix child name), disabled = false, type = TestType.Test, config = kotestConfig) {
+		val testName = prefix child name
+
+		root.addTest(
+			testName = TestName(
+				name = testName,
+				focus = testName.startsWith(FOCUS_PREFIX),
+				bang = testName.startsWith(BANG_PREFIX),
+				prefix = null,
+				suffix = null,
+				defaultAffixes = false,
+			),
+			disabled = false,
+			config = kotestConfig,
+		) {
 			executeTest(name, config, block)
 		}
 	}
@@ -88,7 +99,10 @@ private class NonNestedSuite(private val root: RootScope, private val parentConf
 
 // Workaround to avoid using the coroutine dispatcher on KJS.
 // See https://gitlab.com/opensavvy/groundwork/prepared/-/issues/59
-internal expect suspend fun ContainerScope.executeTest(name: String, config: TestConfig, block: suspend TestDsl.() -> Unit)
+internal expect suspend fun TestScope.executeTest(name: String, config: TestConfig, block: suspend TestDsl.() -> Unit)
+
+private const val FOCUS_PREFIX = "f:"
+private const val BANG_PREFIX = "!"
 
 /**
  * Appends [name] at the end of `this`, handling the case where `this` is `null`.
@@ -96,8 +110,8 @@ internal expect suspend fun ContainerScope.executeTest(name: String, config: Tes
 private infix fun String?.child(name: String) =
 	when {
 		// See https://kotest.io/docs/framework/conditional/conditional-tests-with-focus-and-bang.html
-		this != null && name.startsWith("f:") -> "f:$this • $name"
-		this != null && name.startsWith("!") -> "!$this • $name"
+		this != null && name.startsWith(FOCUS_PREFIX) -> "$FOCUS_PREFIX$this • $name"
+		this != null && name.startsWith(BANG_PREFIX) -> "$BANG_PREFIX$this • $name"
 		this != null -> "$this • $name"
 		else -> name
 	}
