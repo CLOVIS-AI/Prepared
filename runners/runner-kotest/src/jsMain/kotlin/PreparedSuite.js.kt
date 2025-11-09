@@ -16,14 +16,14 @@
 
 package opensavvy.prepared.runner.kotest
 
-import io.kotest.core.spec.style.scopes.ContainerScope
+import io.kotest.core.test.TestScope
 import kotlinx.coroutines.await
 import opensavvy.prepared.suite.TestDsl
 import opensavvy.prepared.suite.config.TestConfig
 import opensavvy.prepared.suite.runTestDsl
 import kotlin.js.Promise
 
-internal actual suspend fun ContainerScope.executeTest(name: String, config: TestConfig, block: suspend TestDsl.() -> Unit) {
+internal actual suspend fun TestScope.executeTest(name: String, config: TestConfig, block: suspend TestDsl.() -> Unit) {
 	// Currently, Kotest is not able to give us access to the Kotlin.Coroutines.Test dispatcher.
 	// Instead, we create a new coroutine environment and awaits it.
 	// See https://gitlab.com/opensavvy/groundwork/prepared/-/issues/59

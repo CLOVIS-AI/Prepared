@@ -16,12 +16,12 @@
 
 package opensavvy.prepared.runner.kotest
 
-import io.kotest.core.coroutines.coroutineTestScope
-import io.kotest.core.spec.style.scopes.ContainerScope
+import io.kotest.core.test.TestScope
+import io.kotest.engine.coroutines.coroutineTestScope
 import opensavvy.prepared.suite.TestDsl
 import opensavvy.prepared.suite.config.TestConfig
 import opensavvy.prepared.suite.runTestDslSuspend
 
-internal actual suspend fun ContainerScope.executeTest(name: String, config: TestConfig, block: suspend TestDsl.() -> Unit) {
+internal actual suspend fun TestScope.executeTest(name: String, config: TestConfig, block: suspend TestDsl.() -> Unit) {
 	coroutineTestScope.runTestDslSuspend(name, config, block)
 }

@@ -16,8 +16,6 @@
 
 package opensavvy.prepared.runner.kotest
 
-import io.kotest.matchers.shouldBe
-
 class BangTest : PreparedSpec({
 
 	test("!This test is skipped because of the bang") {
@@ -25,7 +23,7 @@ class BangTest : PreparedSpec({
 	}
 
 	test("This test should run") {
-		true shouldBe true
+		check(true)
 	}
 
 	suite("!This suite is skipped") {
@@ -36,7 +34,7 @@ class BangTest : PreparedSpec({
 
 	suite("This suite is not skipped") {
 		test("This test is not skipped") {
-			true shouldBe true
+			check(true)
 		}
 
 		test("!This test is skipped") {
