@@ -58,6 +58,10 @@ kotlin {
 			api(projects.suite)
 
 			api(libs.testBalloon)
+
+			// Ensure the kotlin-test library matches the Kotlin version
+			// We do not use this dependency, but 'compileOnly' or 'constraints' aren't supported in KMP
+			implementation(libsCommon.kotlin.test)
 		}
 	}
 }
