@@ -8,7 +8,7 @@ gradle-testkit = "8.11.1"     # https://gradle.org/releases/
 parameterize = "0.4.0"        # https://github.com/BenWoodworth/Parameterize/releases
 ktor = "3.1.3"                # https://ktor.io/docs/releases.html#release-details
 kti = { strictly = "0.1.0" }  # https://gitlab.com/opensavvy/groundwork/kotlin-test-initiative/-/releases
-testBalloon = "0.3.3-K2.2.0"  # https://github.com/infix-de/testBalloon/releases
+testBalloon = "0.7.1-K2.2.0"  # https://github.com/infix-de/testBalloon/releases
 
 [plugins]
 testBalloon = { id = "de.infix.testBalloon", version.ref = "testBalloon" }
