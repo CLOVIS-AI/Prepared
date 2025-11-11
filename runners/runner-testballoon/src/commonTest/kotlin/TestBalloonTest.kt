@@ -16,7 +16,7 @@
 
 package opensavvy.prepared.runner.testballoon
 
-import de.infix.testBalloon.framework.testSuite
+import de.infix.testBalloon.framework.core.testSuite
 
 val TestBalloonSuite by testSuite {
 	test("string length") {
