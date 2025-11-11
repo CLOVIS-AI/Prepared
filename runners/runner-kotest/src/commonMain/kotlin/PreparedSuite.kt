@@ -21,10 +21,11 @@ import io.kotest.core.spec.KotestTestScope
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.core.spec.style.scopes.RootScope
 import io.kotest.core.spec.style.scopes.addTest
-import io.kotest.core.test.TestScope
+import io.kotest.engine.coroutines.coroutineTestScope
 import opensavvy.prepared.suite.SuiteDsl
 import opensavvy.prepared.suite.TestDsl
 import opensavvy.prepared.suite.config.*
+import opensavvy.prepared.suite.runTestDslSuspend
 
 /**
  * Executes a Prepared [SuiteDsl] in a Kotest suite.
@@ -92,14 +93,10 @@ private class NonNestedSuite(private val root: RootScope, private val parentConf
 			disabled = false,
 			config = kotestConfig,
 		) {
-			executeTest(name, config, block)
+			coroutineTestScope.runTestDslSuspend(name, config, block)
 		}
 	}
 }
-
-// Workaround to avoid using the coroutine dispatcher on KJS.
-// See https://gitlab.com/opensavvy/groundwork/prepared/-/issues/59
-internal expect suspend fun TestScope.executeTest(name: String, config: TestConfig, block: suspend TestDsl.() -> Unit)
 
 private const val FOCUS_PREFIX = "f:"
 private const val BANG_PREFIX = "!"
