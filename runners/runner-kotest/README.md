@@ -87,8 +87,9 @@ plugins {
 
 	// ⚠ Without the Kotest plugin, tests for some platforms 
 	// may not run, without warnings ⚠
-	// https://plugins.gradle.org/plugin/io.kotest.multiplatform
-	id("io.kotest.multiplatform") version "…"
+	// https://kotest.io/docs/framework/project-setup.html
+	id("com.google.devtools.ksp") version "…"
+	id("io.kotest") version "…"
 }
 
 kotlin {
