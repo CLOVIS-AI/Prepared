@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024-2025, OpenSavvy and contributors.
+ * Copyright (c) 2025, OpenSavvy and contributors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,12 +16,21 @@
 
 package opensavvy.prepared.runner.kotest
 
-import io.kotest.core.test.TestScope
-import io.kotest.engine.coroutines.coroutineTestScope
-import opensavvy.prepared.suite.TestDsl
-import opensavvy.prepared.suite.config.TestConfig
-import opensavvy.prepared.suite.runTestDslSuspend
+import kotlinx.coroutines.delay
+import kotlin.time.Duration.Companion.milliseconds
+import kotlin.time.Duration.Companion.seconds
+import kotlin.time.measureTime
 
-internal actual suspend fun TestScope.executeTest(name: String, config: TestConfig, block: suspend TestDsl.() -> Unit) {
-	coroutineTestScope.runTestDslSuspend(name, config, block)
-}
+class DelaySkippingTest : PreparedSpec({
+
+	test("Delays are skipped") {
+		val elapsed = measureTime {
+			delay(3.seconds)
+		}
+
+		// It should usually complete in ~5 ms, but let's make it 100 ms in case we're running
+		// on an overloaded machine
+		check(elapsed < 100.milliseconds)
+	}
+
+})
