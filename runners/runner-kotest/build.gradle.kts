@@ -19,6 +19,8 @@ import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 plugins {
 	alias(opensavvyConventions.plugins.base)
 	alias(opensavvyConventions.plugins.kotlin.library)
+	alias(libsCommon.plugins.ksp)
+	id("io.kotest") version libsCommon.versions.kotest
 }
 
 @OptIn(ExperimentalWasmDsl::class)
