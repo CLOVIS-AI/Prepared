@@ -67,8 +67,7 @@ plugins:
       post_excerpt: optional
       authors: false
       blog_dir: news
-  - tags:
-      tag_file: news/tags.md
+  - tags
   - rss:
       match_path: 'news/posts/.*'
       date_from_meta:
