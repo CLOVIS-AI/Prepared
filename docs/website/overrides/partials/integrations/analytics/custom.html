@@ -10,6 +10,13 @@
 	// Configure endpoint before the library loads • https://plausible.io/docs/script-extensions#plausibleinit-configuration
 	plausible.init({
 		endpoint: 'https://p.opensavvy.dev/event',
+		customProperties: function(eventname) {
+			return {
+				host: window.location.host,
+				project: '{{ config.site_name }}',
+				area: 'site',
+			}
+		},
 	});
 	// Append the external script dynamically
 	(function () {
