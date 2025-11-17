@@ -76,6 +76,10 @@ plugins:
         as_update: date.updated
       use_git: false
 
+extra:
+  analytics:
+    provider: custom
+
 markdown_extensions:
   - admonition
   - attr_list
