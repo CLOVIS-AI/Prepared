@@ -17,6 +17,10 @@
 				area: 'site',
 			}
 		},
+		transformRequest: function(request) {
+			request.u = request.u.replace(/.*\/jobs\/[0-9]+\/artifacts\/[^\/]*/g, ''); // Remove review app URL prefix
+			return request;
+		}
 	});
 	// Append the external script dynamically
 	(function () {
