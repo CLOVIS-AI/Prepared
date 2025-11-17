@@ -11,7 +11,7 @@ for tag in $(git tag --list -n1 | cut -d' ' -f1); do
 		"refs/tags/$tag" \
 		| sed 's/%n/\n/g' \
 		| sed -r "s~\#([0-9]+)~[#\1]($CI_PROJECT_URL/-/issues/\1)~g" \
-		| sed -r "s~([0-9a-f]{4,40})([,\)])~[#\1]($CI_PROJECT_URL/-/commit/\1)\2~g" \
+		| sed -r "s~([0-9a-f]{4,40})([,\)])~[\1]($CI_PROJECT_URL/-/commit/\1)\2~g" \
 		| sed -r "s~!([0-9]+)~[!\1]($CI_PROJECT_URL/-/merge_requests/\1)~g" \
 		>"$tag_file"
 
