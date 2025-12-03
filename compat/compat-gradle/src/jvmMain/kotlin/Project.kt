@@ -18,6 +18,7 @@ package opensavvy.prepared.compat.gradle
 
 import opensavvy.prepared.compat.filesystem.div
 import opensavvy.prepared.suite.Prepared
+import opensavvy.prepared.suite.flatMap
 import java.nio.file.Path
 
 /**
@@ -50,3 +51,23 @@ class Project internal constructor(
 	 */
 	val buildDir get() = dir / "build"
 }
+
+/**
+ * The subdirectory of [Gradle.dir] in which this project is located.
+ *
+ * ### Example
+ *
+ * ```kotlin
+ * val app by prepared { gradle.project("app") }
+ * val main = app.dir / "src" / "main" / "kotlin" / "main.kt"
+ *
+ * test("Print the path of the main file") {
+ *     println(main())
+ * }
+ * ```
+ */
+val Prepared<Project>.dir: Prepared<Path>
+	get() = this.flatMap("$this.dir") { it.dir }
+
+val Prepared<Project>.buildDir: Prepared<Path>
+	get() = this.flatMap("$this.buildDir") { it.buildDir }
