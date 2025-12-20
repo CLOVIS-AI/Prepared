@@ -29,3 +29,25 @@ fun <I, O> Prepared<I>.map(name: String, block: (I) -> O): Prepared<O> =
  */
 fun <I, O> PreparedProvider<I>.map(block: (I) -> O): PreparedProvider<O> =
 	PreparedProvider(display) { block(this@map.block(this)) }
+
+/**
+ * Creates a new [Prepared] which is the result of calling [block] on the input prepared value.
+ *
+ * @param name The name of the resulting prepared value.
+ */
+fun <I, O> Prepared<I>.flatMap(name: String, block: (I) -> Prepared<O>): Prepared<O> =
+	Prepared(name, display) {
+		val input = this@flatMap()
+		val mapped = block(input)
+		mapped()
+	}
+
+/**
+ * Creates a new [PreparedProvider] which is the result of calling [block] on the input prepared provider.
+ */
+fun <I, O> PreparedProvider<I>.flatMap(block: (I) -> Prepared<O>): PreparedProvider<O> =
+	PreparedProvider(display) {
+		val input = this@flatMap.block(this)
+		val mapped = block(input)
+		mapped()
+	}
