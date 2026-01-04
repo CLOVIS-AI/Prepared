@@ -43,7 +43,7 @@ data class CoroutineTimeout(
 	override val key get() = Companion
 
 	companion object : TestConfig.Key.Unique<CoroutineTimeout> {
-		val Default = 10.seconds
+		val Default = 60.seconds
 	}
 }
 
