@@ -11,7 +11,7 @@ kotlin = "2.3.0"
 ksp = "2.3.4"
 
 # https://github.com/JetBrains/compose-multiplatform/releases
-compose = "1.8.2"
+compose = "1.10.0"
 
 # https://github.com/kotest/kotest/releases
 kotest = "6.0.4"
