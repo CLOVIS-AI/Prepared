@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023-2025, OpenSavvy and contributors.
+ * Copyright (c) 2023-2026, OpenSavvy and contributors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,7 @@
 package opensavvy.prepared.compat.gradle
 
 import opensavvy.prepared.compat.filesystem.div
+import org.intellij.lang.annotations.Language
 import kotlin.io.path.createDirectories
 import kotlin.io.path.writeText
 
@@ -55,6 +56,19 @@ val Gradle.settingsGroovy get() = dir / "settings.gradle"
 val Gradle.settingsKts get() = dir / "settings.gradle.kts"
 
 /**
+ * Accessor for the `gradle.properties` file.
+ *
+ * ### Example
+ *
+ * ```kotlin
+ * test("Access the gradle.properties file") {
+ *     println(gradle.properties())
+ * }
+ * ```
+ */
+val Gradle.properties get() = dir / "gradle.properties"
+
+/**
  * Helper function to write the `settings.gradle` file.
  *
  * ### Example
@@ -91,6 +105,23 @@ suspend fun Gradle.settingsGroovy(text: String) = with(dsl) {
  * @see buildKts Build script file
  */
 suspend fun Gradle.settingsKts(text: String) = with(dsl) {
+	settingsKts().writeText(text)
+}
+
+/**
+ * Helper function to write the `gradle.properties` file.
+ *
+ * ### Example
+ *
+ * ```kotlin
+ * test("Configure the JVM heap") {
+ *     gradle.properties("""
+ *         org.gradle.jvmargs=-Xmx3g -Xms200m
+ *     """.trimIndent())
+ * }
+ * ```
+ */
+suspend fun Gradle.properties(@Language("properties") text: String) = with(dsl) {
 	settingsKts().writeText(text)
 }
 
