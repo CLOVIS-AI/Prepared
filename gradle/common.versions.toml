@@ -28,6 +28,9 @@ prepared = "2.2.0"
 # https://spine.opensavvy.dev/news
 spine = "0.9.0"
 
+# https://ktmongo.opensavvy.dev/news
+ktmongo = "0.25.1"
+
 # https://github.com/JetBrains/java-annotations/releases
 jetbrains-annotations = "26.0.2-1"
 
@@ -86,5 +89,17 @@ opensavvy-spine-server = { module = "dev.opensavvy.spine:server", version.ref = 
 opensavvy-spine-server-arrow = { module = "dev.opensavvy.spine:server-arrow", version.ref = "spine" }
 opensavvy-spine-client = { module = "dev.opensavvy.spine:client", version.ref = "spine" }
 opensavvy-spine-client-arrow = { module = "dev.opensavvy.spine:client-arrow", version.ref = "spine" }
+
+opensavvy-ktmongo-annotations = { module = "dev.opensavvy.ktmongo:annotations", version.ref = "ktmongo" }
+opensavvy-ktmongo-bson = { module = "dev.opensavvy.ktmongo:bson", version.ref = "ktmongo" }
+opensavvy-ktmongo-bson-official = { module = "dev.opensavvy.ktmongo:bson-official", version.ref = "ktmongo" }
+opensavvy-ktmongo-bson-multiplatform = { module = "dev.opensavvy.ktmongo:bson-multiplatform", version.ref = "ktmongo" }
+opensavvy-ktmongo-bson-tests = { module = "dev.opensavvy.ktmongo:bson-tests", version.ref = "ktmongo" }
+opensavvy-ktmongo-dsl = { module = "dev.opensavvy.ktmongo:dsl", version.ref = "ktmongo" }
+opensavvy-ktmongo-driver-sync = { module = "dev.opensavvy.ktmongo:driver-sync", version.ref = "ktmongo" }
+opensavvy-ktmongo-driver-sync-kmongo = { module = "dev.opensavvy.ktmongo:driver-sync-kmongo", version.ref = "ktmongo" }
+opensavvy-ktmongo-driver-sync-java = { module = "dev.opensavvy.ktmongo:driver-sync", version.ref = "ktmongo" }
+opensavvy-ktmongo-driver-coroutines = { module = "dev.opensavvy.ktmongo:driver-coroutines", version.ref = "ktmongo" }
+opensavvy-ktmongo-driver-coroutines-kmongo = { module = "dev.opensavvy.ktmongo:driver-coroutines-kmongo", version.ref = "ktmongo" }
 
 [bundles]
