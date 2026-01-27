@@ -106,3 +106,18 @@ opensavvy-ktmongo-driver-coroutines = { module = "dev.opensavvy.ktmongo:driver-c
 opensavvy-ktmongo-driver-coroutines-kmongo = { module = "dev.opensavvy.ktmongo:driver-coroutines-kmongo", version.ref = "ktmongo" }
 
 [bundles]
+# A bundle of dependencies to use Prepared with the TestBalloon runner.
+# Requires applying the plugin 'libsCommon.plugins.testBalloon'.
+testBalloon = [
+	"opensavvy-prepared-testBalloon",
+	"testBalloon", # Force the version of the TestBalloon accompanying library to match the plugin's
+	"kotlin-test", # Force the Kotlin stdlib to match the KGP version, important on JS
+]
+
+# A bundle of dependencies to use Prepared with the Kotest runner.
+# Requires applying the plugins 'libsCommon.plugins.kotest' and 'libsCommon.plugins.ksp'.
+kotest = [
+	"opensavvy-prepared-kotest",
+	"kotest-framework",
+	"kotest-assertions",
+]

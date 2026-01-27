@@ -47,7 +47,6 @@ kotlin {
 	}
 
 	sourceSets.commonTest.dependencies {
-		implementation(libsCommon.opensavvy.prepared.kotest)
-		implementation(libsCommon.kotest.framework)
+		implementation(libsCommon.bundles.kotest)
 	}
 }
