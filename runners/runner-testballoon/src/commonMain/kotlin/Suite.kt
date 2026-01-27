@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2025, OpenSavvy and contributors.
+ * Copyright (c) 2025-2026, OpenSavvy and contributors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -54,20 +54,26 @@ fun preparedSuite(
 }
 
 private class TestBalloonSuite(
-	private val upstream: TestSuite,
+	private val upstream: TestSuiteScope,
 	private val config: TestConfig,
 ) : SuiteDsl {
 	override fun suite(name: String, config: TestConfig, block: SuiteDsl.() -> Unit) {
 		val effectiveConfig = this.config + config
-		upstream.testSuite(name, testConfig = effectiveConfig.toBalloon()) {
-			withPrepared(effectiveConfig) { block() }
+
+		with(upstream) {
+			upstream.testSuite(name, testConfig = effectiveConfig.toBalloon()) {
+				withPrepared(effectiveConfig) { block() }
+			}
 		}
 	}
 
 	override fun test(name: String, config: TestConfig, block: suspend TestDsl.() -> Unit) {
 		val effectiveConfig = this.config + config
-		upstream.test(name, testConfig = effectiveConfig.toBalloon()) {
-			this.testScope.runTestDslSuspend(name, effectiveConfig, block)
+
+		with(upstream) {
+			upstream.test(name, testConfig = effectiveConfig.toBalloon()) {
+				this.testScope.runTestDslSuspend(name, effectiveConfig, block)
+			}
 		}
 	}
 }
