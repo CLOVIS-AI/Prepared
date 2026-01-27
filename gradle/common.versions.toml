@@ -17,7 +17,7 @@ compose = "1.10.0"
 kotest = "6.1.1"
 
 # https://github.com/infix-de/testBalloon/releases
-testBalloon = "0.8.0-K2.3.0"
+testBalloon = "0.8.2-K2.3.0"
 
 # https://gitlab.com/opensavvy/groundwork/pedestal/-/releases
 pedestal = "3.2.0"
@@ -61,6 +61,8 @@ kotest-framework = { module = "io.kotest:kotest-framework-engine", version.ref =
 kotest-assertions = { module = "io.kotest:kotest-assertions-core", version.ref = "kotest" }
 kotest-assertions-collections = { module = "io.kotest:kotest-assertions-collections", version.ref = "kotest" }
 kotest-property = { module = "io.kotest:kotest-property", version.ref = "kotest" }
+
+testBalloon = { module = "de.infix.testBalloon:testBalloon-framework-core", version.ref = "testBalloon" }
 
 jetbrains-annotations = { module = "org.jetbrains:annotations", version.ref = "jetbrains-annotations" }
 
