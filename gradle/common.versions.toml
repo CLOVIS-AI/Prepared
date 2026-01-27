@@ -14,7 +14,7 @@ ksp = "2.3.4"
 compose = "1.10.0"
 
 # https://github.com/kotest/kotest/releases
-kotest = "6.0.4"
+kotest = "6.1.1"
 
 # https://github.com/infix-de/testBalloon/releases
 testBalloon = "0.8.0-K2.3.0"
@@ -57,6 +57,7 @@ testBalloon = { id = "de.infix.testBalloon", version.ref = "testBalloon" }
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 kotlin-test-junit5 = { module = "org.jetbrains.kotlin:kotlin-test-junit5", version.ref = "kotlin" }
 
+kotest-framework = { module = "io.kotest:kotest-framework-engine", version.ref = "kotest" }
 kotest-assertions = { module = "io.kotest:kotest-assertions-core", version.ref = "kotest" }
 kotest-assertions-collections = { module = "io.kotest:kotest-assertions-collections", version.ref = "kotest" }
 kotest-property = { module = "io.kotest:kotest-property", version.ref = "kotest" }
