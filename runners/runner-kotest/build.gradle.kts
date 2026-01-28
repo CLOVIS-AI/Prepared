@@ -68,6 +68,7 @@ kotlin {
 		dependencies {
 			api(projects.suite)
 			api(libs.kotest.engine)
+			implementation(libsCommon.kotlin.test) // Force the version of the stdlib, important on JS
 		}
 	}
 

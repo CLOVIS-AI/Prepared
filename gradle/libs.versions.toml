@@ -7,7 +7,7 @@ kotlinx-datetime = "0.6.2"    # https://github.com/Kotlin/kotlinx-datetime/relea
 gradle-testkit = "8.11.1"     # https://gradle.org/releases/
 parameterize = "0.4.0"        # https://github.com/BenWoodworth/Parameterize/releases
 ktor = "3.1.3"                # https://ktor.io/docs/releases.html#release-details
-kotest = "6.0.4"              # https://github.com/kotest/kotest/releases
+kotest = "6.1.3"              # https://github.com/kotest/kotest/releases
 kti = { strictly = "0.1.0" }  # https://gitlab.com/opensavvy/groundwork/kotlin-test-initiative/-/releases
 testBalloon = "0.8.2-K2.2.0"  # https://github.com/infix-de/testBalloon/releases
 
