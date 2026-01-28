@@ -63,6 +63,7 @@ plugins:
   # - social # https://github.com/squidfunk/mkdocs-material/issues/7818
   - search
   - privacy
+  - optimize
   - blog:
       post_excerpt: optional
       authors: false
