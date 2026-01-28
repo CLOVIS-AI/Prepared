@@ -60,7 +60,7 @@ theme:
         name: "Dark theme (click to switch to system)"
 
 plugins:
-  # - social # https://github.com/squidfunk/mkdocs-material/issues/7818
+  - social
   - search
   - privacy
   - optimize
