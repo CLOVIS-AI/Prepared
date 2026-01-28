@@ -7,11 +7,13 @@ kotlinx-datetime = "0.6.2"    # https://github.com/Kotlin/kotlinx-datetime/relea
 gradle-testkit = "8.11.1"     # https://gradle.org/releases/
 parameterize = "0.4.0"        # https://github.com/BenWoodworth/Parameterize/releases
 ktor = "3.1.3"                # https://ktor.io/docs/releases.html#release-details
+kotest = "6.0.4"              # https://github.com/kotest/kotest/releases
 kti = { strictly = "0.1.0" }  # https://gitlab.com/opensavvy/groundwork/kotlin-test-initiative/-/releases
 testBalloon = "0.8.2-K2.2.0"  # https://github.com/infix-de/testBalloon/releases
 
 [plugins]
 testBalloon = { id = "de.infix.testBalloon", version.ref = "testBalloon" }
+kotest = { id = "io.kotest", version.ref = "kotest" }
 
 [libraries]
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
@@ -22,6 +24,11 @@ gradle-testkit = { module = "dev.gradleplugins:gradle-test-kit", version.ref = "
 arrow-core = { module = "io.arrow-kt:arrow-core", version.ref = "arrow" }
 parameterize = { module = "com.benwoodworth.parameterize:parameterize", version.ref = "parameterize" }
 ktor-testHost = { module = "io.ktor:ktor-server-test-host", version.ref = "ktor" }
+kotest-engine = { module = "io.kotest:kotest-framework-engine", version.ref = "kotest" }
+kotest-junit5 = { module = "io.kotest:kotest-runner-junit5", version.ref = "kotest" }
+kotest-assertions = { module = "io.kotest:kotest-assertions-core", version.ref = "kotest" }
+kotest-assertions-collections = { module = "io.kotest:kotest-assertions-collections", version.ref = "kotest" }
+kotest-property = { module = "io.kotest:kotest-property", version.ref = "kotest" }
 kti = { module = "dev.opensavvy.kti:kotlin-test-initiative", version.ref = "kti" }
 testBalloon = { module = "de.infix.testBalloon:testBalloon-framework-core", version.ref = "testBalloon" }
 
