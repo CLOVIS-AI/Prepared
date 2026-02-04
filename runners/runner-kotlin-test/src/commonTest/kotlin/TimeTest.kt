@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023-2025, OpenSavvy and contributors.
+ * Copyright (c) 2023-2026, OpenSavvy and contributors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,8 +19,6 @@ package opensavvy.prepared.runner.kotlin
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import opensavvy.prepared.compat.kotlinx.datetime.now
-import opensavvy.prepared.compat.kotlinx.datetime.set
 import opensavvy.prepared.suite.*
 import kotlin.test.assertEquals
 import kotlin.time.ExperimentalTime
