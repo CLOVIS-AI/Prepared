@@ -36,6 +36,9 @@ kotlinx-powerAssert = { id = "org.jetbrains.kotlin.plugin.power-assert", version
 
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 
+# Kotest Gradle plugin for KMP (v6.0+)
+kotest = { id = "io.kotest", version.ref = "kotest" }
+
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 compose-multiplatform = { id = "org.jetbrains.compose", version.ref = "compose" }
 
@@ -45,6 +48,7 @@ testBalloon = { id = "de.infix.testBalloon", version.ref = "testBalloon" }
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 kotlin-test-junit5 = { module = "org.jetbrains.kotlin:kotlin-test-junit5", version.ref = "kotlin" }
 
+kotest-engine = { module = "io.kotest:kotest-framework-engine", version.ref = "kotest" }
 kotest-assertions = { module = "io.kotest:kotest-assertions-core", version.ref = "kotest" }
 kotest-assertions-collections = { module = "io.kotest:kotest-assertions-collections", version.ref = "kotest" }
 kotest-property = { module = "io.kotest:kotest-property", version.ref = "kotest" }
