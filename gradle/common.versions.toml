@@ -5,10 +5,10 @@
 [versions]
 
 # https://kotlinlang.org/docs/releases.html#release-details
-kotlin = "2.2.21"
+kotlin = "2.3.0"
 
 # https://github.com/google/ksp/releases
-ksp = "2.2.21-2.0.4"
+ksp = "2.3.5"
 
 # https://github.com/JetBrains/compose-multiplatform/releases
 compose = "1.8.2"
@@ -17,7 +17,7 @@ compose = "1.8.2"
 kotest = "6.1.3"
 
 # https://github.com/infix-de/testBalloon/releases
-testBalloon = "0.7.1-K2.2.21"
+testBalloon = "0.7.1-K2.3.0"
 
 # https://gitlab.com/opensavvy/groundwork/pedestal/-/releases
 pedestal = "3.1.1"
