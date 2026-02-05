@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2025, OpenSavvy and contributors.
+ * Copyright (c) 2025-2026, OpenSavvy and contributors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -74,7 +74,8 @@ kotlin {
 	sourceSets.commonTest {
 		dependencies {
 			implementation(projects.runners.runnerTestballoon)
-			implementation("io.kotest:kotest-assertions-core:${libsCommon.versions.kotest.get()}")
+			implementation(libsCommon.kotest.assertions)
+			implementation(libsCommon.kotlin.test)
 		}
 	}
 }

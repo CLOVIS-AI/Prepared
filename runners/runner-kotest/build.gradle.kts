@@ -72,6 +72,12 @@ kotlin {
 		}
 	}
 
+	sourceSets.commonTest {
+		dependencies {
+			implementation(libsCommon.kotlin.test)
+		}
+	}
+
 	sourceSets.jvmMain {
 		dependencies {
 			api(libs.kotest.junit5)
