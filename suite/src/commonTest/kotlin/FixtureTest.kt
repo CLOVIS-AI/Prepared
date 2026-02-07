@@ -65,4 +65,20 @@ val FixtureTest by preparedSuite {
 		val cause = e.rootCause()
 		check(cause is IllegalStateException && cause.message == "foo")
 	}
+
+	test("A failed shared value should always return the same exception instance") {
+		val willThrow by shared {
+			throw IllegalStateException("foo")
+		}
+
+		val a = checkThrows<AssertionError> {
+			willThrow()
+		}
+
+		val b = checkThrows<AssertionError> {
+			willThrow()
+		}
+
+		check(a === b)
+	}
 }
