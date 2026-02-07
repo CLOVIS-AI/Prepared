@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023-2025, OpenSavvy and contributors.
+ * Copyright (c) 2023-2026, OpenSavvy and contributors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,6 +16,8 @@
 
 package opensavvy.prepared.suite
 
+import kotlinx.coroutines.currentCoroutineContext
+import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
@@ -94,7 +96,12 @@ class Shared<out T> internal constructor(
 		lock.withLock {
 			if (result is Option.Empty) {
 				elapsedTime = measureTime {
-					result = Option.Present(block())
+					try {
+						result = Option.Present(block())
+					} catch (e: Exception) {
+						currentCoroutineContext().ensureActive()
+						throw AssertionError("An exception was thrown while computing the shared value ‘$name’", e)
+					}
 				}
 				fromHere = true
 			} else {
