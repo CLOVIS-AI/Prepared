@@ -89,19 +89,23 @@ class Prepared<out T> internal constructor(
 ) {
 
 	@Suppress("UNCHECKED_CAST")
-	internal suspend fun executeIn(scope: TestDsl): T =
-		scope.environment.cache.cache(this) {
+	internal suspend fun executeIn(scope: TestDsl): T {
+		val stored = scope.environment.cache.cache(this) {
 			withContext(CoroutineName("Preparing $name")) {
 				try {
 					val (result, elapsedTime) = measureTimedValue { scope.block() }
 					println("» Prepared ‘$name’: ${display.display(result)}, took $elapsedTime")
-					result
+					Result.success(result)
 				} catch (e: Exception) {
 					ensureActive()
-					throw AssertionError("An exception was thrown while computing the prepared value ‘$name’", e)
+					println("» Prepared ‘$name’: Failed with $e")
+					Result.failure(AssertionError("An exception was thrown while computing the prepared value ‘$name’", e))
 				}
 			}
-		} as T
+		} as Result<T>
+
+		return stored.getOrThrow()
+	}
 
 	// impl note:
 	//    this class *must not* have an equals method
