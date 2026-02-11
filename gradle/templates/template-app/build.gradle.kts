@@ -23,7 +23,7 @@ plugins {
 	alias(opensavvyConventions.plugins.base)
 	alias(opensavvyConventions.plugins.kotlin.application)
 	alias(libsCommon.plugins.ksp)
-	alias(libsCommon.plugins.kotest)
+	alias(libs.plugins.kotest)
 }
 
 kotlin {
@@ -63,8 +63,8 @@ kotlin {
 	}
 
 	sourceSets.commonTest.dependencies {
-		implementation(libsCommon.opensavvy.prepared.kotest)
-		implementation(libsCommon.kotest.engine)
-		implementation(libsCommon.kotest.assertions)
+		implementation(projects.runners.runnerKotest)
+		implementation(libs.kotest.engine)
+		implementation(libs.kotest.assertions)
 	}
 }
