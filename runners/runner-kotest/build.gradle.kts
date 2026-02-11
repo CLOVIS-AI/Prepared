@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2025, OpenSavvy and contributors.
+ * Copyright (c) 2025-2026, OpenSavvy and contributors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@ plugins {
 	alias(opensavvyConventions.plugins.base)
 	alias(opensavvyConventions.plugins.kotlin.library)
 	alias(libsCommon.plugins.ksp)
-	id("io.kotest") version libsCommon.versions.kotest
+	alias(libs.plugins.kotest)
 }
 
 @OptIn(ExperimentalWasmDsl::class)
@@ -67,14 +67,20 @@ kotlin {
 	sourceSets.commonMain {
 		dependencies {
 			api(projects.suite)
+			api(libs.kotest.engine)
+			implementation(libsCommon.kotlin.test) // Force the version of the stdlib, important on JS
+		}
+	}
 
-			api("io.kotest:kotest-framework-engine:${libsCommon.versions.kotest.get()}")
+	sourceSets.commonTest {
+		dependencies {
+			implementation(libsCommon.kotlin.test)
 		}
 	}
 
 	sourceSets.jvmMain {
 		dependencies {
-			api("io.kotest:kotest-runner-junit5:${libsCommon.versions.kotest.get()}")
+			api(libs.kotest.junit5)
 		}
 	}
 }

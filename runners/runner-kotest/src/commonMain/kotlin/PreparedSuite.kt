@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023-2025, OpenSavvy and contributors.
+ * Copyright (c) 2023-2026, OpenSavvy and contributors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@ package opensavvy.prepared.runner.kotest
 import io.kotest.core.names.TestName
 import io.kotest.core.spec.KotestTestScope
 import io.kotest.core.spec.style.StringSpec
+import io.kotest.core.spec.style.TestXMethod
 import io.kotest.core.spec.style.scopes.RootScope
 import io.kotest.core.spec.style.scopes.addTest
 import io.kotest.engine.coroutines.coroutineTestScope
@@ -90,8 +91,12 @@ private class NonNestedSuite(private val root: RootScope, private val parentConf
 				suffix = null,
 				defaultAffixes = false,
 			),
-			disabled = false,
 			config = kotestConfig,
+			xmethod = when {
+				testName.startsWith(FOCUS_PREFIX) -> TestXMethod.FOCUSED
+				testName.startsWith(BANG_PREFIX) -> TestXMethod.DISABLED
+				else -> TestXMethod.NONE
+			},
 		) {
 			coroutineTestScope.runTestDslSuspend(name, config, block)
 		}

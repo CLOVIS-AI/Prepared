@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2025, OpenSavvy and contributors.
+ * Copyright (c) 2025-2026, OpenSavvy and contributors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,7 +22,13 @@ import opensavvy.prepared.suite.config.CoroutineTimeout
 import kotlin.time.Duration.Companion.seconds
 
 val AsyncTest by preparedSuite {
-	test("A background task should not stop the test from finishing", CoroutineTimeout(3.seconds)) {
+	test("empty test") {
+		// This test purposefully left empty to initialize everything
+		// The debug probes can take more than 3s to initialize, so without this test the next one would fail
+		// with a timeout before it even starts.
+	}
+
+	test("A background task should not stop the test from finishing", CoroutineTimeout(1.seconds)) {
 		println("foo")
 		launchInBackground {
 			// This coroutine should not block the end of the test.
