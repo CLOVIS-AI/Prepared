@@ -9,8 +9,10 @@ import opensavvy.gitlab.ci.plugins.Gradle.Companion.gradlew
 import opensavvy.gitlab.ci.plugins.Gradle.Companion.useGradle
 import opensavvy.gitlab.ci.script.shell
 
-// https://gitlab.com/opensavvy/automation/containers/-/releases
-val ciContainers = "0.8.4"
+/**
+ * [OpenSavvy's CI container images](https://gitlab.com/opensavvy/automation/containers/-/releases)
+ */
+val ciContainers = "0.8.5"
 
 /**
  * The URL of the website built by /docs/website.
