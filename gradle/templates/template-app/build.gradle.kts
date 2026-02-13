@@ -50,3 +50,8 @@ kotlin {
 		implementation(libsCommon.bundles.kotest)
 	}
 }
+
+tasks.withType<AbstractTestTask> {
+	// Kotest doesn't report test correctly as of now
+	failOnNoDiscoveredTests = false
+}
