@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023-2025, OpenSavvy and contributors.
+ * Copyright (c) 2023-2026, OpenSavvy and contributors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,6 +16,8 @@
 
 package opensavvy.prepared.suite
 
+import kotlinx.coroutines.currentCoroutineContext
+import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
@@ -83,7 +85,15 @@ class Shared<out T> internal constructor(
 ) {
 
 	private val lock = Mutex()
-	private var result: Option<T> = Option.Empty
+
+	/**
+	 * Three-state result. Implemented as Any? to avoid wrapper objects.
+	 *
+	 * - [Empty]: this shared value has not been initialized yet.
+	 * - [Failed]: this shared value has failed during initialization. Contains the failure.
+	 * - Anything else: this shared value has been initialized successfully. Contains an instance of [T]. Maybe be `null`.
+	 */
+	private var result: Any? = Empty
 
 	/**
 	 * Computes the shared value, or returns the cached value if it has already been computed.
@@ -92,9 +102,14 @@ class Shared<out T> internal constructor(
 		var fromHere: Boolean
 		var elapsedTime: Duration? = null
 		lock.withLock {
-			if (result is Option.Empty) {
+			if (result === Empty) {
 				elapsedTime = measureTime {
-					result = Option.Present(block())
+					try {
+						result = block()
+					} catch (e: Exception) {
+						currentCoroutineContext().ensureActive()
+						result = Failed(AssertionError("An exception was thrown while computing the shared value ‘$name’", e))
+					}
 				}
 				fromHere = true
 			} else {
@@ -103,17 +118,30 @@ class Shared<out T> internal constructor(
 		}
 
 		val stored = result
-		check(stored is Option.Present) { "The stored result is $stored, even though we just passed the block that is expected to initialize it, that should be impossible" }
-		println("» Shared ‘${name}’: ${display.display(stored.value)} " + if (fromHere) "(initialized by this test in $elapsedTime)" else "(reusing an already initialized value)")
-		return stored.value
+		check(stored !== Empty) { "The stored result is $stored, even though we just passed the block that is expected to initialize it, that should be impossible" }
+		println(buildString {
+			append("» Shared ‘${name}’: ")
+
+			if (stored is Failed)
+				append("Failed with ${stored.failure}")
+			else
+				@Suppress("UNCHECKED_CAST") // See 'result'
+				append(display.display(stored as T))
+
+			if (fromHere)
+				append(" (initialized by this test in $elapsedTime)")
+			else
+				append(" (reusing an already initialized value)")
+		})
+
+		if (stored is Failed) throw stored.failure
+
+		@Suppress("UNCHECKED_CAST") // See 'result'
+		return stored as T
 	}
 
-	// Implementation detail to avoid null merging,
-	// because we need to store a T?, but T may itself be null
-	private sealed class Option<out T> {
-		data object Empty : Option<Nothing>()
-		data class Present<out T>(val value: T) : Option<T>()
-	}
+	private object Empty // Necessary to ensure we don't confuse 'not initialized' with 'successfully initialized with a value of null'
+	private class Failed(val failure: Throwable)
 
 	override fun toString() = "\uD83C\uDF10 $name"
 }

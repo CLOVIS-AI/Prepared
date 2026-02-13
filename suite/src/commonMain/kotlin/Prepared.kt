@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023-2025, OpenSavvy and contributors.
+ * Copyright (c) 2023-2026, OpenSavvy and contributors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,7 @@
 package opensavvy.prepared.suite
 
 import kotlinx.coroutines.CoroutineName
+import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.withContext
 import opensavvy.prepared.suite.display.Display
 import kotlin.coroutines.CoroutineContext
@@ -88,14 +89,23 @@ class Prepared<out T> internal constructor(
 ) {
 
 	@Suppress("UNCHECKED_CAST")
-	internal suspend fun executeIn(scope: TestDsl): T =
-		scope.environment.cache.cache(this) {
+	internal suspend fun executeIn(scope: TestDsl): T {
+		val stored = scope.environment.cache.cache(this) {
 			withContext(CoroutineName("Preparing $name")) {
-				val (result, elapsedTime) = measureTimedValue { scope.block() }
-				println("» Prepared ‘$name’: ${display.display(result)}, took $elapsedTime")
-				result
+				try {
+					val (result, elapsedTime) = measureTimedValue { scope.block() }
+					println("» Prepared ‘$name’: ${display.display(result)}, took $elapsedTime")
+					Result.success(result)
+				} catch (e: Exception) {
+					ensureActive()
+					println("» Prepared ‘$name’: Failed with $e")
+					Result.failure(AssertionError("An exception was thrown while computing the prepared value ‘$name’", e))
+				}
 			}
-		} as T
+		} as Result<T>
+
+		return stored.getOrThrow()
+	}
 
 	// impl note:
 	//    this class *must not* have an equals method
