@@ -122,7 +122,7 @@ suspend fun Gradle.settingsKts(text: String) = with(dsl) {
  * ```
  */
 suspend fun Gradle.properties(@Language("properties") text: String) = with(dsl) {
-	settingsKts().writeText(text)
+	properties().writeText(text)
 }
 
 // endregion
