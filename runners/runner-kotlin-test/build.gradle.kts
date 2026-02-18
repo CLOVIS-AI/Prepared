@@ -70,6 +70,6 @@ library {
 	}
 }
 
-kotlin {
-	jvmToolchain(11)
+tapmoc {
+	java(11)
 }
