@@ -63,8 +63,11 @@ kotlin {
 	}
 
 	sourceSets.commonTest.dependencies {
-		implementation(projects.runners.runnerKotest)
-		implementation(libs.kotest.engine)
-		implementation(libs.kotest.assertions)
+		implementation(libsCommon.bundles.kotest)
 	}
+}
+
+tasks.withType<AbstractTestTask> {
+	// Kotest doesn't report test correctly as of now
+	failOnNoDiscoveredTests = false
 }

@@ -58,8 +58,7 @@ kotlin {
 	}
 
 	sourceSets.commonTest.dependencies {
-		implementation(projects.runners.runnerTestballoon)
-		implementation(libsCommon.kotlin.test)
+		implementation(libsCommon.bundles.testBalloon)
 	}
 }
 
