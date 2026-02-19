@@ -102,6 +102,11 @@ library {
 	}
 }
 
-kotlin {
-	jvmToolchain(11)
+tapmoc {
+	java(11)
+}
+
+tasks.withType<AbstractTestTask> {
+	// Kotest doesn't report test correctly as of now
+	failOnNoDiscoveredTests = false
 }
