@@ -80,7 +80,8 @@ object Ignored : TestConfig.Element, TestConfig.Key.Unique<Ignored> {
 	 * }
 	 * ```
 	 *
-	 * However, some test runners (e.g., TestBalloon) crash when a suite is declared that contains no tests at all.
+	 * However, some test runners (e.g., TestBalloon) refuse to execute suites that are declared without any tests.
+	 * Declaring tests as conditionally ignored avoids this issue.
 	 *
 	 * @see Ignored Always ignore a test or suite.
 	 * @see OnlyIf Opposite.

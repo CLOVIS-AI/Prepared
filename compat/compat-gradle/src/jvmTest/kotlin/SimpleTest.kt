@@ -17,8 +17,10 @@
 package opensavvy.prepared.compat.gradle
 
 import opensavvy.prepared.runner.testballoon.preparedSuite
+import opensavvy.prepared.suite.config.CoroutineTimeout
+import kotlin.time.Duration.Companion.minutes
 
-val SimpleTest by preparedSuite {
+val SimpleTest by preparedSuite(preparedConfig = CoroutineTimeout(5.minutes)) {
 
 	test("Basic Gradle task test") {
 		gradle.settingsKts("""
