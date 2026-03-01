@@ -62,6 +62,7 @@ val TestDsl.backgroundScope: CoroutineScope
  *
  * @see launchInBackground
  */
+@IgnorableReturnValue
 fun TestDsl.launch(
 	context: CoroutineContext = EmptyCoroutineContext,
 	start: CoroutineStart = CoroutineStart.DEFAULT,
@@ -81,6 +82,7 @@ fun TestDsl.launch(
  *
  * @see launch
  */
+@IgnorableReturnValue
 fun TestDsl.launchInBackground(
 	context: CoroutineContext = EmptyCoroutineContext,
 	start: CoroutineStart = CoroutineStart.DEFAULT,

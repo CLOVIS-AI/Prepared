@@ -65,6 +65,7 @@ import opensavvy.prepared.suite.TestDsl
  *
  * You can use this function to get more context about complex expressions when a test fails.
  */
+@IgnorableReturnValue
 suspend fun <T> TestDsl.log(value: T): T {
 	return log(value) { "" }
 }
@@ -121,6 +122,7 @@ suspend fun <T> TestDsl.log(value: T): T {
  * @param additionalInfo A lambda that generates a [String] that will be printed alongside the message.
  */
 @Suppress("RedundantSuspendModifier", "UnusedReceiverParameter") // In the future, we want to integrate logging facilities individual tests, these are necessary to avoid breaking the API then
+@IgnorableReturnValue
 suspend fun <T> TestDsl.log(value: T, additionalInfo: () -> String): T {
 	val message = additionalInfo()
 

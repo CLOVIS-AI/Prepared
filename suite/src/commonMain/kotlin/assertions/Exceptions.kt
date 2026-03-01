@@ -39,6 +39,7 @@ package opensavvy.prepared.suite.assertions
  * check(e.message = "Cannot create a new user because another one already exists")
  * ```
  */
+@IgnorableReturnValue
 inline fun <reified T : Throwable> checkThrows(block: () -> Any?): T {
 	val result = try {
 		block()
