@@ -21,9 +21,8 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import opensavvy.prepared.suite.*
 import kotlin.test.assertEquals
-import kotlin.time.ExperimentalTime
 
-@OptIn(ExperimentalTime::class, ExperimentalCoroutinesApi::class)
+@OptIn(ExperimentalCoroutinesApi::class)
 class TimeTest : TestExecutor() {
 	override fun SuiteDsl.register() {
 		test("Elapsed time") {

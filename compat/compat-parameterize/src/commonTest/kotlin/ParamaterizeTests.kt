@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024-2025, OpenSavvy and contributors.
+ * Copyright (c) 2024-2026, OpenSavvy and contributors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,10 +25,8 @@ import opensavvy.prepared.suite.*
 import opensavvy.prepared.suite.random.nextInt
 import opensavvy.prepared.suite.random.random
 import kotlin.time.Duration.Companion.minutes
-import kotlin.time.ExperimentalTime
 
 @ExperimentalCoroutinesApi
-@ExperimentalTime
 @OptIn(ExperimentalParameterizeApi::class)
 val ParamaterizeTests by preparedSuite {
 	parameterize {
