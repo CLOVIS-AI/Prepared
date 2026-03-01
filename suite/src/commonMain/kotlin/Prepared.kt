@@ -156,7 +156,6 @@ class PreparedProvider<T> internal constructor(
 	/**
 	 * Provides a [Prepared] instance bound to the given [name].
 	 */
-	@Suppress("MemberVisibilityCanBePrivate")
 	fun named(name: String) =
 		Prepared(name = name, block = block, display = display)
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023-2025, OpenSavvy and contributors.
+ * Copyright (c) 2023-2026, OpenSavvy and contributors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@ package opensavvy.prepared.runner.kotest
 import io.kotest.core.spec.style.StringSpec
 import kotlinx.coroutines.delay
 import opensavvy.prepared.suite.config.Ignored
+import kotlin.time.Duration.Companion.milliseconds
 
 class KotestTest : StringSpec({
 	// Vanilla Kotest declarations…
@@ -27,6 +28,7 @@ class KotestTest : StringSpec({
 	}
 
 	"Hello world from Kotest" {
+		@Suppress("SimplifyBooleanWithConstants")
 		check("hello".length == 5)
 	}
 
@@ -35,7 +37,7 @@ class KotestTest : StringSpec({
 		suite("Prepared") {
 			suite("Nested") {
 				test("Prepared") {
-					delay(1000)
+					delay(1000.milliseconds)
 					println("Done")
 				}
 

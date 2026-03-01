@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2025, OpenSavvy and contributors.
+ * Copyright (c) 2025-2026, OpenSavvy and contributors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -120,6 +120,7 @@ suspend fun <T> TestDsl.log(value: T): T {
  *
  * @param additionalInfo A lambda that generates a [String] that will be printed alongside the message.
  */
+@Suppress("RedundantSuspendModifier", "UnusedReceiverParameter") // In the future, we want to integrate logging facilities individual tests, these are necessary to avoid breaking the API then
 suspend fun <T> TestDsl.log(value: T, additionalInfo: () -> String): T {
 	val message = additionalInfo()
 

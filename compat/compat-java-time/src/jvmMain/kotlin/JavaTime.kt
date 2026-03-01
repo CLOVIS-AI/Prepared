@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023-2025, OpenSavvy and contributors.
+ * Copyright (c) 2023-2026, OpenSavvy and contributors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,6 +25,7 @@ import java.time.Clock
 import java.time.Instant
 import java.time.ZoneId
 import java.time.ZoneOffset
+import kotlin.time.Duration.Companion.milliseconds
 
 @ExperimentalCoroutinesApi
 private class JavaClock(private val scheduler: TestCoroutineScheduler, private val timeZone: ZoneId) : Clock() {
@@ -94,5 +95,5 @@ suspend fun Time.set(instant: Instant) {
 suspend fun Time.delayUntil(instant: Instant) {
 	val diff = instant.toEpochMilli() - nowMillis
 	require(diff >= 0) { "Cannot delay until $instant, which is in the past of the current virtual time, $nowJava" }
-	delay(diff)
+	delay(diff.milliseconds)
 }
