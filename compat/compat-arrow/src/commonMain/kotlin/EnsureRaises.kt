@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023-2025, OpenSavvy and contributors.
+ * Copyright (c) 2023-2026, OpenSavvy and contributors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +18,6 @@ package opensavvy.prepared.compat.arrow.core
 
 import arrow.core.raise.Raise
 import arrow.core.raise.either
-import opensavvy.prepared.suite.PreparedDslMarker
 
 /**
  * Fails the test if [block] doesn't raise with [expected].
@@ -33,7 +32,6 @@ import opensavvy.prepared.suite.PreparedDslMarker
  * }
  * ```
  */
-@PreparedDslMarker
 inline fun <Failure> checkRaises(expected: Failure, block: Raise<Any?>.() -> Any?) {
 	either(block).fold(
 		ifLeft = {
@@ -60,7 +58,6 @@ inline fun <Failure> checkRaises(expected: Failure, block: Raise<Any?>.() -> Any
  * }
  * ```
  */
-@PreparedDslMarker
 inline fun <reified Failure> checkRaises(block: Raise<Any?>.() -> Any?) {
 	either(block).fold(
 		ifLeft = {
@@ -87,7 +84,6 @@ inline fun <reified Failure> checkRaises(block: Raise<Any?>.() -> Any?) {
  * }
  * ```
  */
-@PreparedDslMarker
 @Deprecated("This function has been renamed checkThrows.", ReplaceWith("opensavvy.prepared.compat.arrow.core.checkRaises(expected, block)"), DeprecationLevel.WARNING)
 inline fun <Failure> assertRaises(expected: Failure, block: Raise<Failure>.() -> Any?) =
 	checkRaises(expected, block)
@@ -105,7 +101,6 @@ inline fun <Failure> assertRaises(expected: Failure, block: Raise<Failure>.() ->
  * }
  * ```
  */
-@PreparedDslMarker
 @Deprecated("This function has been renamed checkThrows.", ReplaceWith("opensavvy.prepared.compat.arrow.core.checkRaises<Failure>(block)"), DeprecationLevel.WARNING)
 inline fun <reified Failure> assertRaisesWith(block: Raise<Any?>.() -> Any?) =
 	checkRaises<Failure>(block)

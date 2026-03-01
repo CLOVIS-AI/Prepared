@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023-2025, OpenSavvy and contributors.
+ * Copyright (c) 2023-2026, OpenSavvy and contributors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,7 +31,6 @@ import kotlin.coroutines.EmptyCoroutineContext
  *
  * @see backgroundScope
  */
-@PreparedDslMarker
 val TestDsl.foregroundScope: CoroutineScope
 	get() = environment.coroutineScope
 
@@ -50,7 +49,6 @@ val TestDsl.foregroundScope: CoroutineScope
  *
  * @see foregroundScope
  */
-@PreparedDslMarker
 val TestDsl.backgroundScope: CoroutineScope
 	get() = environment.coroutineScope.backgroundScope
 
@@ -64,7 +62,6 @@ val TestDsl.backgroundScope: CoroutineScope
  *
  * @see launchInBackground
  */
-@PreparedDslMarker
 fun TestDsl.launch(
 	context: CoroutineContext = EmptyCoroutineContext,
 	start: CoroutineStart = CoroutineStart.DEFAULT,
@@ -84,7 +81,6 @@ fun TestDsl.launch(
  *
  * @see launch
  */
-@PreparedDslMarker
 fun TestDsl.launchInBackground(
 	context: CoroutineContext = EmptyCoroutineContext,
 	start: CoroutineStart = CoroutineStart.DEFAULT,

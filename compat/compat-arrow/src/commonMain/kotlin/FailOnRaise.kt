@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023-2025, OpenSavvy and contributors.
+ * Copyright (c) 2023-2026, OpenSavvy and contributors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +21,6 @@ import arrow.core.raise.ExperimentalTraceApi
 import arrow.core.raise.Raise
 import arrow.core.raise.either
 import arrow.core.raise.traced
-import opensavvy.prepared.suite.PreparedDslMarker
 
 /**
  * Fails the test if [block] raises.
@@ -37,7 +36,6 @@ import opensavvy.prepared.suite.PreparedDslMarker
  * ```
  */
 @ExperimentalTraceApi
-@PreparedDslMarker
 inline fun <Failure, Success> failOnRaise(block: Raise<Failure>.() -> Success): Success {
 	val result = either {
 		traced(block) { trace, failure ->

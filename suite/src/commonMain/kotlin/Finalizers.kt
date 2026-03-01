@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023-2025, OpenSavvy and contributors.
+ * Copyright (c) 2023-2026, OpenSavvy and contributors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -101,7 +101,6 @@ internal class Finalizers {
  * @param onSuccess If `false`, this finalizer will not run if the test failed.
  * @param onFailure If `false`, this finalizer will not run if the test was successful.
  */
-@PreparedDslMarker
 suspend fun TestDsl.cleanUp(
 	name: String,
 	onSuccess: Boolean = true,

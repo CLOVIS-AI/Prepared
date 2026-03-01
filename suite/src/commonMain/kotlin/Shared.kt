@@ -201,6 +201,7 @@ class SharedProvider<T> internal constructor(
 }
 
 @Deprecated("Old variant that didn't allow specifying a custom display. Will be removed in 2.0.0.", level = DeprecationLevel.HIDDEN)
+@Suppress("DSL_MARKER_APPLIED_TO_WRONG_TARGET")
 @PreparedDslMarker
 fun <T> shared(
 	context: CoroutineContext = EmptyCoroutineContext,
@@ -222,6 +223,7 @@ fun <T> shared(
  * val precompute by shared { longRunningOperation() }
  * ```
  */
+@Suppress("DSL_MARKER_APPLIED_TO_WRONG_TARGET")
 @PreparedDslMarker
 fun <T> shared(
 	context: CoroutineContext = EmptyCoroutineContext,
@@ -234,6 +236,7 @@ fun <T> shared(
 }
 
 @Deprecated("Old variant that didn't allow specifying a custom display. Will be removed in 2.0.0.", level = DeprecationLevel.HIDDEN)
+@Suppress("DSL_MARKER_APPLIED_TO_WRONG_TARGET")
 @PreparedDslMarker
 fun <T> shared(
 	name: String,
@@ -254,6 +257,7 @@ fun <T> shared(
  * val precompute by shared("A costly operation") { longRunningOperation() }
  * ```
  */
+@Suppress("DSL_MARKER_APPLIED_TO_WRONG_TARGET")
 @PreparedDslMarker
 fun <T> shared(
 	name: String,

@@ -30,6 +30,7 @@ import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.EmptyCoroutineContext
 import de.infix.testBalloon.framework.core.TestConfig as BalloonTestConfig
 
+@Suppress("DSL_MARKER_APPLIED_TO_WRONG_TARGET")
 @PreparedDslMarker
 @TestRegistering
 fun TestSuite.withPrepared(
@@ -39,6 +40,7 @@ fun TestSuite.withPrepared(
 	TestBalloonSuite(this, config).apply(block)
 }
 
+@Suppress("DSL_MARKER_APPLIED_TO_WRONG_TARGET")
 @PreparedDslMarker
 @TestRegistering
 fun preparedSuite(
