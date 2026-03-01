@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2025, OpenSavvy and contributors.
+ * Copyright (c) 2025-2026, OpenSavvy and contributors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,6 +16,8 @@
 
 package opensavvy.prepared.suite.assertions
 
+import org.intellij.lang.annotations.Language
+
 /**
  * Verifies that the current string matches the specified [regex].
  *
@@ -28,5 +30,5 @@ package opensavvy.prepared.suite.assertions
  * check("Bob Lizard" matches ".*L.*")
  * ```
  */
-infix fun String?.matches(regex: String): Boolean =
+infix fun String?.matches(@Language("RegExp") regex: String): Boolean =
 	this != null && this.matches(Regex(regex))
