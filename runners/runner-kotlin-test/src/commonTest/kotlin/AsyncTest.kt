@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023-2025, OpenSavvy and contributors.
+ * Copyright (c) 2023-2026, OpenSavvy and contributors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,19 +20,20 @@ import kotlinx.coroutines.delay
 import opensavvy.prepared.suite.SuiteDsl
 import opensavvy.prepared.suite.launch
 import opensavvy.prepared.suite.launchInBackground
+import kotlin.time.Duration.Companion.seconds
 
 class AsyncTest : TestExecutor() {
 	override fun SuiteDsl.register() {
 		test("Start a job and wait for it to finish") {
 			launch {
-				delay(1000)
+				delay(1.seconds)
 				println("Done")
 			}
 		}
 
 		test("Start a job, but do not wait for it") {
 			launchInBackground {
-				delay(1000)
+				delay(1.seconds)
 				error("Not printed")
 			}
 		}

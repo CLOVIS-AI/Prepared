@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2025, OpenSavvy and contributors.
+ * Copyright (c) 2025-2026, OpenSavvy and contributors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +20,7 @@ import de.infix.testBalloon.framework.core.testSuite
 
 val TestBalloonSuite by testSuite {
 	test("string length") {
+		@Suppress("SimplifyBooleanWithConstants")
 		check(8 == "Test me!".length)
 	}
 	

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023-2025, OpenSavvy and contributors.
+ * Copyright (c) 2023-2026, OpenSavvy and contributors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,6 +23,7 @@ import opensavvy.prepared.suite.config.Ignored
 import opensavvy.prepared.suite.prepared
 import opensavvy.prepared.suite.shared
 import kotlin.random.Random
+import kotlin.time.Duration.Companion.seconds
 
 @Suppress("unused")
 class ExecuteTest : TestExecutor() {
@@ -42,7 +43,7 @@ class ExecuteTest : TestExecutor() {
 		}
 
 		val longTask by shared {
-			delay(10_000)
+			delay(10.seconds)
 		}
 
 		suite("Group of tests") {

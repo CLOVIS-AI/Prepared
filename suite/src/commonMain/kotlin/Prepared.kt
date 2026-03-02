@@ -156,7 +156,6 @@ class PreparedProvider<T> internal constructor(
 	/**
 	 * Provides a [Prepared] instance bound to the given [name].
 	 */
-	@Suppress("MemberVisibilityCanBePrivate")
 	fun named(name: String) =
 		Prepared(name = name, block = block, display = display)
 
@@ -174,6 +173,7 @@ class PreparedProvider<T> internal constructor(
 }
 
 @Deprecated("Old variant that didn't allow specifying a custom display. Will be removed in 2.0.0.", level = DeprecationLevel.HIDDEN)
+@Suppress("DSL_MARKER_APPLIED_TO_WRONG_TARGET")
 @PreparedDslMarker
 fun <T> prepared(
 	context: CoroutineContext = EmptyCoroutineContext,
@@ -193,6 +193,7 @@ fun <T> prepared(
  * val randomEmail by prepared { "my-account-${random.nextInt()}@mail.com" }
  * ```
  */
+@Suppress("DSL_MARKER_APPLIED_TO_WRONG_TARGET")
 @PreparedDslMarker
 fun <T> prepared(
 	context: CoroutineContext = EmptyCoroutineContext,
@@ -205,6 +206,7 @@ fun <T> prepared(
 }
 
 @Deprecated("Old variant that didn't allow specifying a custom display. Will be removed in 2.0.0.", level = DeprecationLevel.HIDDEN)
+@Suppress("DSL_MARKER_APPLIED_TO_WRONG_TARGET")
 @PreparedDslMarker
 fun <T> prepared(
 	name: String,
@@ -223,6 +225,7 @@ fun <T> prepared(
  * val randomEmail = prepared("A randomized email address") { "my-account-${random.nextInt()}@mail.com" }
  * ```
  */
+@Suppress("DSL_MARKER_APPLIED_TO_WRONG_TARGET")
 @PreparedDslMarker
 fun <T> prepared(
 	name: String,

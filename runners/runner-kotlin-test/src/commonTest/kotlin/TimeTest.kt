@@ -21,14 +21,14 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import opensavvy.prepared.suite.*
 import kotlin.test.assertEquals
-import kotlin.time.ExperimentalTime
+import kotlin.time.Duration.Companion.milliseconds
 
-@OptIn(ExperimentalTime::class, ExperimentalCoroutinesApi::class)
+@OptIn(ExperimentalCoroutinesApi::class)
 class TimeTest : TestExecutor() {
 	override fun SuiteDsl.register() {
 		test("Elapsed time") {
 			val start = time.source.markNow()
-			delay(1000)
+			delay(1000.milliseconds)
 			val end = start.elapsedNow()
 
 			assertEquals(1000, end.inWholeMilliseconds)
@@ -38,12 +38,12 @@ class TimeTest : TestExecutor() {
 			var executed = false
 
 			launchInBackground {
-				delay(1000)
+				delay(1000.milliseconds)
 				executed = true
 			}
 
 			launchInBackground {
-				delay(1001)
+				delay(1001.milliseconds)
 				error("Never executed!")
 			}
 
@@ -60,17 +60,17 @@ class TimeTest : TestExecutor() {
 
 		test("Advance until idle") {
 			launch {
-				delay(1000)
+				delay(1000.milliseconds)
 				println("After 1 second")
 
 				launch {
-					delay(3000)
+					delay(3000.milliseconds)
 					println("After 4 seconds")
 				}
 			}
 
 			launch {
-				delay(2000)
+				delay(2000.milliseconds)
 				println("After 2 seconds")
 			}
 
@@ -81,7 +81,7 @@ class TimeTest : TestExecutor() {
 		test("Set the time") {
 			time.set("2023-09-20T15:58:17.151Z")
 
-			delay(1000)
+			delay(1000.milliseconds)
 
 			assertEquals("2023-09-20T15:58:18.151Z", time.now.toString())
 		}

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023-2025, OpenSavvy and contributors.
+ * Copyright (c) 2023-2026, OpenSavvy and contributors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,6 +26,7 @@ import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.EmptyCoroutineContext
 
 @DslMarker
+@Target(AnnotationTarget.CLASS, AnnotationTarget.FUNCTION)
 annotation class PreparedDslMarker
 
 @PreparedDslMarker
@@ -85,7 +86,6 @@ interface SuiteDsl : PreparedDsl {
 	 * To learn more about the available configuration options, see the subtypes of [TestConfig.Element].
 	 */
 	@OptIn(ExperimentalPreparedApi::class)
-	@PreparedDslMarker
 	@TestEntrypoint
 	fun suite(
 		name: String,
@@ -123,7 +123,6 @@ interface SuiteDsl : PreparedDsl {
 	 * To learn more about the available configuration options, see the subtypes of [TestConfig.Element].
 	 */
 	@OptIn(ExperimentalPreparedApi::class)
-	@PreparedDslMarker
 	@TestEntrypoint
 	fun test(
 		name: String,
@@ -137,7 +136,6 @@ interface SuiteDsl : PreparedDsl {
 		ReplaceWith("test(name, config + Context(context), block)", "opensavvy.prepared.suite.config.*"),
 		DeprecationLevel.WARNING
 	)
-	@PreparedDslMarker
 	@TestEntrypoint
 	fun test(
 		name: String,

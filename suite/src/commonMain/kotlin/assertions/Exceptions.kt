@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2025, OpenSavvy and contributors.
+ * Copyright (c) 2025-2026, OpenSavvy and contributors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,8 +15,6 @@
  */
 
 package opensavvy.prepared.suite.assertions
-
-import opensavvy.prepared.suite.PreparedDslMarker
 
 /**
  * Verifies that [block] throws an exception of type [T].
@@ -41,7 +39,7 @@ import opensavvy.prepared.suite.PreparedDslMarker
  * check(e.message = "Cannot create a new user because another one already exists")
  * ```
  */
-@PreparedDslMarker
+@IgnorableReturnValue
 inline fun <reified T : Throwable> checkThrows(block: () -> Any?): T {
 	val result = try {
 		block()

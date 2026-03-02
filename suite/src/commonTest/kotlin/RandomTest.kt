@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024-2025, OpenSavvy and contributors.
+ * Copyright (c) 2024-2026, OpenSavvy and contributors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@ package opensavvy.prepared.suite
 import opensavvy.prepared.runner.testballoon.preparedSuite
 import opensavvy.prepared.suite.random.*
 
+@Suppress("SimplifyBooleanWithConstants")
 val RandomTest by preparedSuite {
 
 	test("Generate random values without setting a seed") {

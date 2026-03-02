@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023-2025, OpenSavvy and contributors.
+ * Copyright (c) 2023-2026, OpenSavvy and contributors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,8 +23,11 @@ import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.testTimeSource
 import kotlinx.coroutines.withTimeout
 import kotlin.coroutines.CoroutineContext
-import kotlin.time.*
+import kotlin.time.Clock
+import kotlin.time.Duration
 import kotlin.time.Duration.Companion.milliseconds
+import kotlin.time.Instant
+import kotlin.time.TimeSource
 
 /**
  * Time control helper. See [time].
@@ -74,7 +77,6 @@ class Time private constructor(
 ) {
 
 	@ExperimentalCoroutinesApi
-	@ExperimentalTime
 	constructor(environment: TestEnvironment) : this(environment.coroutineScope.testTimeSource, environment.coroutineScope.testScheduler)
 
 }
@@ -149,7 +151,6 @@ class Time private constructor(
  * @see Time.nowMillis Current time, in milliseconds
  */
 @ExperimentalCoroutinesApi
-@ExperimentalTime
 val TestDsl.time
 	get() = Time(environment)
 
@@ -198,7 +199,6 @@ val Time.nowMillis: Long
  * @see clock To pass the time to another system.
  */
 @ExperimentalCoroutinesApi
-@ExperimentalTime
 val Time.now: Instant
 	get() = clock.now()
 
@@ -217,11 +217,9 @@ val Time.now: Instant
  * @see Time.source Measure elapsed time.
  */
 @ExperimentalCoroutinesApi
-@ExperimentalTime
 val Time.clock: Clock
 	get() = KotlinClock(scheduler)
 
-@ExperimentalTime
 @ExperimentalCoroutinesApi
 private class KotlinClock(private val scheduler: TestCoroutineScheduler) : Clock {
 	override fun now(): Instant =
@@ -255,7 +253,6 @@ private class KotlinClock(private val scheduler: TestCoroutineScheduler) : Clock
  *
  * It is not possible to set the time to a date in the past.
  */
-@ExperimentalTime
 @ExperimentalCoroutinesApi
 suspend fun Time.set(instant: Instant) {
 	delayUntil(instant)
@@ -302,7 +299,6 @@ suspend fun Time.set(instant: Instant) {
  * @see delay Wait for some duration
  * @see delayUntil Wait for a specific time
  */
-@ExperimentalTime
 @ExperimentalCoroutinesApi
 suspend fun Time.set(isoString: String) {
 	set(Instant.parse(isoString))
@@ -314,7 +310,6 @@ suspend fun Time.set(isoString: String) {
  * `delayUntil` is useful to artificially trigger time-dependent algorithms.
  * To set the initial time at the start of the test, use [set].
  */
-@ExperimentalTime
 @ExperimentalCoroutinesApi
 suspend fun Time.delayUntil(instant: Instant) {
 	val diff = instant - now
@@ -331,7 +326,6 @@ suspend fun Time.delayUntil(instant: Instant) {
  * @see set Set the current time
  * @see now Access the current time
  */
-@ExperimentalTime
 @ExperimentalCoroutinesApi
 suspend fun Time.delayUntil(isoString: String) {
 	delayUntil(Instant.parse(isoString))

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024-2025, OpenSavvy and contributors.
+ * Copyright (c) 2024-2026, OpenSavvy and contributors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,7 +27,6 @@ import opensavvy.prepared.suite.config.TestConfig
 import opensavvy.prepared.suite.config.get
 import opensavvy.prepared.suite.config.plus
 import opensavvy.prepared.suite.runTestDslSuspend
-import kotlin.coroutines.coroutineContext
 
 @ExperimentalKtiApi
 fun preparedSuite(@TestName name: String, block: SuiteDsl.() -> Unit): TestRoot =
@@ -156,7 +155,7 @@ private sealed class PreparedTestTree {
 						get() = name
 				})
 			} catch (e: Exception) {
-				coroutineContext.ensureActive()
+				currentCoroutineContext().ensureActive()
 				println("Failed with: $e") // In the future, report that in the test event somehow
 				reporter.report(object : TestEvent.Failed {
 					override val testName: String
