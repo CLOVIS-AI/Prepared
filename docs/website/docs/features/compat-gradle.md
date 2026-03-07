@@ -1,4 +1,4 @@
-# Gradle plugins
+# Test Gradle plugins with Kotlin
 
 Gradle build logic can often become quite complex. Much like production code, it should be well tested to discover edge cases.
 

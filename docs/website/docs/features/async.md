@@ -1,4 +1,4 @@
-# Asynchronous operations
+# Control asynchronous operations in your Kotlin tests
 
 A test may need to execute other tasks concurrently with itself. 
 There are two categories of concurrent tasks:

@@ -1,4 +1,4 @@
-# Shared • Classic fixtures
+# Use shared fixtures in your Kotlin tests
 
 Pure, immutable values generated once for the entire test suite.
 

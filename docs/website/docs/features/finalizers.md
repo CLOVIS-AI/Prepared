@@ -1,4 +1,4 @@
-# Finalizers
+# Declare finalizers in your Kotlin tests
 
 [Finalizers](https://prepared.opensavvy.dev/api-docs/suite/opensavvy.prepared.suite/clean-up.html) allow to execute code at the end of the test.
 

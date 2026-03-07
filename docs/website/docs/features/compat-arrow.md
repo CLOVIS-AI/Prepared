@@ -1,4 +1,4 @@
-# Arrow typed errors
+# Use Arrow typed errors in your Kotlin tests
 
 [Arrow typed errors](https://arrow-kt.io/learn/typed-errors/working-with-typed-errors/) are a powerful way to declare the possible failure cases of a function. Because failure situations are encoded directly in the function's type (unlike exceptions), we can use type parameters to create abstractions over certain failure cases to better handle them.
 
