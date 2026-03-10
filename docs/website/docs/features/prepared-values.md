@@ -1,4 +1,4 @@
-# Prepared • Isolated fixtures
+# Use lazy fixtures in your Kotlin tests
 
 Prepared values are the flagship feature of OpenSavvy Prepared.
 

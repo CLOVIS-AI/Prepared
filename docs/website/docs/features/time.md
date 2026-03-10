@@ -1,4 +1,4 @@
-# Date and time
+# Control the flow of time in your Kotlin tests
 
 Tests run in virtual time: a fixed timescale which is controlled by the developer.
 

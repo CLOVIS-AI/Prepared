@@ -1,4 +1,4 @@
-# Parameterized tests
+# Declare parameterized tests in Kotlin
 
 When we want to test edge cases or invariants, it is common to execute the same test, but with different data. For the sake of this example, let's say we want to test a function that checks whether a number is odd:
 ```kotlin

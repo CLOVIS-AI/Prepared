@@ -1,4 +1,4 @@
-# Suites and tests
+# Declaring suites and tests
 
 Prepared aims to simplify the way tests are declared. Where traditional frameworks require verbose annotation-based logic, Prepared takes advantage of Kotlin's concise syntax to remove most magic.
 

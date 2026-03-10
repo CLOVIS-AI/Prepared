@@ -1,4 +1,4 @@
-# Ktor
+# Integrate Ktor within your Kotlin tests
 
 [Ktor](https://ktor.io/) is a popular, coroutine-first HTTP library developed by JetBrains. Ktor allows developing client and server applications, allowing to share code between all platforms and roles. 
 

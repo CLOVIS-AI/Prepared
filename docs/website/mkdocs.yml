@@ -111,20 +111,20 @@ nav:
 
   - Getting started:
       - tutorials/index.md
-      - tutorials/syntax.md
+      - Suites and tests: tutorials/syntax.md
 
   - Features:
       - features/index.md
-      - features/prepared-values.md
-      - features/shared-values.md
-      - features/finalizers.md
-      - features/async.md
-      - features/parameterize.md
+      - Prepared • Isolated fixtures: features/prepared-values.md
+      - Shared • Classic fixtures: features/shared-values.md
+      - Finalizers: features/finalizers.md
+      - Asynchronous operations: features/async.md
+      - Parameterized tests: features/parameterize.md
 
       - Controlling external data:
-          - features/time.md
-          - features/random.md
-          - features/files.md
+          - Date and time: features/time.md
+          - Randomness: features/random.md
+          - Files: features/files.md
 
       - Integrations:
           - Ktor: features/compat-ktor.md

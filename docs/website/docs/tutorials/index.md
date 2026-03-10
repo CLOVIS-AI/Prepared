@@ -1,4 +1,4 @@
-# Getting started
+# Getting started with the Prepared test DSL
 
 Test frameworks are split into multiple tools:
 
