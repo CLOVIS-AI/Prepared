@@ -127,9 +127,10 @@ nav:
           - features/files.md
 
       - Integrations:
-          - features/compat-ktor.md
-          - features/compat-arrow.md
-          - features/compat-gradle.md
+          - Ktor: features/compat-ktor.md
+          - Arrow Typed Errors: features/compat-arrow.md
+          - Arrow Resources: features/compat-arrow-resources.md
+          - Gradle: features/compat-gradle.md
 
   #  - Best practices:
   #      - practices/index.md

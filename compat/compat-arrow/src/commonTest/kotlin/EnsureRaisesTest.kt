@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2025, OpenSavvy and contributors.
+ * Copyright (c) 2025-2026, OpenSavvy and contributors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,8 +14,11 @@
  * limitations under the License.
  */
 
-package opensavvy.prepared.compat.arrow.core
+package opensavvy.prepared.compat.arrow
 
+import opensavvy.prepared.compat.arrow.core.assertRaises
+import opensavvy.prepared.compat.arrow.core.assertRaisesWith
+import opensavvy.prepared.compat.arrow.core.checkRaises
 import opensavvy.prepared.runner.testballoon.preparedSuite
 import opensavvy.prepared.suite.assertions.checkThrows
 import opensavvy.prepared.suite.assertions.matches

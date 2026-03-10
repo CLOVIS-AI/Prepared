@@ -27,6 +27,7 @@ kotlinx-coroutines-debug = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinx-coroutines" }
 gradle-testkit = { module = "dev.gradleplugins:gradle-test-kit", version.ref = "gradle-testkit" }
 arrow-core = { module = "io.arrow-kt:arrow-core", version.ref = "arrow" }
+arrow-coroutines = { module = "io.arrow-kt:arrow-fx-coroutines", version.ref = "arrow" }
 parameterize = { module = "com.benwoodworth.parameterize:parameterize-core", version.ref = "parameterize" }
 ktor-testHost = { module = "io.ktor:ktor-server-test-host", version.ref = "ktor" }
 kotest-engine = { module = "io.kotest:kotest-framework-engine", version.ref = "kotest" }

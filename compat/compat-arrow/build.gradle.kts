@@ -56,6 +56,7 @@ kotlin {
 		dependencies {
 			api(projects.suite)
 			api(libs.arrow.core)
+			api(libs.arrow.coroutines)
 		}
 	}
 
