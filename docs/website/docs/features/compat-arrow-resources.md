@@ -5,12 +5,12 @@
 Resources can be viewed as an extension of the `AutoCloseable` interface, into a complete composable DSL.
 
 !!! info "Configuration"
-Add a dependency on `dev.opensavvy.prepared:compat-arrow` to use the features on this page.
+    Add a dependency on `dev.opensavvy.prepared:compat-arrow` to use the features on this page.
 
     See the [reference](https://prepared.opensavvy.dev/api-docs/compat/compat-arrow/index.html).
 
 !!! info
-The examples on this page use the [Power Assert assertion library](../tutorials/index.md#assertion-libraries).
+    The examples on this page use the [Power Assert assertion library](../tutorials/index.md#assertion-libraries).
 
 Arrow resources are conceptually similar to [prepared values](prepared-values.md):
 
@@ -20,7 +20,7 @@ Arrow resources are conceptually similar to [prepared values](prepared-values.md
 The Prepared library provides multiple ways to bind Arrow resources to tests. In each case, the resource is initialized once for each test (different tests get different instances), and the release action runs at the end of the test.
 
 !!! note
-Note that although Arrow resources' `release` actions gets an `ExitCase`, Prepared currently only distinguishes between success and failure, and doesn't provide the exact exceptions when a failure happens. If this would be useful to you, [please tell us](https://gitlab.com/opensavvy/groundwork/prepared/-/issues/92).
+    Note that although Arrow resources' `release` actions gets an `ExitCase`, Prepared currently only distinguishes between success and failure, and doesn't provide the exact exceptions when a failure happens. If this would be useful to you, [please tell us](https://gitlab.com/opensavvy/groundwork/prepared/-/issues/92).
 
 ## Using a resource as a prepared value
 
