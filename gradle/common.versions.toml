@@ -20,7 +20,7 @@ kotest = "6.1.3"
 testBalloon = "0.8.3-K2.3.0"
 
 # https://gitlab.com/opensavvy/groundwork/pedestal/-/releases
-pedestal = "3.2.0"
+pedestal = "3.2.1"
 
 # https://prepared.opensavvy.dev/news
 prepared = "2.4.0"
