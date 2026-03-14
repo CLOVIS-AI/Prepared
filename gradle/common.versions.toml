@@ -35,7 +35,7 @@ ktmongo = "0.28.1"
 telegram-bot = "0.2.0"
 
 # https://github.com/JetBrains/java-annotations/releases
-jetbrains-annotations = "26.0.2-1"
+jetbrains-annotations = "26.1.0"
 
 # https://nodejs.org/en/download
 nodejs = "24.13.0"
