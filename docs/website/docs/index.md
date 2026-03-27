@@ -66,4 +66,4 @@ Instead of any specific assertion libraries, we recommend using [Power Assert](h
 
 Prepared is a simple Kotlin library. It doesn't have a Gradle plugin, nor does it have an IntelliJ plugin.
 
-If you use the [TestBalloon runner](tutorials/index.md#test-runners), Prepared tests are supported by the TestBalloon IntelliJ plugin. [Learn how to configure it](https://prepared.opensavvy.dev/api-docs/runners/runner-testballoon/index.html).
+If you use the [TestBalloon runner](tutorials/index.md#test-runners), Prepared tests are supported by the TestBalloon IntelliJ plugin. [Learn how to configure it](api/runner-testballoon/index.md#intellij-plugin).
