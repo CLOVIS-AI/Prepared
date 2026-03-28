@@ -46,8 +46,8 @@ inline fun <reified T : Throwable> checkThrows(block: () -> Any?): T {
 	} catch (e: Throwable) { // Simplifiable in Kotlin 2.2.20: https://youtrack.jetbrains.com/issue/KT-54363
 		when (e) {
 			is T -> return e
-			else -> throw AssertionError("Expected to throw ${T::class}, but the operation threw the exception $e (see cause below for details)", e)
+			else -> throw AssertionError("Expected to throw ${T::class}\nbut the operation threw the exception $e (see cause below for details)", e)
 		}
 	}
-	throw AssertionError("Expected to throw ${T::class}, but the operation was successful and returned: $result")
+	throw AssertionError("Expected to throw ${T::class}\nbut the operation was successful and returned: $result")
 }
