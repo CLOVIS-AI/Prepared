@@ -7,7 +7,7 @@ Resources can be viewed as an extension of the `AutoCloseable` interface, into a
 !!! info "Configuration"
     Add a dependency on `dev.opensavvy.prepared:compat-arrow` to use the features on this page.
 
-    See the [reference](https://prepared.opensavvy.dev/api-docs/compat/compat-arrow/index.html).
+    See the [reference](../api/compat-arrow/index.md).
 
 !!! info
     The examples on this page use the [Power Assert assertion library](../tutorials/index.md#assertion-libraries).
