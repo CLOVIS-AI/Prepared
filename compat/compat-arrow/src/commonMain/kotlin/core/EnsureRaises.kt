@@ -36,11 +36,11 @@ inline fun <Failure> checkRaises(expected: Failure, block: Raise<Any?>.() -> Any
 	either(block).fold(
 		ifLeft = {
 			if (it != expected)
-				throw AssertionError("Expected to fail with $expected, but failed with $it")
+				throw AssertionError("Expected to fail with $expected\nbut failed with $it")
 			// else: successful case
 		},
 		ifRight = {
-			throw AssertionError("Expected to fail with $expected, but the operation was successful and returned $it")
+			throw AssertionError("Expected to fail with $expected\nbut the operation was successful and returned $it")
 		},
 	)
 }
@@ -62,11 +62,11 @@ inline fun <reified Failure> checkRaises(block: Raise<Any?>.() -> Any?) {
 	either(block).fold(
 		ifLeft = {
 			if (it !is Failure)
-				throw AssertionError("Expected to fail with ${Failure::class}, but failed with $it")
+				throw AssertionError("Expected to fail with ${Failure::class}\nbut failed with $it")
 			// else: successful case
 		},
 		ifRight = {
-			throw AssertionError("Expected to fail with ${Failure::class}, but the operation was successful and returned $it")
+			throw AssertionError("Expected to fail with ${Failure::class}\nbut the operation was successful and returned $it")
 		},
 	)
 }
