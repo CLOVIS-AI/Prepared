@@ -4,6 +4,14 @@ plugins {
 	alias(libs.plugins.testBalloon)
 }
 
+// groovy-all 2.5+ is POM-only (no JAR). gradle-test-kit declares it as a runtime POM dep,
+// which breaks configuration cache resolution when tapmoc resolves JARs eagerly.
+// Individual groovy modules are already present transitively, so excluding the BOM is safe.
+// See https://github.com/GradleUp/tapmoc/issues/100
+configurations.all {
+	exclude(group = "org.codehaus.groovy", module = "groovy-all")
+}
+
 kotlin {
 	jvm()
 
