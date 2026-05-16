@@ -17,9 +17,9 @@
 package opensavvy.prepared.runner.testballoon
 
 import de.infix.testBalloon.framework.core.*
-import de.infix.testBalloon.framework.shared.TestDisplayName
 import de.infix.testBalloon.framework.shared.TestElementName
 import de.infix.testBalloon.framework.shared.TestRegistering
+import de.infix.testBalloon.framework.shared.TestSuitePropertyName
 import opensavvy.prepared.suite.PreparedDslMarker
 import opensavvy.prepared.suite.SuiteDsl
 import opensavvy.prepared.suite.TestDsl
@@ -44,12 +44,13 @@ fun TestSuite.withPrepared(
 @PreparedDslMarker
 @TestRegistering
 fun preparedSuite(
-	@TestElementName name: String = "",
-	@TestDisplayName displayName: String = name,
+	@TestElementName name: String? = null,
 	balloonConfig: BalloonTestConfig = BalloonTestConfig,
 	preparedConfig: TestConfig = TestConfig.Empty,
+	compartment: () -> TestCompartment = { TestCompartment.Default },
+	@TestSuitePropertyName qualifiedPropertyName: String = "",
 	content: SuiteDsl.() -> Unit,
-) = testSuite(name, displayName, balloonConfig) {
+) = testSuite(name, compartment, balloonConfig, qualifiedPropertyName) {
 	withPrepared(preparedConfig) {
 		content()
 	}
