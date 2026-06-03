@@ -23,7 +23,7 @@ testBalloon = "1.0.0-K2.4.0"
 pedestal = "3.2.1"
 
 # https://prepared.opensavvy.dev/news
-prepared = "2.5.1"
+prepared = "2.5.3"
 
 # https://spine.opensavvy.dev/news
 spine = "0.10.1"
