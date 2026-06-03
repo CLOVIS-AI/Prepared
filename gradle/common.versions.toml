@@ -29,7 +29,7 @@ prepared = "2.5.3"
 spine = "0.10.1"
 
 # https://ktmongo.opensavvy.dev/news
-ktmongo = "0.29.1"
+ktmongo = "0.30.0"
 
 # https://gitlab.com/opensavvy/telegram-bot/-/releases
 telegram-bot = "0.3.1"
