@@ -14,7 +14,7 @@ ksp = "2.3.9"
 compose = "1.11.1"
 
 # https://github.com/kotest/kotest/releases
-kotest = "6.1.7"
+kotest = "6.1.11"
 
 # https://github.com/infix-de/testBalloon/releases
 testBalloon = "0.8.4-K2.4.0"
