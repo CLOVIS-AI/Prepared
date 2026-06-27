@@ -29,7 +29,7 @@ prepared = "2.5.3"
 spine = "0.11.0"
 
 # https://ktmongo.opensavvy.dev/news
-ktmongo = "0.30.0"
+ktmongo = "0.31.0"
 
 # https://gitlab.com/opensavvy/telegram-bot/-/releases
 telegram-bot = "0.3.1"
@@ -107,6 +107,7 @@ opensavvy-ktmongo-driver-sync-kmongo = { module = "dev.opensavvy.ktmongo:driver-
 opensavvy-ktmongo-driver-sync-java = { module = "dev.opensavvy.ktmongo:driver-sync", version.ref = "ktmongo" }
 opensavvy-ktmongo-driver-coroutines = { module = "dev.opensavvy.ktmongo:driver-coroutines", version.ref = "ktmongo" }
 opensavvy-ktmongo-driver-coroutines-kmongo = { module = "dev.opensavvy.ktmongo:driver-coroutines-kmongo", version.ref = "ktmongo" }
+opensavvy-ktmongo-driver-multiplatform = { module = "dev.opensavvy.ktmongo:driver-multiplatform", version.ref = "ktmongo" }
 
 opensavvy-telegramBot = { module = "dev.opensavvy.telegram:sdk", version.ref = "telegram-bot" }
 opensavvy-telegramBot-entities = { module = "dev.opensavvy.telegram:entities", version.ref = "telegram-bot" }
