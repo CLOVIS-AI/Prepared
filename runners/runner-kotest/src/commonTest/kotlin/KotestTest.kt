@@ -64,6 +64,12 @@ class KotestTest : StringSpec({
 })
 
 class KotestTest2 : PreparedSpec({
+	suite("Another") {
+		test("This is a specific test") {
+
+		}
+	}
+
 	suite("Test") {
 		test("Test") {
 			check(true)

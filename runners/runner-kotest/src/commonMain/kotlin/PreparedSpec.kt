@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024-2025, OpenSavvy and contributors.
+ * Copyright (c) 2024-2026, OpenSavvy and contributors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,9 +16,166 @@
 
 package opensavvy.prepared.runner.kotest
 
-import io.kotest.core.spec.style.StringSpec
+import io.kotest.common.KotestInternal
+import io.kotest.core.names.TestNameBuilder
+import io.kotest.core.spec.AbstractSpec
+import io.kotest.core.spec.TestDefinition
+import io.kotest.core.spec.TestDefinitionBuilder
+import io.kotest.core.spec.style.TestRunnable
+import io.kotest.core.test.AbstractTestScope
+import io.kotest.core.test.TestScope
+import io.kotest.core.test.TestType
+import io.kotest.engine.coroutines.coroutineTestScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import opensavvy.prepared.runner.kotest.KotestSuiteDsl.Companion.suiteToTestDefinition
+import opensavvy.prepared.runner.kotest.KotestSuiteDsl.Companion.testToTestDefinition
 import opensavvy.prepared.suite.SuiteDsl
+import opensavvy.prepared.suite.TestDsl
+import opensavvy.prepared.suite.config.*
+import opensavvy.prepared.suite.runTestDslSuspend
 
-abstract class PreparedSpec(body: SuiteDsl.() -> Unit) : StringSpec({
-	preparedSuite { body() }
-})
+/**
+ * Declares a Prepared test suite using the Kotest framework.
+ *
+ * ### Example
+ *
+ * ```kotlin
+ * class MyTest : PreparedSpec({
+ *     test("A regular test") {
+ *         // …
+ *     }
+ *
+ *     suite("A suite") {
+ *         test("Another test") {
+ *             // …
+ *         }
+ *     }
+ * })
+ * ```
+ *
+ * @see SuiteDsl Declaring tests
+ */
+abstract class PreparedSpec(
+	body: PreparedSpec.() -> Unit,
+	private val config: TestConfig = TestConfig.Empty,
+) : AbstractSpec(), SuiteDsl {
+
+	init {
+		body()
+	}
+
+	@TestRunnable
+	override fun suite(
+		name: String,
+		config: TestConfig,
+		block: SuiteDsl.() -> Unit,
+	) {
+		add(
+			suiteToTestDefinition(
+				name = name,
+				config = this@PreparedSpec.config + config,
+				block = block,
+			)
+		)
+	}
+
+	@TestRunnable
+	override fun test(
+		name: String,
+		config: TestConfig,
+		block: suspend TestDsl.() -> Unit,
+	) {
+		add(
+			testToTestDefinition(
+				name = name,
+				config = this@PreparedSpec.config + config,
+				block = block,
+			)
+		)
+	}
+}
+
+/**
+ * An implementation of Prepared's [SuiteDsl] that is recognized by the [Kotest IntelliJ plugin](https://kotest.io/docs/intellij/intellij-plugin.html).
+ *
+ * To create an instance of this class, use [PreparedSpec.suite] or [preparedSuite].
+ */
+class KotestSuiteDsl internal constructor(
+	private val delegate: TestScope,
+	private val parentConfig: TestConfig,
+) : AbstractTestScope(delegate), SuiteDsl {
+
+	@TestRunnable
+	override fun suite(
+		name: String,
+		config: TestConfig,
+		block: SuiteDsl.() -> Unit,
+	) {
+		launch(Dispatchers.Unconfined) {
+			registerTest(
+				suiteToTestDefinition(
+					name = name,
+					config = this@KotestSuiteDsl.parentConfig + config,
+					block = block,
+				)
+			)
+		}
+	}
+
+	@TestRunnable
+	override fun test(
+		name: String,
+		config: TestConfig,
+		block: suspend TestDsl.() -> Unit,
+	) {
+		launch(Dispatchers.Unconfined) {
+			registerTest(
+				testToTestDefinition(
+					name = name,
+					config = this@KotestSuiteDsl.parentConfig + config,
+					block = block,
+				)
+			)
+		}
+	}
+
+	@OptIn(KotestInternal::class)
+	companion object {
+
+		internal fun suiteToTestDefinition(
+			name: String,
+			config: TestConfig,
+			block: KotestSuiteDsl.() -> Unit,
+		): TestDefinition =
+			TestDefinitionBuilder
+				.builder(TestNameBuilder.builder(name).build(), TestType.Container)
+				.build {
+					KotestSuiteDsl(
+						delegate = this,
+						parentConfig = config,
+					).block()
+				}
+
+		internal fun testToTestDefinition(
+			name: String,
+			config: TestConfig,
+			block: suspend TestDsl.() -> Unit,
+		): TestDefinition {
+			val kotestConfig = io.kotest.core.test.config.TestConfig(
+				enabled = config[Ignored] == null,
+				tags = config[Tag]
+					.mapTo(HashSet()) { io.kotest.core.Tag(it.name) },
+				coroutineTestScope = true,
+				coroutineDebugProbes = true,
+			)
+
+			return TestDefinitionBuilder
+				.builder(TestNameBuilder.builder(name).build(), TestType.Test)
+				.withConfig(kotestConfig)
+				.build {
+					coroutineTestScope.runTestDslSuspend(name, config, block)
+				}
+		}
+	}
+}
