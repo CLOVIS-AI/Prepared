@@ -16,6 +16,7 @@
 
 package opensavvy.prepared.compat.arrow.coroutines
 
+import arrow.AutoCloseImplementation
 import arrow.fx.coroutines.ExitCase
 import arrow.fx.coroutines.ExitCase.Companion.ExitCase
 import arrow.fx.coroutines.Resource
@@ -39,6 +40,7 @@ import opensavvy.prepared.suite.*
  * - The [install] functions allows binding a resource directly within a test.
  * - The [asPrepared] function converts a [Resource] into a [Prepared] value, Prepared's equivalent concept.
  */
+@OptIn(AutoCloseImplementation::class)
 @ResourceDSL
 interface TestResourceScope : ResourceScope, TestDsl
 
@@ -197,6 +199,7 @@ suspend fun <A> TestDsl.install(
 	resource.bind()
 }
 
+@OptIn(AutoCloseImplementation::class)
 private class TestResourceScopeImpl(
 	private val test: TestDsl,
 ) : TestResourceScope, ResourceScope, TestDsl by test {
