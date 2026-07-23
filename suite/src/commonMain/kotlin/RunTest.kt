@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023-2025, OpenSavvy and contributors.
+ * Copyright (c) 2023-2026, OpenSavvy and contributors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,10 +16,12 @@
 
 package opensavvy.prepared.suite
 
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineName
+import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.test.TestResult
 import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.runTest
+import kotlinx.coroutines.withContext
 import opensavvy.prepared.suite.config.TestConfig
 import opensavvy.prepared.suite.config.coroutineContext
 import opensavvy.prepared.suite.config.effectiveTimeout
@@ -53,7 +55,7 @@ suspend fun TestScope.runTestDslSuspend(name: String, config: TestConfig, block:
 		)
 
 		val result = runCatching {
-			test.platformSpecificFeatures(block)
+			block(test)
 		}
 
 		if (result.isFailure) {
@@ -67,5 +69,3 @@ suspend fun TestScope.runTestDslSuspend(name: String, config: TestConfig, block:
 		result.getOrThrow()
 	}
 }
-
-internal expect suspend inline fun TestDsl.platformSpecificFeatures(block: suspend TestDsl.() -> Unit)
