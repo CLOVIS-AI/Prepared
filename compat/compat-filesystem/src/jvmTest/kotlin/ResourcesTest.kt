@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024-2025, OpenSavvy and contributors.
+ * Copyright (c) 2024-2026, OpenSavvy and contributors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,13 +17,11 @@
 package opensavvy.prepared.compat.filesystem
 
 import opensavvy.prepared.compat.filesystem.pkg.PkgPackage
-import opensavvy.prepared.compat.filesystem.resources.ExperimentalResourceApi
 import opensavvy.prepared.compat.filesystem.resources.resource
 import opensavvy.prepared.runner.testballoon.preparedSuite
 
 private object ResourcesTestClass
 
-@OptIn(ExperimentalResourceApi::class)
 val ResourcesTest by preparedSuite {
 
 	suite("Read from different paths") {
