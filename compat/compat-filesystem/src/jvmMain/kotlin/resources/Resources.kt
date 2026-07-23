@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024-2025, OpenSavvy and contributors.
+ * Copyright (c) 2024-2026, OpenSavvy and contributors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -79,7 +79,7 @@ class ResourceDesignator internal constructor(
  *
  * @see ResourceDesignator.read
  */
-fun resource(path: String, loader: ClassLoader) = ResourceDesignator(
+fun resource(path: String, loader: ClassLoader): ResourceDesignator = ResourceDesignator(
 	loader = object : ResourceLoader {
 		override fun resourceAsStream(path: String): InputStream? =
 			loader.getResourceAsStream(path)
@@ -129,7 +129,7 @@ fun resource(path: String, loader: ClassLoader) = ResourceDesignator(
  *
  * @see ResourceDesignator.read
  */
-fun resource(path: String, loader: Class<*>) = ResourceDesignator(
+fun resource(path: String, loader: Class<*>): ResourceDesignator = ResourceDesignator(
 	loader = object : ResourceLoader {
 		override fun resourceAsStream(path: String): InputStream? =
 			loader.getResourceAsStream(path)
@@ -160,7 +160,7 @@ fun resource(path: String, loader: Class<*>) = ResourceDesignator(
  *
  * @see ResourceDesignator.read
  */
-inline fun <reified TargetClass : Any> resource(path: String) =
+inline fun <reified TargetClass : Any> resource(path: String): ResourceDesignator =
 	resource(path, TargetClass::class.java)
 
 @MustBeDocumented
