@@ -187,6 +187,8 @@ fun <T> prepared(
  *
  * For more information, see [Prepared].
  *
+ * To start an asynchronous coroutine that will run until the end of the test, see [TestDsl.foregroundScope] and [TestDsl.backgroundScope].
+ *
  * ### Example
  *
  * ```kotlin
@@ -218,6 +220,8 @@ fun <T> prepared(
  * Declares a lazily-prepared value called [name] which will be constructed by calling [block] during test execution.
  *
  * For more information, see [Prepared].
+ *
+ * To start an asynchronous coroutine that will run until the end of the test, see [TestDsl.foregroundScope] and [TestDsl.backgroundScope].
  *
  * ### Example
  *
