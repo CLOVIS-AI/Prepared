@@ -34,9 +34,13 @@ import opensavvy.prepared.suite.SuiteDsl
 import opensavvy.prepared.suite.TestDsl
 import opensavvy.prepared.suite.config.*
 import opensavvy.prepared.suite.runTestDslSuspend
+import kotlin.jvm.JvmName
 
 /**
  * Declares a Prepared test suite using the Kotest framework.
+ *
+ * Install the [Kotest IntelliJ plugin](https://kotest.io/docs/intellij/intellij-plugin.html) to have
+ * gutter icons to run a specific test.
  *
  * ### Example
  *
@@ -53,8 +57,6 @@ import opensavvy.prepared.suite.runTestDslSuspend
  *     }
  * })
  * ```
- *
- * @see SuiteDsl Declaring tests
  */
 abstract class PreparedSpec(
 	body: PreparedSpec.() -> Unit,
@@ -65,11 +67,40 @@ abstract class PreparedSpec(
 		body()
 	}
 
+	/**
+	 * Creates a child suite named [name] of the current suite.
+	 *
+	 * ### Simple example
+	 *
+	 * ```kotlin
+	 * suite("An example") {
+	 *     test("A test") { … }
+	 *
+	 *     suite("A nested suite") {
+	 *         test("A nested test 1") { … }
+	 *         test("A nested test 2") { … }
+	 *     }
+	 * }
+	 * ```
+	 *
+	 * ### Test configuration
+	 *
+	 * The default configuration for all tests can be passed with the [config] parameter:
+	 *
+	 * ```kotlin
+	 * suite("An example", CoroutineTimeout(2.minutes) + Tag("slow")) {
+	 *     …
+	 * }
+	 * ```
+	 *
+	 * To learn more about the available configuration options, see the subtypes of [TestConfig.Element].
+	 */
 	@TestRunnable
-	override fun suite(
+	@JvmName("suiteKotest")
+	fun suite(
 		name: String,
-		config: TestConfig,
-		block: SuiteDsl.() -> Unit,
+		config: TestConfig = TestConfig.Empty,
+		block: KotestSuiteDsl.() -> Unit,
 	) {
 		add(
 			suiteToTestDefinition(
@@ -78,6 +109,18 @@ abstract class PreparedSpec(
 				block = block,
 			)
 		)
+	}
+
+	// Necessary to override the interface but also force users to call the more specific overload
+	// Only the more specific overload has IDE support
+	@Deprecated("This method is not really deprecated, this is a trick to enhance the IDE experience", level = DeprecationLevel.HIDDEN)
+	@TestRunnable
+	override fun suite(
+		name: String,
+		config: TestConfig,
+		block: SuiteDsl.() -> Unit,
+	) {
+		suite(name, config, block)
 	}
 
 	@TestRunnable
@@ -106,11 +149,40 @@ class KotestSuiteDsl internal constructor(
 	private val parentConfig: TestConfig,
 ) : AbstractTestScope(delegate), SuiteDsl {
 
+	/**
+	 * Creates a child suite named [name] of the current suite.
+	 *
+	 * ### Simple example
+	 *
+	 * ```kotlin
+	 * suite("An example") {
+	 *     test("A test") { … }
+	 *
+	 *     suite("A nested suite") {
+	 *         test("A nested test 1") { … }
+	 *         test("A nested test 2") { … }
+	 *     }
+	 * }
+	 * ```
+	 *
+	 * ### Test configuration
+	 *
+	 * The default configuration for all tests can be passed with the [config] parameter:
+	 *
+	 * ```kotlin
+	 * suite("An example", CoroutineTimeout(2.minutes) + Tag("slow")) {
+	 *     …
+	 * }
+	 * ```
+	 *
+	 * To learn more about the available configuration options, see the subtypes of [TestConfig.Element].
+	 */
 	@TestRunnable
-	override fun suite(
+	@JvmName("suiteKotest")
+	fun suite(
 		name: String,
-		config: TestConfig,
-		block: SuiteDsl.() -> Unit,
+		config: TestConfig = TestConfig.Empty,
+		block: KotestSuiteDsl.() -> Unit,
 	) {
 		launch(Dispatchers.Unconfined) {
 			registerTest(
@@ -121,6 +193,18 @@ class KotestSuiteDsl internal constructor(
 				)
 			)
 		}
+	}
+
+	// Necessary to override the interface but also force users to call the more specific overload
+	// Only the more specific overload has IDE support
+	@Deprecated("This method is not really deprecated, this is a trick to enhance the IDE experience", level = DeprecationLevel.HIDDEN)
+	@TestRunnable
+	override fun suite(
+		name: String,
+		config: TestConfig,
+		block: SuiteDsl.() -> Unit,
+	) {
+		suite(name, config, block)
 	}
 
 	@TestRunnable
