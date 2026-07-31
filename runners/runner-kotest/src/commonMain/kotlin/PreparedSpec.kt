@@ -26,8 +26,6 @@ import io.kotest.core.test.AbstractTestScope
 import io.kotest.core.test.TestScope
 import io.kotest.core.test.TestType
 import io.kotest.engine.coroutines.coroutineTestScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import opensavvy.prepared.runner.kotest.KotestSuiteDsl.Companion.suiteToTestDefinition
 import opensavvy.prepared.runner.kotest.KotestSuiteDsl.Companion.testToTestDefinition
 import opensavvy.prepared.suite.SuiteDsl
@@ -149,6 +147,8 @@ class KotestSuiteDsl internal constructor(
 	private val parentConfig: TestConfig,
 ) : AbstractTestScope(delegate), SuiteDsl {
 
+	private val children = ArrayList<TestDefinition>()
+
 	/**
 	 * Creates a child suite named [name] of the current suite.
 	 *
@@ -184,15 +184,11 @@ class KotestSuiteDsl internal constructor(
 		config: TestConfig = TestConfig.Empty,
 		block: KotestSuiteDsl.() -> Unit,
 	) {
-		launch(Dispatchers.Unconfined) {
-			registerTest(
-				suiteToTestDefinition(
-					name = name,
-					config = this@KotestSuiteDsl.parentConfig + config,
-					block = block,
-				)
-			)
-		}
+		children += suiteToTestDefinition(
+			name = name,
+			config = this@KotestSuiteDsl.parentConfig + config,
+			block = block,
+		)
 	}
 
 	// Necessary to override the interface but also force users to call the more specific overload
@@ -213,14 +209,19 @@ class KotestSuiteDsl internal constructor(
 		config: TestConfig,
 		block: suspend TestDsl.() -> Unit,
 	) {
-		launch(Dispatchers.Unconfined) {
-			registerTest(
-				testToTestDefinition(
-					name = name,
-					config = this@KotestSuiteDsl.parentConfig + config,
-					block = block,
-				)
-			)
+		children += testToTestDefinition(
+			name = name,
+			config = this@KotestSuiteDsl.parentConfig + config,
+			block = block,
+		)
+	}
+
+	/**
+	 * Registers all suites and tests collected in [children] while `block` was executing, one at a time.
+	 */
+	private suspend fun executeAll() {
+		for (definition in children) {
+			registerTest(definition)
 		}
 	}
 
@@ -235,10 +236,12 @@ class KotestSuiteDsl internal constructor(
 			TestDefinitionBuilder
 				.builder(TestNameBuilder.builder(name).build(), TestType.Container)
 				.build {
-					KotestSuiteDsl(
+					val dsl = KotestSuiteDsl(
 						delegate = this,
 						parentConfig = config,
-					).block()
+					)
+					dsl.block()
+					dsl.executeAll()
 				}
 
 		internal fun testToTestDefinition(
