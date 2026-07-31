@@ -6,6 +6,8 @@ Execute Prepared tests alongside tests written using Kotest.
 
 Prepared tests are declared using the helper [preparedSuite][opensavvy.prepared.runner.kotest.preparedSuite].
 
+It integrates with Kotest using its [custom spec style](https://kotest.io/docs/framework/custom-styles.html) API.
+
 ```kotlin
 class FooTest : StringSpec({
 	// Declare tests normally using the Kotest syntax
