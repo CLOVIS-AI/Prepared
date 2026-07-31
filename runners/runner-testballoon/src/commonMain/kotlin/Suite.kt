@@ -31,6 +31,11 @@ import kotlin.coroutines.EmptyCoroutineContext
 import kotlin.jvm.JvmName
 import de.infix.testBalloon.framework.core.TestConfig as BalloonTestConfig
 
+/**
+ * Declares Prepared-style tests in an existing TestBalloon-style suite.
+ *
+ * To declare an entire suite with Prepared, see [preparedSuite].
+ */
 @Suppress("DSL_MARKER_APPLIED_TO_WRONG_TARGET")
 @PreparedDslMarker
 @TestRegistering
@@ -41,6 +46,33 @@ fun TestSuite.withPrepared(
 	TestBalloonSuiteDsl(this, config).apply(block)
 }
 
+/**
+ * Declares a top-level [suite](https://prepared.opensavvy.dev/tutorials/syntax.html) (a group of related tests).
+ *
+ * ### Example
+ *
+ * ```kotlin
+ * val myTestSuite by preparedSuite {
+ *     test("A simple test") {
+ *         // …
+ *     }
+ *
+ *     suite("A nested suite of tests") {
+ *         test("A second test") {
+ *             // …
+ *         }
+ *
+ *         test("A third test") {
+ *             // …
+ *         }
+ *     }
+ * }
+ * ```
+ *
+ * ### IDE support
+ *
+ * Tests declared with this DSL can be executed individually with the [TestBalloon IntelliJ plugin](https://plugins.jetbrains.com/plugin/27749-testballoon).
+ */
 @Suppress("DSL_MARKER_APPLIED_TO_WRONG_TARGET")
 @PreparedDslMarker
 @TestRegistering
