@@ -16,14 +16,14 @@ We want to test the following function:
 ```kotlin
 data object NegativeSquareRoot
 
-context(Raise<NegativeSquareRoot>) //(1)!
+context(_: Raise<NegativeSquareRoot>) //(1)!
 fun sqrt(value: Double): Double {
 	ensure(value >= 0) { NegativeSquareRoot } //(2)!
 	return kotlin.math.sqrt(value)
 }
 ```
 
-1.  Failure conditions are declared as part of the function's signature. In this example, we use the experimental [context parameter](https://github.com/Kotlin/KEEP/blob/master/proposals/context-receivers.md) syntax. <br/>If you do not have access to this syntax, you can also use regular extension receivers: `#!kotlin fun Raise<NegativeSquareRoot>.sqrt(value: Double): Double { … }`.
+1. Failure conditions are declared as part of the function's signature. In this example, we use [context parameters](https://kotlinlang.org/docs/context-parameters.html). <br/>If you do not have access to this syntax, you can also use regular extension receivers: `#!kotlin fun Raise<NegativeSquareRoot>.sqrt(value: Double): Double { … }`.
 2.  [`ensure`](https://apidocs.arrow-kt.io/arrow-core/arrow.core.raise/ensure.html) is Arrow's equivalent to [`require`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/require.html) and [`check`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/check.html): we test a condition, and raise a failure if it is `false`.
 
 To test a successful case, we use the [`failOnRaise`](../api/compat-arrow/opensavvy.prepared.compat.arrow.core/fail-on-raise.md) function:
@@ -35,16 +35,16 @@ test("√4 is successful") {
 }
 ```
 
-To test a failed case, we use the [`assertRaises`](../api/compat-arrow/opensavvy.prepared.compat.arrow.core/assert-raises.md) or [`assertRaisesWith`](../api/compat-arrow/opensavvy.prepared.compat.arrow.core/assert-raises-with.md) functions:
+To test a failed case, we use the [`checkRaises`](../api/compat-arrow/opensavvy.prepared.compat.arrow.core/check-raises.md) function:
 ```kotlin
 test("√-1 raises") {
-	assertRaises(NegativeSquareRoot) { //(1)!
+    checkRaises(NegativeSquareRoot) { //(1)!
 		sqrt(-1.0)
 	}
 }
 
 test("√-1 raises") {
-	assertRaisesWith<NegativeSquareRoot> { //(2)!
+    checkRaises<NegativeSquareRoot> { //(2)!
 		sqrt(-1.0)
 	}
 }
