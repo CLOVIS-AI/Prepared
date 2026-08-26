@@ -28,7 +28,7 @@ import opensavvy.gitlab.ci.script.shell
 /**
  * [OpenSavvy's CI container images](https://gitlab.com/opensavvy/automation/containers/-/releases)
  */
-val ciContainers = "0.8.7"
+val ciContainers = "0.8.10"
 
 /**
  * The URL of the website built by /docs/website.
@@ -37,8 +37,8 @@ val siteUrl = "https://prepared.opensavvy.dev/"
 
 // ***
 
-fun Job.opensavvyImage(name: String) =
-	image("registry.gitlab.com/opensavvy/automation/containers/$name", ciContainers)
+fun Job.opensavvyImage(name: String, configuration: ContainerImage.() -> Unit = {}) =
+	image("registry.gitlab.com/opensavvy/automation/containers/$name", ciContainers, configuration = configuration)
 
 // region GitLab
 
@@ -100,6 +100,7 @@ fun Job.nativeIosArm64() {
 	beforeScript {
 		shell("xcodebuild -downloadPlatform iOS")
 		shell("xcodebuild -downloadPlatform watchOS")
+		shell("xcodebuild -downloadPlatform tvOS")
 	}
 
 	tag("saas-macos-medium-m1")
@@ -119,10 +120,45 @@ gitlabCi {
 	val test by stage()
 	val deploy by stage()
 
+	// region Gradle upgrades
+
+	val experimentalGradleDependencies = System.getenv("upgrade_experimental")?.let {
+		job("experimentalGradleDependencies", stage = build) {
+			opensavvyImage("caupain") {
+				entrypoint = listOf("")
+			}
+
+			script {
+				shell("caupain -i gradle/common.versions.toml --in-place --policy=always --no-cache")
+				shell("caupain -i gradle/libs.versions.toml --in-place --policy=always --no-cache")
+			}
+
+			artifacts {
+				name("gradle-catalogs")
+				include("gradle/common.versions.toml")
+				include("gradle/libs.versions.toml")
+			}
+		}
+	}
+
+	fun Job.withExperimentalGradleDependenciesIfAvailable() {
+		if (experimentalGradleDependencies != null) {
+			dependsOn(experimentalGradleDependencies, artifacts = true)
+
+			beforeScript {
+				shell("echo THIS JOB IS RUNNING WITH EXPERIMENTAL DEPENDENCIES:")
+				shell("cat gradle/common.versions.toml")
+				shell("cat gradle/libs.versions.toml")
+			}
+		}
+	}
+
+	// endregion
 	// region Tests
 
 	val checkJvm by job(stage = test) {
 		jvm()
+		withExperimentalGradleDependenciesIfAvailable()
 
 		script {
 			gradlew.tasks(
@@ -155,6 +191,7 @@ gitlabCi {
 
 	val checkJsBrowser by job(stage = test) {
 		jsBrowser()
+		withExperimentalGradleDependenciesIfAvailable()
 
 		script {
 			gradlew.tasks(
@@ -168,6 +205,7 @@ gitlabCi {
 
 	val checkJsNode by job(stage = test) {
 		jsNode()
+		withExperimentalGradleDependenciesIfAvailable()
 
 		script {
 			gradlew.tasks(
@@ -181,6 +219,7 @@ gitlabCi {
 
 	val checkLinuxX64 by job(stage = test) {
 		nativeLinuxX64()
+		withExperimentalGradleDependenciesIfAvailable()
 
 		script {
 			gradlew.tasks(
@@ -194,6 +233,7 @@ gitlabCi {
 
 	val checkIosArm64 by job(stage = test) {
 		nativeIosArm64()
+		withExperimentalGradleDependenciesIfAvailable()
 
 		script {
 			gradlew.tasks(
@@ -211,6 +251,7 @@ gitlabCi {
 	val mkdocs by job(stage = build) {
 		opensavvyImage("mkdocs")
 		variable("GIT_DEPTH", "0")
+		withExperimentalGradleDependenciesIfAvailable()
 
 		beforeScript {
 			shell("./docs/website/verify-marker.sh")
@@ -247,6 +288,7 @@ gitlabCi {
 
 	val dokka by job(stage = build) {
 		jvm()
+		withExperimentalGradleDependenciesIfAvailable()
 
 		script {
 			gradlew.tasks(
