@@ -16,6 +16,7 @@
 
 package opensavvy.prepared.suite
 
+import kotlinx.coroutines.CoroutineScope
 import opensavvy.prepared.suite.annotations.ExperimentalPreparedApi
 import opensavvy.prepared.suite.annotations.TestEntrypoint
 import opensavvy.prepared.suite.config.Context
@@ -176,7 +177,7 @@ interface SuiteDsl : PreparedDsl {
  *
  * @see cleanUp Register a finalizer which is executed at the end of the test
  */
-interface TestDsl : PreparedDsl {
+interface TestDsl : PreparedDsl, CoroutineScope {
 
 	/**
 	 * Metadata about the running test.

@@ -25,7 +25,7 @@ import kotlin.coroutines.EmptyCoroutineContext
  *
  * The test will only finish when all tasks started in this scope are finished.
  *
- * To start a single coroutine, see [launch].
+ * To start a single coroutine, see [kotlinx.coroutines.launch].
  *
  * Tasks started in this scope respect the controlled [time].
  *
@@ -63,6 +63,10 @@ val TestDsl.backgroundScope: CoroutineScope
  * @see launchInBackground
  */
 @IgnorableReturnValue
+@Deprecated(
+	message = "TestDsl now implements CoroutineScope, allowing to use the regular KotlinX.Coroutines 'launch' function directly",
+	replaceWith = ReplaceWith("launch(context, start, block)", "kotlinx.coroutines.launch"),
+)
 fun TestDsl.launch(
 	context: CoroutineContext = EmptyCoroutineContext,
 	start: CoroutineStart = CoroutineStart.DEFAULT,
