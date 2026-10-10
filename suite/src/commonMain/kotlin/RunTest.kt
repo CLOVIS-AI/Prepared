@@ -17,6 +17,7 @@
 package opensavvy.prepared.suite
 
 import kotlinx.coroutines.CoroutineName
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.test.TestResult
 import kotlinx.coroutines.test.TestScope
@@ -28,7 +29,7 @@ import opensavvy.prepared.suite.config.effectiveTimeout
 
 private class TestDslImpl(
 	override val environment: TestEnvironment,
-) : TestDsl
+) : TestDsl, CoroutineScope by environment.coroutineScope
 
 /**
  * Low-level primitive to execute a test declared as a [TestDsl].
