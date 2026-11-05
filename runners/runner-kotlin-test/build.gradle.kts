@@ -29,13 +29,7 @@ kotlin {
 	}
 	js {
 		nodejs()
-		browser {
-			testTask {
-				useMocha {
-					timeout = "1 minute"
-				}
-			}
-		}
+		browser()
 	}
 
 	sourceSets.commonMain {

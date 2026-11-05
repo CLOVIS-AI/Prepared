@@ -32,14 +32,8 @@ kotlin {
 			}
 		}
 	}
-	js(IR) {
-		browser {
-			testTask {
-				useMocha {
-					timeout = "1 minute"
-				}
-			}
-		}
+	js {
+		browser()
 	}
 	linuxX64()
 	linuxArm64()

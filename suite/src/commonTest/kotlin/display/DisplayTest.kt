@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024-2025, OpenSavvy and contributors.
+ * Copyright (c) 2024-2026, OpenSavvy and contributors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -65,7 +65,9 @@ val DisplayTest by preparedSuite {
 		)
 
 		for (value in values) {
-			test("Display $value") {
+			// Workaround for https://youtrack.jetbrains.com/issue/KT-91334
+			val testSafe = if (value == Char.MIN_HIGH_SURROGATE) "\\uD800" else value.toString()
+			test("Display $testSafe") {
 				check(Display.Full.display(value) == value.toString())
 			}
 		}
